@@ -139,6 +139,323 @@
         .stat-info .value.cash { color: var(--success); }
         .stat-info .value.debt { color: var(--danger); }
 
+        /* ===== الكراسة اليومية العائمة ===== */
+        .daily-notebook-float {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+        }
+
+        .notebook-toggle {
+            background: linear-gradient(135deg, var(--gold), var(--primary-dark));
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            border: 2px solid white;
+        }
+
+        .notebook-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .notebook-toggle i {
+            font-size: 24px;
+        }
+
+        .notebook-toggle span {
+            font-size: 10px;
+            margin-top: 2px;
+        }
+
+        .notebook-panel {
+            position: absolute;
+            right: 80px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 380px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: none;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+        }
+
+        .notebook-panel.show {
+            display: block;
+            animation: slideInRight 0.3s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translate(20px, -50%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(0, -50%);
+            }
+        }
+
+        .notebook-header {
+            background: linear-gradient(135deg, var(--gold), var(--primary-dark));
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notebook-header h3 {
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notebook-close {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .notebook-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(90deg);
+        }
+
+        .notebook-balance {
+            background: linear-gradient(135deg, #1a5f7a, #159895);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+        }
+
+        .notebook-balance .label {
+            opacity: 0.9;
+        }
+
+        .notebook-balance .value {
+            font-weight: 700;
+            font-size: 22px;
+        }
+
+        .notebook-tabs {
+            display: flex;
+            border-bottom: 2px solid #eee;
+        }
+
+        .notebook-tab {
+            flex: 1;
+            padding: 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .notebook-tab.active {
+            color: var(--gold);
+            border-bottom: 3px solid var(--gold);
+            background: #fff9e6;
+        }
+
+        .notebook-tab.in {
+            color: var(--success);
+        }
+        .notebook-tab.in.active {
+            color: var(--success);
+            border-bottom-color: var(--success);
+            background: #e8f5e9;
+        }
+        .notebook-tab.out {
+            color: var(--danger);
+        }
+        .notebook-tab.out.active {
+            color: var(--danger);
+            border-bottom-color: var(--danger);
+            background: #ffebee;
+        }
+
+        .notebook-content {
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .notebook-form {
+            margin-bottom: 20px;
+        }
+
+        .notebook-form input,
+        .notebook-form select,
+        .notebook-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .notebook-form input:focus,
+        .notebook-form select:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .notebook-form .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-income {
+            background: var(--success);
+            color: white;
+        }
+        .btn-income:hover {
+            background: var(--success-dark);
+        }
+        .btn-expense {
+            background: var(--danger);
+            color: white;
+        }
+        .btn-expense:hover {
+            background: var(--danger-dark);
+        }
+
+        .notebook-list {
+            margin-top: 15px;
+        }
+
+        .notebook-item {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-right: 4px solid;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notebook-item.income {
+            border-right-color: var(--success);
+        }
+        .notebook-item.expense {
+            border-right-color: var(--danger);
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-info .desc {
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+
+        .item-info .meta {
+            font-size: 11px;
+            color: #666;
+        }
+
+        .item-amount {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .item-amount.income {
+            color: var(--success);
+        }
+        .item-amount.expense {
+            color: var(--danger);
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 5px;
+            margin-right: 10px;
+        }
+
+        .item-actions button {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .item-actions button:hover {
+            color: var(--danger);
+        }
+
+        .notebook-footer {
+            padding: 15px 20px;
+            background: #f5f5f5;
+            border-top: 1px solid #eee;
+        }
+
+        .notebook-totals {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .total-income {
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .total-expense {
+            color: var(--danger);
+            font-weight: 700;
+        }
+
+        .total-balance {
+            font-weight: 700;
+            color: var(--dark);
+        }
+
         /* ===== التبويبات الرئيسية ===== */
         .main-tabs {
             background: white;
@@ -510,10 +827,101 @@
             .logo { flex-direction: column; }
             .stats-grid { grid-template-columns: 1fr; }
             .form-grid { grid-template-columns: 1fr; }
+            .notebook-panel {
+                width: 300px;
+                right: 70px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- الكراسة اليومية العائمة -->
+    <div class="daily-notebook-float">
+        <div class="notebook-toggle" onclick="app.toggleNotebook()">
+            <i class="fas fa-book-open"></i>
+            <span>كراستي</span>
+        </div>
+        
+        <div class="notebook-panel" id="notebookPanel">
+            <div class="notebook-header">
+                <h3>
+                    <i class="fas fa-book"></i>
+                    الكراسة اليومية
+                </h3>
+                <button class="notebook-close" onclick="app.toggleNotebook()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="notebook-balance">
+                <span class="label">رصيد الكراسة:</span>
+                <span class="value" id="notebookBalance">0.00</span>
+            </div>
+            
+            <div class="notebook-tabs">
+                <button class="notebook-tab in active" onclick="app.switchNotebookTab('in')">
+                    <i class="fas fa-arrow-down"></i> داخل
+                </button>
+                <button class="notebook-tab out" onclick="app.switchNotebookTab('out')">
+                    <i class="fas fa-arrow-up"></i> خارج
+                </button>
+            </div>
+            
+            <div class="notebook-content">
+                <!-- تبويب داخل -->
+                <div id="notebookInTab" class="notebook-tab-content" style="display: block;">
+                    <div class="notebook-form">
+                        <input type="text" id="incomeDesc" placeholder="البيان (مثال: مبيعات, إيداع, ...)">
+                        <input type="number" id="incomeAmount" step="0.01" placeholder="المبلغ">
+                        <select id="incomeSource">
+                            <option value="">مصدر الدخل</option>
+                            <option value="sales">مبيعات</option>
+                            <option value="deposit">إيداع</option>
+                            <option value="return">مرتجعات</option>
+                            <option value="other">أخرى</option>
+                        </select>
+                        <button class="btn btn-income" onclick="app.addNotebookEntry('in')">
+                            <i class="fas fa-plus"></i> إضافة داخل
+                        </button>
+                    </div>
+                    
+                    <div class="notebook-list" id="incomeList"></div>
+                </div>
+                
+                <!-- تبويب خارج -->
+                <div id="notebookOutTab" class="notebook-tab-content" style="display: none;">
+                    <div class="notebook-form">
+                        <input type="text" id="expenseDesc" placeholder="البيان (مثال: مشتريات, صرف, ...)">
+                        <input type="number" id="expenseAmount" step="0.01" placeholder="المبلغ">
+                        <select id="expenseType">
+                            <option value="">نوع المصروف</option>
+                            <option value="purchases">مشتريات</option>
+                            <option value="salary">رواتب</option>
+                            <option value="rent">إيجار</option>
+                            <option value="electricity">كهرباء</option>
+                            <option value="water">مياه</option>
+                            <option value="maintenance">صيانة</option>
+                            <option value="other">أخرى</option>
+                        </select>
+                        <button class="btn btn-expense" onclick="app.addNotebookEntry('out')">
+                            <i class="fas fa-plus"></i> إضافة خارج
+                        </button>
+                    </div>
+                    
+                    <div class="notebook-list" id="expenseList"></div>
+                </div>
+            </div>
+            
+            <div class="notebook-footer">
+                <div class="notebook-totals">
+                    <span>إجمالي الداخل: <span class="total-income" id="totalIncome">0.00</span></span>
+                    <span>إجمالي الخارج: <span class="total-expense" id="totalExpense">0.00</span></span>
+                    <span>الصافي: <span class="total-balance" id="netBalance">0.00</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <!-- الهيدر الرئيسي -->
         <div class="main-header">
@@ -1099,10 +1507,12 @@
             sales: [],
             cash: [],
             dailyExpenses: [],
+            notebook: [], // بيانات الكراسة اليومية
             
             // المتغيرات
             currentSellInvoice: 1,
             currentGoldPrice: 0,
+            notebookOpen: false,
 
             // ===== التهيئة =====
             init() {
@@ -1110,6 +1520,7 @@
                 this.setupEventListeners();
                 this.updateDateTime();
                 this.renderAll();
+                this.renderNotebook();
                 setInterval(() => this.updateDateTime(), 1000);
             },
 
@@ -1123,6 +1534,7 @@
                     this.sales = JSON.parse(localStorage.getItem('sales')) || [];
                     this.cash = JSON.parse(localStorage.getItem('cash')) || [];
                     this.dailyExpenses = JSON.parse(localStorage.getItem('dailyExpenses')) || [];
+                    this.notebook = JSON.parse(localStorage.getItem('notebook')) || [];
                     
                     const lastInvoice = localStorage.getItem('lastSellInvoice');
                     this.currentSellInvoice = lastInvoice ? parseInt(lastInvoice) + 1 : 1;
@@ -1154,6 +1566,7 @@
                 localStorage.setItem('sales', JSON.stringify(this.sales));
                 localStorage.setItem('cash', JSON.stringify(this.cash));
                 localStorage.setItem('dailyExpenses', JSON.stringify(this.dailyExpenses));
+                localStorage.setItem('notebook', JSON.stringify(this.notebook));
                 localStorage.setItem('lastSellInvoice', this.currentSellInvoice);
                 localStorage.setItem('currentGoldPrice', this.currentGoldPrice);
             },
@@ -1177,6 +1590,178 @@
                     second: '2-digit'
                 };
                 document.getElementById('currentDateTime').innerHTML = now.toLocaleDateString('ar-EG', options);
+            },
+
+            // ===== الكراسة اليومية =====
+            toggleNotebook() {
+                const panel = document.getElementById('notebookPanel');
+                this.notebookOpen = !this.notebookOpen;
+                panel.classList.toggle('show');
+            },
+
+            switchNotebookTab(tab) {
+                document.querySelectorAll('.notebook-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.notebook-tab-content').forEach(c => c.style.display = 'none');
+                
+                if (tab === 'in') {
+                    document.querySelector('.notebook-tab.in').classList.add('active');
+                    document.getElementById('notebookInTab').style.display = 'block';
+                } else {
+                    document.querySelector('.notebook-tab.out').classList.add('active');
+                    document.getElementById('notebookOutTab').style.display = 'block';
+                }
+            },
+
+            addNotebookEntry(type) {
+                if (type === 'in') {
+                    const desc = document.getElementById('incomeDesc').value.trim();
+                    const amount = parseFloat(document.getElementById('incomeAmount').value);
+                    const source = document.getElementById('incomeSource').value;
+
+                    if (!desc || !amount || amount <= 0) {
+                        this.showAlert('الرجاء إدخال البيانات بشكل صحيح', 'error');
+                        return;
+                    }
+
+                    const entry = {
+                        id: Date.now(),
+                        type: 'in',
+                        description: desc,
+                        amount: amount,
+                        source: source,
+                        date: new Date().toLocaleDateString('ar-EG'),
+                        time: new Date().toLocaleTimeString('ar-EG')
+                    };
+
+                    this.notebook.push(entry);
+                    
+                    // إضافة للخزنة أيضاً
+                    this.cash.push({
+                        id: Date.now(),
+                        date: entry.date,
+                        description: `كراسة - ${desc}`,
+                        type: 'in',
+                        amount: amount
+                    });
+
+                    document.getElementById('incomeDesc').value = '';
+                    document.getElementById('incomeAmount').value = '';
+                    
+                } else {
+                    const desc = document.getElementById('expenseDesc').value.trim();
+                    const amount = parseFloat(document.getElementById('expenseAmount').value);
+                    const type = document.getElementById('expenseType').value;
+
+                    if (!desc || !amount || amount <= 0) {
+                        this.showAlert('الرجاء إدخال البيانات بشكل صحيح', 'error');
+                        return;
+                    }
+
+                    const entry = {
+                        id: Date.now(),
+                        type: 'out',
+                        description: desc,
+                        amount: amount,
+                        expenseType: type,
+                        date: new Date().toLocaleDateString('ar-EG'),
+                        time: new Date().toLocaleTimeString('ar-EG')
+                    };
+
+                    this.notebook.push(entry);
+                    
+                    // إضافة للخزنة أيضاً
+                    this.cash.push({
+                        id: Date.now(),
+                        date: entry.date,
+                        description: `كراسة - ${desc}`,
+                        type: 'out',
+                        amount: amount
+                    });
+
+                    document.getElementById('expenseDesc').value = '';
+                    document.getElementById('expenseAmount').value = '';
+                }
+
+                this.saveData();
+                this.renderNotebook();
+                this.showAlert('تمت الإضافة بنجاح', 'success');
+            },
+
+            deleteNotebookEntry(id) {
+                if (confirm('هل أنت متأكد من الحذف؟')) {
+                    this.notebook = this.notebook.filter(e => e.id !== id);
+                    this.saveData();
+                    this.renderNotebook();
+                    this.showAlert('تم الحذف', 'success');
+                }
+            },
+
+            renderNotebook() {
+                const incomeList = document.getElementById('incomeList');
+                const expenseList = document.getElementById('expenseList');
+                
+                if (!incomeList || !expenseList) return;
+
+                const today = new Date().toLocaleDateString('ar-EG');
+                const todayEntries = this.notebook.filter(e => e.date === today);
+                
+                let totalIncome = 0;
+                let totalExpense = 0;
+
+                // عرض الداخل
+                incomeList.innerHTML = '';
+                todayEntries.filter(e => e.type === 'in').forEach(e => {
+                    totalIncome += e.amount;
+                    incomeList.innerHTML += `
+                        <div class="notebook-item income">
+                            <div class="item-info">
+                                <div class="desc">${e.description}</div>
+                                <div class="meta">${e.time} - ${e.source || 'أخرى'}</div>
+                            </div>
+                            <div class="item-amount income">+${e.amount.toFixed(2)}</div>
+                            <div class="item-actions">
+                                <button onclick="app.deleteNotebookEntry(${e.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                if (incomeList.innerHTML === '') {
+                    incomeList.innerHTML = '<p style="text-align: center; color: #666;">لا توجد إضافات اليوم</p>';
+                }
+
+                // عرض الخارج
+                expenseList.innerHTML = '';
+                todayEntries.filter(e => e.type === 'out').forEach(e => {
+                    totalExpense += e.amount;
+                    expenseList.innerHTML += `
+                        <div class="notebook-item expense">
+                            <div class="item-info">
+                                <div class="desc">${e.description}</div>
+                                <div class="meta">${e.time} - ${e.expenseType || 'أخرى'}</div>
+                            </div>
+                            <div class="item-amount expense">-${e.amount.toFixed(2)}</div>
+                            <div class="item-actions">
+                                <button onclick="app.deleteNotebookEntry(${e.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                if (expenseList.innerHTML === '') {
+                    expenseList.innerHTML = '<p style="text-align: center; color: #666;">لا توجد مصروفات اليوم</p>';
+                }
+
+                // تحديث الإحصائيات
+                document.getElementById('totalIncome').textContent = totalIncome.toFixed(2);
+                document.getElementById('totalExpense').textContent = totalExpense.toFixed(2);
+                const netBalance = totalIncome - totalExpense;
+                document.getElementById('netBalance').textContent = netBalance.toFixed(2);
+                document.getElementById('notebookBalance').textContent = netBalance.toFixed(2);
             },
 
             // ===== التنقل بين التبويبات =====
@@ -1332,17 +1917,35 @@
                         amount: paid,
                         method: invoice.paymentMethod
                     });
+                    
+                    // إضافة للكراسة
+                    this.notebook.push({
+                        id: Date.now(),
+                        type: 'in',
+                        description: `مبيعات فاتورة ${invoice.number}`,
+                        amount: paid,
+                        source: 'sales',
+                        date: invoice.date,
+                        time: invoice.time
+                    });
                 }
 
                 this.sales.push(invoice);
                 this.saveData();
+                this.renderNotebook();
                 this.showAlert(`تم إتمام البيع - فاتورة رقم ${invoice.number}`, 'success');
                 this.resetSellForm();
             },
 
             // ===== عمليات الشراء =====
             calculateBuyRemaining() {
-                const total = parseFloat(document.getElementById('buyTotal').value) || 0;
+                const weight = parseFloat(document.getElementById('buyWeight').value) || 0;
+                const price = parseFloat(document.getElementById('buyPrice').value) || 0;
+                const manufacturing = parseFloat(document.getElementById('buyManufacturing').value) || 0;
+                const total = (weight * price) + manufacturing;
+                
+                document.getElementById('buyTotal').value = total.toFixed(2);
+                
                 const paid = parseFloat(document.getElementById('buyPaid').value) || 0;
                 document.getElementById('buyRemaining').value = (total - paid).toFixed(2);
             },
@@ -1359,6 +1962,11 @@
                 const manufacturing = parseFloat(document.getElementById('buyManufacturing').value) || 0;
                 const total = (weight * price) + manufacturing;
                 const paid = parseFloat(document.getElementById('buyPaid').value) || 0;
+
+                if (!weight || weight <= 0 || !price || price <= 0) {
+                    this.showAlert('الرجاء إدخال البيانات بشكل صحيح', 'error');
+                    return;
+                }
 
                 // إضافة المنتج للمخزون
                 const product = {
@@ -1378,6 +1986,7 @@
                 const purchase = {
                     id: Date.now(),
                     date: new Date().toLocaleDateString('ar-EG'),
+                    time: new Date().toLocaleTimeString('ar-EG'),
                     companyId: companyId,
                     product: product,
                     weight: weight,
@@ -1399,9 +2008,21 @@
                         type: 'out',
                         amount: paid
                     });
+                    
+                    // إضافة للكراسة
+                    this.notebook.push({
+                        id: Date.now(),
+                        type: 'out',
+                        description: `مشتريات من ${this.getCompanyName(companyId)}`,
+                        amount: paid,
+                        expenseType: 'purchases',
+                        date: purchase.date,
+                        time: purchase.time
+                    });
                 }
 
                 this.saveData();
+                this.renderNotebook();
                 this.showAlert('تم إتمام عملية الشراء', 'success');
                 this.resetBuyForm();
             },
@@ -1433,7 +2054,7 @@
                 // إعادة المنتج للمخزون
                 this.products.push({
                     id: Date.now(),
-                    barcode: sale.product.barcode,
+                    barcode: sale.product.barcode || 'RET' + Date.now(),
                     name: sale.product.name,
                     weight: quantity,
                     goldType: sale.product.goldType,
@@ -1442,14 +2063,29 @@
                 });
 
                 // تحديث الخزنة (سحب المبلغ)
-                this.cash.push({
-                    id: Date.now(),
-                    date: new Date().toLocaleDateString('ar-EG'),
-                    description: `استرجاع فاتورة ${sale.number}`,
-                    type: 'out',
-                    amount: sale.paid
-                });
+                if (sale.paid > 0) {
+                    this.cash.push({
+                        id: Date.now(),
+                        date: new Date().toLocaleDateString('ar-EG'),
+                        description: `استرجاع فاتورة ${sale.number}`,
+                        type: 'out',
+                        amount: sale.paid
+                    });
+                    
+                    // إضافة للكراسة
+                    this.notebook.push({
+                        id: Date.now(),
+                        type: 'out',
+                        description: `استرجاع فاتورة ${sale.number}`,
+                        amount: sale.paid,
+                        expenseType: 'return',
+                        date: new Date().toLocaleDateString('ar-EG'),
+                        time: new Date().toLocaleTimeString('ar-EG')
+                    });
+                }
 
+                this.saveData();
+                this.renderNotebook();
                 this.showAlert('تم استرجاع المنتج بنجاح', 'success');
             },
 
@@ -1471,9 +2107,21 @@
                     type: type,
                     amount: amount
                 });
+                
+                // إضافة للكراسة
+                this.notebook.push({
+                    id: Date.now(),
+                    type: type === 'in' ? 'in' : 'out',
+                    description: description,
+                    amount: amount,
+                    source: type === 'in' ? 'deposit' : 'withdraw',
+                    date: new Date().toLocaleDateString('ar-EG'),
+                    time: new Date().toLocaleTimeString('ar-EG')
+                });
 
                 this.saveData();
                 this.renderCash();
+                this.renderNotebook();
                 this.updateStats();
                 this.showAlert('تمت العملية بنجاح', 'success');
             },
@@ -1529,8 +2177,30 @@
                 };
 
                 this.dailyExpenses.push(expense);
+                
+                // إضافة للخزنة
+                this.cash.push({
+                    id: Date.now(),
+                    date: expense.date,
+                    description: `صرف يومي - ${description}`,
+                    type: 'out',
+                    amount: amount
+                });
+                
+                // إضافة للكراسة
+                this.notebook.push({
+                    id: Date.now(),
+                    type: 'out',
+                    description: `صرف يومي - ${description}`,
+                    amount: amount,
+                    expenseType: 'daily',
+                    date: expense.date,
+                    time: expense.time
+                });
+
                 this.saveData();
                 this.renderDailyExpenses();
+                this.renderNotebook();
                 this.showAlert('تم إضافة الصرف', 'success');
             },
 
@@ -1564,10 +2234,12 @@
             },
 
             deleteExpense(id) {
-                this.dailyExpenses = this.dailyExpenses.filter(e => e.id !== id);
-                this.saveData();
-                this.renderDailyExpenses();
-                this.showAlert('تم حذف الصرف', 'success');
+                if (confirm('هل أنت متأكد من الحذف؟')) {
+                    this.dailyExpenses = this.dailyExpenses.filter(e => e.id !== id);
+                    this.saveData();
+                    this.renderDailyExpenses();
+                    this.showAlert('تم حذف الصرف', 'success');
+                }
             },
 
             // ===== عرض البيانات =====
@@ -1744,9 +2416,12 @@
             },
 
             resetBuyForm() {
-                document.getElementById('buyForm')?.reset();
+                document.getElementById('buyWeight').value = '';
+                document.getElementById('buyPrice').value = '';
+                document.getElementById('buyManufacturing').value = '0';
+                document.getElementById('buyTotal').value = '';
                 document.getElementById('buyPaid').value = '0';
-                document.getElementById('buyRemaining').value = '0';
+                document.getElementById('buyRemaining').value = '';
             },
 
             showAlert(message, type = 'success') {
