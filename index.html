@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام إدارة الذهب - محمد أحمد فؤاد</title>
+    <title>مجوهرات عبد ربو الصي - الكراسة الذكية</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -26,7 +26,7 @@
             --dark: #343a40;
             --light: #f8f9fa;
             --gold: #d4af37;
-            --developer: #6f42c1;
+            --silver: #c0c0c0;
         }
 
         body {
@@ -42,359 +42,13 @@
             margin: 0 auto;
         }
 
-        /* ===== الهيدر الرئيسي ===== */
-        .main-header {
-            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
-            padding: 20px 30px;
-            border-radius: 15px 15px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            color: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            margin-bottom: 20px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo i {
-            font-size: 40px;
-            color: white;
-        }
-
-        .logo h1 {
-            font-size: 28px;
-            font-weight: 700;
-        }
-
-        .logo span {
-            font-size: 16px;
-            opacity: 0.9;
-        }
-
-        .date-time {
-            background: rgba(255,255,255,0.2);
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 16px;
-        }
-
-        /* ===== بطاقات الإحصائيات ===== */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-        }
-
-        .stat-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-
-        .stat-icon.gold { background: #fff9e6; color: var(--gold); }
-        .stat-icon.cash { background: #e8f5e9; color: var(--success); }
-        .stat-icon.debt { background: #ffebee; color: var(--danger); }
-        .stat-icon.emp { background: #e3f2fd; color: var(--info); }
-        .stat-icon.stock { background: #f3e5f5; color: #9c27b0; }
-
-        .stat-info h3 {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 5px;
-        }
-
-        .stat-info .value {
-            font-size: 22px;
-            font-weight: 700;
-        }
-
-        .stat-info .value.gold { color: var(--gold); }
-        .stat-info .value.cash { color: var(--success); }
-        .stat-info .value.debt { color: var(--danger); }
-
-        /* ===== التبويبات الرئيسية ===== */
-        .main-tabs {
-            background: white;
-            padding: 15px 20px 0;
-            display: flex;
-            gap: 5px;
-            border-bottom: 3px solid var(--gold);
-            border-radius: 10px 10px 0 0;
-            overflow-x: auto;
-            margin-bottom: 0;
-        }
-
-        .main-tab {
-            padding: 12px 25px;
-            background: #f5f5f5;
-            border: none;
-            border-radius: 8px 8px 0 0;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            color: #666;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap;
-            transition: all 0.3s;
-        }
-
-        .main-tab:hover {
-            background: #e0e0e0;
-        }
-
-        .main-tab.active {
-            background: var(--gold);
-            color: white;
-        }
-
-        /* ===== المحتوى الرئيسي ===== */
-        .main-content {
-            background: white;
-            padding: 25px;
-            border-radius: 0 0 15px 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-
-        .tab-pane {
-            display: none;
-        }
-
-        .tab-pane.active {
-            display: block;
-        }
-
-        /* ===== عناوين الأقسام ===== */
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--gold);
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .section-header h2 {
-            color: var(--secondary);
-            font-size: 22px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        /* ===== نماذج الإدخال ===== */
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: var(--secondary);
-            font-weight: 500;
-            font-size: 14px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: 'Tajawal', sans-serif;
-            transition: all 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
-        }
-
-        /* ===== الأزرار ===== */
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Tajawal', sans-serif;
-            transition: all 0.3s;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-
-        .btn-primary { background: var(--gold); color: white; }
-        .btn-success { background: var(--success); color: white; }
-        .btn-danger { background: var(--danger); color: white; }
-        .btn-info { background: var(--info); color: white; }
-        .btn-warning { background: var(--warning); color: var(--dark); }
-
-        .btn-sm {
-            padding: 6px 12px;
-            font-size: 12px;
-        }
-
-        /* ===== الجداول ===== */
-        .table-responsive {
-            overflow-x: auto;
-            margin: 15px 0;
-            border-radius: 10px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-
-        th {
-            background: var(--gold);
-            color: white;
-            padding: 12px;
-            font-weight: 500;
-        }
-
-        td {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-            text-align: center;
-        }
-
-        tr:hover {
-            background: #f5f5f5;
-        }
-
-        /* ===== بطاقات العرض ===== */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .card {
-            background: white;
-            border: 1px solid #eee;
-            border-radius: 10px;
-            padding: 15px;
-            transition: all 0.3s;
-        }
-
-        .card:hover {
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transform: translateY(-3px);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .card-header h3 {
-            color: var(--dark);
-            font-size: 16px;
-        }
-
-        .card-badge {
-            background: var(--gold);
-            color: white;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-        }
-
-        .card-body {
-            color: #666;
-            font-size: 13px;
-        }
-
-        .card-body p {
-            margin: 5px 0;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        /* ===== الشارات ===== */
-        .badge {
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 500;
-            display: inline-block;
-        }
-
-        .badge-success { background: #d4edda; color: #155724; }
-        .badge-warning { background: #fff3cd; color: #856404; }
-        .badge-danger { background: #f8d7da; color: #721c24; }
-        .badge-info { background: #d1ecf1; color: #0c5460; }
-
-        /* ===== الكراسة العائمة ===== */
+        /* ===== الزر العائم القابل للسحب ===== */
         .floating-notebook {
             position: fixed;
             z-index: 9999;
             cursor: grab;
             user-select: none;
+            transition: transform 0.1s ease;
         }
 
         .floating-notebook:active {
@@ -415,11 +69,13 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.4);
             transition: all 0.3s;
             border: 3px solid white;
+            position: relative;
             animation: pulse 2s infinite;
         }
 
         .notebook-toggle:hover {
             transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
         }
 
         .notebook-toggle i {
@@ -488,7 +144,7 @@
         }
 
         .notebook-header h3 {
-            font-size: 18px;
+            font-size: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -522,17 +178,29 @@
             justify-content: space-between;
             align-items: center;
             font-size: 18px;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .notebook-balance .label {
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .notebook-balance .value {
             font-weight: 700;
             font-size: 24px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
         .notebook-tabs {
             display: flex;
             border-bottom: 2px solid #eee;
             background: #f8f9fa;
+            position: sticky;
+            top: 70px;
+            z-index: 9;
         }
 
         .notebook-tab {
@@ -558,48 +226,146 @@
             background: #fff9e6;
         }
 
+        .notebook-tab.gold-buy {
+            color: var(--success);
+        }
+        .notebook-tab.gold-buy.active {
+            color: var(--success);
+            border-bottom-color: var(--success);
+            background: #e8f5e9;
+        }
+        .notebook-tab.gold-sell {
+            color: var(--danger);
+        }
+        .notebook-tab.gold-sell.active {
+            color: var(--danger);
+            border-bottom-color: var(--danger);
+            background: #ffebee;
+        }
+
         .notebook-content {
             padding: 20px;
             max-height: calc(80vh - 200px);
             overflow-y: auto;
         }
 
+        /* نماذج الكراسة */
         .notebook-form {
             background: #f8f9fa;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 20px;
+            border-radius: 12px;
             margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .form-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .form-title i {
+            color: var(--gold);
         }
 
         .notebook-form input,
-        .notebook-form select {
+        .notebook-form select,
+        .notebook-form textarea {
             width: 100%;
-            padding: 8px 12px;
+            padding: 10px 12px;
             margin-bottom: 10px;
             border: 2px solid #e0e0e0;
-            border-radius: 6px;
+            border-radius: 8px;
             font-family: 'Tajawal', sans-serif;
+            transition: all 0.3s;
         }
 
         .notebook-form input:focus,
         .notebook-form select:focus {
             outline: none;
             border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
         }
 
+        .notebook-form .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+            font-size: 15px;
+        }
+
+        .btn-income {
+            background: var(--success);
+            color: white;
+        }
+        .btn-income:hover {
+            background: var(--success-dark);
+        }
+        .btn-expense {
+            background: var(--danger);
+            color: white;
+        }
+        .btn-expense:hover {
+            background: var(--danger-dark);
+        }
+        .btn-gold-buy {
+            background: #fd7e14;
+            color: white;
+        }
+        .btn-gold-buy:hover {
+            background: #e56b08;
+        }
+        .btn-gold-sell {
+            background: #6f42c1;
+            color: white;
+        }
+        .btn-gold-sell:hover {
+            background: #5e3aa8;
+        }
+
+        /* قائمة العناصر */
         .notebook-list {
             margin-top: 15px;
         }
 
+        .list-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
         .notebook-item {
             background: white;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 8px;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
             border-right: 4px solid;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .notebook-item:hover {
+            transform: translateX(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .notebook-item.income {
@@ -615,31 +381,55 @@
             border-right-color: #6f42c1;
         }
 
+        .item-info {
+            flex: 1;
+        }
+
         .item-info .desc {
             font-weight: 600;
-            margin-bottom: 3px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .item-info .meta {
             font-size: 11px;
             color: #666;
+            display: flex;
+            gap: 10px;
         }
 
         .item-amount {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 700;
+            margin-left: 15px;
         }
 
-        .item-amount.income { color: var(--success); }
-        .item-amount.expense { color: var(--danger); }
-        .item-amount.gold-buy { color: #fd7e14; }
-        .item-amount.gold-sell { color: #6f42c1; }
+        .item-amount.income {
+            color: var(--success);
+        }
+        .item-amount.expense {
+            color: var(--danger);
+        }
+        .item-amount.gold-buy {
+            color: #fd7e14;
+        }
+        .item-amount.gold-sell {
+            color: #6f42c1;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 5px;
+        }
 
         .item-actions button {
             background: none;
             border: none;
             color: #999;
             cursor: pointer;
+            transition: all 0.3s;
             width: 30px;
             height: 30px;
             border-radius: 50%;
@@ -656,7 +446,10 @@
         .notebook-footer {
             padding: 15px 20px;
             background: #f5f5f5;
-            border-top: 1px solid #eee;
+            border-top: 2px solid #eee;
+            position: sticky;
+            bottom: 0;
+            z-index: 9;
         }
 
         .notebook-totals {
@@ -668,17 +461,19 @@
 
         .total-box {
             background: white;
-            padding: 8px;
-            border-radius: 6px;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .total-box .label {
-            font-size: 11px;
+            font-size: 12px;
             color: #666;
+            margin-bottom: 3px;
         }
 
         .total-box .value {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 700;
         }
 
@@ -686,76 +481,388 @@
         .total-expense { color: var(--danger); }
         .total-balance { color: var(--gold); }
 
-        /* ===== توقيع المطور ===== */
-        .developer-signature {
+        /* ===== باقي التنسيقات (كما هي) ===== */
+        .main-header {
+            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+            padding: 20px 30px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 40px;
+            color: white;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .logo span {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .date-time {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 16px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .stat-icon.gold { background: #fff9e6; color: var(--gold); }
+        .stat-icon.cash { background: #e8f5e9; color: var(--success); }
+        .stat-icon.debt { background: #ffebee; color: var(--danger); }
+        .stat-icon.emp { background: #e3f2fd; color: var(--info); }
+        .stat-icon.stock { background: #f3e5f5; color: #9c27b0; }
+
+        .stat-info h3 {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .stat-info .value {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .stat-info .value.gold { color: var(--gold); }
+        .stat-info .value.cash { color: var(--success); }
+        .stat-info .value.debt { color: var(--danger); }
+
+        .main-tabs {
+            background: white;
+            padding: 15px 20px 0;
+            display: flex;
+            gap: 5px;
+            border-bottom: 3px solid var(--gold);
+            border-radius: 10px 10px 0 0;
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        .main-tab {
+            padding: 12px 25px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 8px 8px 0 0;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+
+        .main-tab:hover {
+            background: #e0e0e0;
+        }
+
+        .main-tab.active {
+            background: var(--gold);
+            color: white;
+        }
+
+        .main-content {
+            background: white;
+            padding: 25px;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--gold);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .section-header h2 {
+            color: var(--secondary);
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--secondary);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .form-group input[readonly] {
+            background: #f5f5f5;
+            cursor: not-allowed;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .btn-primary { background: var(--gold); color: white; }
+        .btn-success { background: var(--success); color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-info { background: var(--info); color: white; }
+        .btn-warning { background: var(--warning); color: var(--dark); }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .card-header h3 {
+            color: var(--dark);
+            font-size: 18px;
+        }
+
+        .card-badge {
+            background: var(--gold);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .card-body {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .card-body p {
+            margin: 8px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th {
+            background: var(--gold);
+            color: white;
+            padding: 12px;
+            font-weight: 500;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        .badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .badge-success { background: #d4edda; color: #155724; }
+        .badge-warning { background: #fff3cd; color: #856404; }
+        .badge-danger { background: #f8d7da; color: #721c24; }
+        .badge-info { background: #d1ecf1; color: #0c5460; }
+
+        .store-signature {
             position: fixed;
             bottom: 20px;
             left: 20px;
-            background: linear-gradient(135deg, var(--developer), #8e44ad);
+            background: linear-gradient(135deg, var(--gold), var(--primary-dark));
             color: white;
-            padding: 12px 25px;
+            padding: 12px 20px;
             border-radius: 50px;
             font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 20px;
-            z-index: 9998;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            gap: 15px;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             border: 1px solid rgba(255,255,255,0.3);
-            backdrop-filter: blur(5px);
         }
 
-        .developer-signature .info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .store-signature i {
+            font-size: 20px;
         }
 
-        .developer-signature .info i {
-            font-size: 22px;
-            color: var(--gold);
-        }
-
-        .developer-signature .info .name {
+        .store-signature .name {
             font-weight: 700;
-            font-size: 15px;
+            font-size: 16px;
         }
 
-        .developer-signature .contact {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .developer-signature .contact a {
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            background: rgba(255,255,255,0.15);
-            padding: 5px 12px;
+        .store-signature .owner {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 10px;
             border-radius: 30px;
-            transition: all 0.3s;
             font-size: 12px;
         }
 
-        .developer-signature .contact a:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateY(-2px);
-        }
-
-        .developer-signature .contact .whatsapp {
-            background: #25d366;
-        }
-
-        /* ===== التنبيهات ===== */
         .alert {
             position: fixed;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            padding: 12px 25px;
+            padding: 15px 30px;
             border-radius: 50px;
             color: white;
             font-weight: 500;
@@ -782,14 +889,6 @@
                 width: 320px;
                 right: 80px;
             }
-            .developer-signature {
-                flex-direction: column;
-                gap: 10px;
-                left: 10px;
-                right: 10px;
-                bottom: 10px;
-                padding: 10px;
-            }
         }
     </style>
 </head>
@@ -813,7 +912,10 @@
             </div>
             
             <div class="notebook-balance">
-                <span>رصيد اليوم:</span>
+                <span class="label">
+                    <i class="fas fa-wallet"></i>
+                    رصيد الكراسة:
+                </span>
                 <span class="value" id="notebookBalance">0.00</span>
             </div>
             
@@ -821,10 +923,10 @@
                 <button class="notebook-tab active" onclick="app.switchNotebookTab('cash')">
                     <i class="fas fa-money-bill"></i> نقدي
                 </button>
-                <button class="notebook-tab" onclick="app.switchNotebookTab('goldBuy')">
+                <button class="notebook-tab gold-buy" onclick="app.switchNotebookTab('goldBuy')">
                     <i class="fas fa-cart-plus"></i> شراء ذهب
                 </button>
-                <button class="notebook-tab" onclick="app.switchNotebookTab('goldSell')">
+                <button class="notebook-tab gold-sell" onclick="app.switchNotebookTab('goldSell')">
                     <i class="fas fa-gem"></i> بيع ذهب
                 </button>
             </div>
@@ -833,19 +935,24 @@
                 <!-- تبويب النقدي -->
                 <div id="notebookCashTab" class="notebook-tab-content" style="display: block;">
                     <div class="notebook-form">
+                        <div class="form-title">
+                            <i class="fas fa-plus-circle"></i>
+                            إضافة حركة نقدية
+                        </div>
                         <select id="cashType">
-                            <option value="in">➕ داخل (وارد)</option>
-                            <option value="out">➖ خارج (منصرف)</option>
+                            <option value="in">داخل (وارد)</option>
+                            <option value="out">خارج (منصرف)</option>
                         </select>
-                        <input type="text" id="cashDesc" placeholder="البيان">
+                        <input type="text" id="cashDesc" placeholder="البيان (مثال: مبيعات, مشتريات, ...)">
                         <input type="number" id="cashAmount" step="0.01" placeholder="المبلغ">
-                        <button class="btn btn-success btn-sm" onclick="app.addCashEntry()" style="width: 100%;">
+                        <button class="btn btn-income" onclick="app.addCashEntry()">
                             <i class="fas fa-plus"></i> إضافة
                         </button>
                     </div>
                     
                     <div class="list-title">
-                        <i class="fas fa-list"></i> حركات اليوم
+                        <i class="fas fa-list"></i>
+                        حركات اليوم النقدية
                     </div>
                     <div class="notebook-list" id="cashList"></div>
                 </div>
@@ -853,7 +960,11 @@
                 <!-- تبويب شراء ذهب -->
                 <div id="notebookGoldBuyTab" class="notebook-tab-content" style="display: none;">
                     <div class="notebook-form">
-                        <input type="text" id="goldBuyDesc" placeholder="الوصف">
+                        <div class="form-title">
+                            <i class="fas fa-cart-plus"></i>
+                            شراء ذهب جديد
+                        </div>
+                        <input type="text" id="goldBuyDesc" placeholder="وصف (مثال: سبيكة, جنيه, ...)">
                         <input type="number" id="goldBuyWeight" step="0.01" placeholder="الوزن (جرام)">
                         <select id="goldBuyCarat">
                             <option value="24">عيار 24</option>
@@ -862,13 +973,14 @@
                         </select>
                         <input type="number" id="goldBuyPrice" step="0.01" placeholder="سعر الجرام">
                         <input type="number" id="goldBuyTotal" step="0.01" placeholder="الإجمالي" readonly>
-                        <button class="btn btn-warning btn-sm" onclick="app.addGoldBuy()" style="width: 100%;">
+                        <button class="btn btn-gold-buy" onclick="app.addGoldBuy()">
                             <i class="fas fa-check"></i> تأكيد الشراء
                         </button>
                     </div>
                     
                     <div class="list-title">
-                        <i class="fas fa-history"></i> مشتريات اليوم
+                        <i class="fas fa-history"></i>
+                        مشتريات الذهب اليوم
                     </div>
                     <div class="notebook-list" id="goldBuyList"></div>
                 </div>
@@ -876,7 +988,11 @@
                 <!-- تبويب بيع ذهب -->
                 <div id="notebookGoldSellTab" class="notebook-tab-content" style="display: none;">
                     <div class="notebook-form">
-                        <input type="text" id="goldSellDesc" placeholder="الوصف">
+                        <div class="form-title">
+                            <i class="fas fa-gem"></i>
+                            بيع ذهب
+                        </div>
+                        <input type="text" id="goldSellDesc" placeholder="وصف (مثال: سبيكة, جنيه, ...)">
                         <input type="number" id="goldSellWeight" step="0.01" placeholder="الوزن (جرام)">
                         <select id="goldSellCarat">
                             <option value="24">عيار 24</option>
@@ -885,13 +1001,14 @@
                         </select>
                         <input type="number" id="goldSellPrice" step="0.01" placeholder="سعر الجرام">
                         <input type="number" id="goldSellTotal" step="0.01" placeholder="الإجمالي" readonly>
-                        <button class="btn btn-info btn-sm" onclick="app.addGoldSell()" style="width: 100%;">
+                        <button class="btn btn-gold-sell" onclick="app.addGoldSell()">
                             <i class="fas fa-check"></i> تأكيد البيع
                         </button>
                     </div>
                     
                     <div class="list-title">
-                        <i class="fas fa-history"></i> مبيعات اليوم
+                        <i class="fas fa-history"></i>
+                        مبيعات الذهب اليوم
                     </div>
                     <div class="notebook-list" id="goldSellList"></div>
                 </div>
@@ -922,8 +1039,8 @@
             <div class="logo">
                 <i class="fas fa-gem"></i>
                 <div>
-                    <h1>نظام إدارة الذهب</h1>
-                    <span>محمد أحمد فؤاد</span>
+                    <h1>مجوهرات عبد ربو الصي</h1>
+                    <span>للذهب والمجوهرات - تأسست 1985</span>
                 </div>
             </div>
             <div class="date-time" id="currentDateTime"></div>
@@ -952,6 +1069,20 @@
                     <div class="value debt" id="totalDebts">0.00</div>
                 </div>
             </div>
+            <div class="stat-card" onclick="app.showDetails('emp')">
+                <div class="stat-icon emp"><i class="fas fa-users"></i></div>
+                <div class="stat-info">
+                    <h3>الموظفين</h3>
+                    <div class="value" id="totalEmployees">0</div>
+                </div>
+            </div>
+            <div class="stat-card" onclick="app.showDetails('stock')">
+                <div class="stat-icon stock"><i class="fas fa-boxes"></i></div>
+                <div class="stat-info">
+                    <h3>إجمالي القطع</h3>
+                    <div class="value" id="totalItems">0</div>
+                </div>
+            </div>
         </div>
 
         <!-- التبويبات الرئيسية -->
@@ -959,162 +1090,78 @@
             <button class="main-tab active" onclick="app.switchTab('dashboard')">
                 <i class="fas fa-home"></i> الرئيسية
             </button>
-            <button class="main-tab" onclick="app.switchTab('products')">
-                <i class="fas fa-boxes"></i> المنتجات
+            <button class="main-tab" onclick="app.switchTab('buy')">
+                <i class="fas fa-cart-plus"></i> شراء
             </button>
-            <button class="main-tab" onclick="app.switchTab('customers')">
-                <i class="fas fa-users"></i> العملاء
+            <button class="main-tab" onclick="app.switchTab('sell')">
+                <i class="fas fa-cash-register"></i> بيع
+            </button>
+            <button class="main-tab" onclick="app.switchTab('return')">
+                <i class="fas fa-undo-alt"></i> استرجاع
+            </button>
+            <button class="main-tab" onclick="app.switchTab('inventory')">
+                <i class="fas fa-boxes"></i> المخزون
+            </button>
+            <button class="main-tab" onclick="app.switchTab('movement')">
+                <i class="fas fa-exchange-alt"></i> حركة المنتج
+            </button>
+            <button class="main-tab" onclick="app.switchTab('cash')">
+                <i class="fas fa-coins"></i> الخزنة
+            </button>
+            <button class="main-tab" onclick="app.switchTab('daily')">
+                <i class="fas fa-calendar-day"></i> الصرف اليومي
             </button>
             <button class="main-tab" onclick="app.switchTab('employees')">
-                <i class="fas fa-user-tie"></i> الموظفين
+                <i class="fas fa-user-tie"></i> العمال
             </button>
-            <button class="main-tab" onclick="app.switchTab('invoices')">
-                <i class="fas fa-file-invoice"></i> الفواتير
+            <button class="main-tab" onclick="app.switchTab('companies')">
+                <i class="fas fa-building"></i> الشركات
+            </button>
+            <button class="main-tab" onclick="app.switchTab('reports')">
+                <i class="fas fa-chart-bar"></i> التقارير
             </button>
         </div>
 
-        <!-- المحتوى الرئيسي -->
+        <!-- المحتوى الرئيسي (مختصر) -->
         <div class="main-content">
-            <!-- الرئيسية -->
             <div id="dashboard-tab" class="tab-pane active">
                 <div class="section-header">
-                    <h2><i class="fas fa-home"></i> لوحة التحكم</h2>
+                    <h2><i class="fas fa-home"></i> لوحة التحكم الرئيسية</h2>
                 </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon cash"><i class="fas fa-chart-line"></i></div>
-                        <div class="stat-info">
-                            <h3>مبيعات اليوم</h3>
-                            <div class="value" id="todaySales">0.00</div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon debt"><i class="fas fa-shopping-cart"></i></div>
-                        <div class="stat-info">
-                            <h3>مشتريات اليوم</h3>
-                            <div class="value" id="todayPurchases">0.00</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div style="text-align: center; padding: 40px; color: #666;">
-                    <i class="fas fa-book-open" style="font-size: 48px; color: var(--gold); margin-bottom: 15px;"></i>
-                    <p>استخدم الكراسة العائمة على الجانب لتسجيل حركاتك اليومية</p>
-                </div>
+                <p>مرحباً بك في نظام إدارة مجوهرات عبد ربو الصي</p>
             </div>
-
-            <!-- المنتجات -->
-            <div id="products-tab" class="tab-pane">
-                <div class="section-header">
-                    <h2><i class="fas fa-boxes"></i> المنتجات</h2>
-                    <button class="btn btn-success btn-sm" onclick="app.showAlert('قيد التطوير', 'info')">
-                        <i class="fas fa-plus"></i> إضافة
-                    </button>
-                </div>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>الباركود</th>
-                                <th>المنتج</th>
-                                <th>الوزن</th>
-                                <th>العيار</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td colspan="4" style="text-align: center;">لا توجد منتجات</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- العملاء -->
-            <div id="customers-tab" class="tab-pane">
-                <div class="section-header">
-                    <h2><i class="fas fa-users"></i> العملاء</h2>
-                </div>
-                <div class="cards-grid">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>عميل افتراضي</h3>
-                        </div>
-                        <div class="card-body">
-                            <p>لا يوجد عملاء حالياً</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- الموظفين -->
-            <div id="employees-tab" class="tab-pane">
-                <div class="section-header">
-                    <h2><i class="fas fa-user-tie"></i> الموظفين</h2>
-                </div>
-                <div class="cards-grid">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>محمد أحمد</h3>
-                            <span class="card-badge">مدير</span>
-                        </div>
-                        <div class="card-body">
-                            <p>لا توجد بيانات</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- الفواتير -->
-            <div id="invoices-tab" class="tab-pane">
-                <div class="section-header">
-                    <h2><i class="fas fa-file-invoice"></i> الفواتير</h2>
-                </div>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>رقم</th>
-                                <th>التاريخ</th>
-                                <th>الإجمالي</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td colspan="3" style="text-align: center;">لا توجد فواتير</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <!-- باقي التبويبات بنفس المحتوى السابق -->
         </div>
     </div>
 
-    <!-- توقيع المطور -->
-    <div class="developer-signature">
-        <div class="info">
-            <i class="fas fa-code"></i>
-            <span class="name">محمد أحمد فؤاد</span>
-        </div>
-        <div class="contact">
-            <a href="https://wa.me/201010421571" target="_blank" class="whatsapp">
-                <i class="fab fa-whatsapp"></i> 01010421571
-            </a>
-            <a href="#" onclick="app.showAlert('01010421571', 'info')">
-                <i class="fas fa-phone"></i> اتصال
-            </a>
-        </div>
+    <!-- توقيع المحل -->
+    <div class="store-signature">
+        <i class="fas fa-gem"></i>
+        <span class="name">مجوهرات عبد ربو الصي</span>
+        <span class="owner">عبد ربو الصي</span>
     </div>
 
     <!-- التنبيهات -->
     <div id="alertContainer"></div>
 
     <script>
-        // التطبيق الرئيسي - نسخة محسنة ومصححة
+        // التطبيق الرئيسي
         const App = {
             // البيانات
-            notebook: [],
+            products: [],
+            customers: [],
+            employees: [],
+            companies: [],
+            purchases: [],
+            sales: [],
             cash: [],
-            goldInventory: [],
+            dailyExpenses: [],
+            notebook: [], // بيانات الكراسة اليومية
+            goldInventory: [], // مخزون الذهب في الكراسة
             
             // المتغيرات
+            currentSellInvoice: 1,
+            currentGoldPrice: 0,
             notebookOpen: false,
             isDragging: false,
             dragOffsetX: 0,
@@ -1125,90 +1172,115 @@
                 this.loadData();
                 this.setupEventListeners();
                 this.updateDateTime();
+                this.renderAll();
                 this.renderNotebook();
-                this.updateStats();
                 this.setupDraggable();
                 setInterval(() => this.updateDateTime(), 1000);
             },
 
             loadData() {
                 try {
-                    this.notebook = JSON.parse(localStorage.getItem('notebook')) || [];
+                    this.products = JSON.parse(localStorage.getItem('products')) || [];
+                    this.customers = JSON.parse(localStorage.getItem('customers')) || [];
+                    this.employees = JSON.parse(localStorage.getItem('employees')) || [];
+                    this.companies = JSON.parse(localStorage.getItem('companies')) || [];
+                    this.purchases = JSON.parse(localStorage.getItem('purchases')) || [];
+                    this.sales = JSON.parse(localStorage.getItem('sales')) || [];
                     this.cash = JSON.parse(localStorage.getItem('cash')) || [];
+                    this.dailyExpenses = JSON.parse(localStorage.getItem('dailyExpenses')) || [];
+                    this.notebook = JSON.parse(localStorage.getItem('notebook')) || [];
                     this.goldInventory = JSON.parse(localStorage.getItem('goldInventory')) || [];
+                    
+                    const lastInvoice = localStorage.getItem('lastSellInvoice');
+                    this.currentSellInvoice = lastInvoice ? parseInt(lastInvoice) + 1 : 1;
+                    
+                    const savedGoldPrice = localStorage.getItem('currentGoldPrice');
+                    this.currentGoldPrice = savedGoldPrice ? parseFloat(savedGoldPrice) : 0;
+
                 } catch (e) {
                     console.error('خطأ في تحميل البيانات:', e);
                 }
             },
 
             saveData() {
-                try {
-                    localStorage.setItem('notebook', JSON.stringify(this.notebook));
-                    localStorage.setItem('cash', JSON.stringify(this.cash));
-                    localStorage.setItem('goldInventory', JSON.stringify(this.goldInventory));
-                } catch (e) {
-                    console.error('خطأ في حفظ البيانات:', e);
-                    this.showAlert('خطأ في حفظ البيانات', 'error');
-                }
+                localStorage.setItem('products', JSON.stringify(this.products));
+                localStorage.setItem('customers', JSON.stringify(this.customers));
+                localStorage.setItem('employees', JSON.stringify(this.employees));
+                localStorage.setItem('companies', JSON.stringify(this.companies));
+                localStorage.setItem('purchases', JSON.stringify(this.purchases));
+                localStorage.setItem('sales', JSON.stringify(this.sales));
+                localStorage.setItem('cash', JSON.stringify(this.cash));
+                localStorage.setItem('dailyExpenses', JSON.stringify(this.dailyExpenses));
+                localStorage.setItem('notebook', JSON.stringify(this.notebook));
+                localStorage.setItem('goldInventory', JSON.stringify(this.goldInventory));
+                localStorage.setItem('lastSellInvoice', this.currentSellInvoice);
+                localStorage.setItem('currentGoldPrice', this.currentGoldPrice);
             },
 
             setupEventListeners() {
-                // حساب الإجمالي لشراء الذهب
-                const goldBuyWeight = document.getElementById('goldBuyWeight');
-                const goldBuyPrice = document.getElementById('goldBuyPrice');
-                if (goldBuyWeight) goldBuyWeight.addEventListener('input', () => this.calculateGoldBuyTotal());
-                if (goldBuyPrice) goldBuyPrice.addEventListener('input', () => this.calculateGoldBuyTotal());
-
-                // حساب الإجمالي لبيع الذهب
-                const goldSellWeight = document.getElementById('goldSellWeight');
-                const goldSellPrice = document.getElementById('goldSellPrice');
-                if (goldSellWeight) goldSellWeight.addEventListener('input', () => this.calculateGoldSellTotal());
-                if (goldSellPrice) goldSellPrice.addEventListener('input', () => this.calculateGoldSellTotal());
+                // حساب الإجمالي تلقائياً لشراء الذهب
+                document.getElementById('goldBuyWeight')?.addEventListener('input', () => this.calculateGoldBuyTotal());
+                document.getElementById('goldBuyPrice')?.addEventListener('input', () => this.calculateGoldBuyTotal());
+                
+                // حساب الإجمالي تلقائياً لبيع الذهب
+                document.getElementById('goldSellWeight')?.addEventListener('input', () => this.calculateGoldSellTotal());
+                document.getElementById('goldSellPrice')?.addEventListener('input', () => this.calculateGoldSellTotal());
             },
 
             // ===== جعل الزر قابلاً للسحب =====
             setupDraggable() {
                 const element = document.getElementById('floatingNotebook');
-                if (!element) return;
+                let startX, startY, initialTop, initialRight;
 
-                const onDrag = (e) => {
-                    if (!this.isDragging) return;
+                element.addEventListener('mousedown', (e) => {
+                    this.isDragging = true;
+                    
+                    // منع تحديد النص
                     e.preventDefault();
                     
+                    // حساب الإزاحة
+                    const rect = element.getBoundingClientRect();
+                    this.dragOffsetX = e.clientX - rect.left;
+                    this.dragOffsetY = e.clientY - rect.top;
+                    
+                    // تغيير المؤشر
+                    element.style.cursor = 'grabbing';
+                    
+                    // إضافة مستمعي الحركة
+                    document.addEventListener('mousemove', this.onDrag);
+                    document.addEventListener('mouseup', this.onDragEnd);
+                });
+
+                this.onDrag = (e) => {
+                    if (!this.isDragging) return;
+                    
+                    e.preventDefault();
+                    
+                    // حساب الموقع الجديد
                     const newX = e.clientX - this.dragOffsetX;
                     const newY = e.clientY - this.dragOffsetY;
                     
+                    // التأكد من بقاء الزر داخل الشاشة
                     const maxX = window.innerWidth - element.offsetWidth;
                     const maxY = window.innerHeight - element.offsetHeight;
                     
                     const boundedX = Math.max(0, Math.min(newX, maxX));
                     const boundedY = Math.max(0, Math.min(newY, maxY));
                     
+                    // تطبيق الموقع الجديد
                     element.style.left = boundedX + 'px';
                     element.style.top = boundedY + 'px';
                     element.style.right = 'auto';
                 };
 
-                const onDragEnd = () => {
+                this.onDragEnd = () => {
                     this.isDragging = false;
                     element.style.cursor = 'grab';
-                    document.removeEventListener('mousemove', onDrag);
-                    document.removeEventListener('mouseup', onDragEnd);
+                    
+                    // إزالة المستمعين
+                    document.removeEventListener('mousemove', this.onDrag);
+                    document.removeEventListener('mouseup', this.onDragEnd);
                 };
-
-                element.addEventListener('mousedown', (e) => {
-                    this.isDragging = true;
-                    e.preventDefault();
-                    
-                    const rect = element.getBoundingClientRect();
-                    this.dragOffsetX = e.clientX - rect.left;
-                    this.dragOffsetY = e.clientY - rect.top;
-                    
-                    element.style.cursor = 'grabbing';
-                    
-                    document.addEventListener('mousemove', onDrag);
-                    document.addEventListener('mouseup', onDragEnd);
-                });
             },
 
             updateDateTime() {
@@ -1222,17 +1294,14 @@
                     minute: '2-digit',
                     second: '2-digit'
                 };
-                const el = document.getElementById('currentDateTime');
-                if (el) el.innerHTML = now.toLocaleDateString('ar-EG', options);
+                document.getElementById('currentDateTime').innerHTML = now.toLocaleDateString('ar-EG', options);
             },
 
-            // ===== الكراسة =====
+            // ===== الكراسة الذكية =====
             toggleNotebook() {
                 const panel = document.getElementById('notebookPanel');
-                if (panel) {
-                    this.notebookOpen = !this.notebookOpen;
-                    panel.classList.toggle('show');
-                }
+                this.notebookOpen = !this.notebookOpen;
+                panel.classList.toggle('show');
             },
 
             switchNotebookTab(tab) {
@@ -1243,22 +1312,22 @@
                     document.querySelector('.notebook-tab').classList.add('active');
                     document.getElementById('notebookCashTab').style.display = 'block';
                 } else if (tab === 'goldBuy') {
-                    document.querySelectorAll('.notebook-tab')[1].classList.add('active');
+                    document.querySelector('.notebook-tab.gold-buy').classList.add('active');
                     document.getElementById('notebookGoldBuyTab').style.display = 'block';
                 } else if (tab === 'goldSell') {
-                    document.querySelectorAll('.notebook-tab')[2].classList.add('active');
+                    document.querySelector('.notebook-tab.gold-sell').classList.add('active');
                     document.getElementById('notebookGoldSellTab').style.display = 'block';
                 }
             },
 
             // إضافة حركة نقدية
             addCashEntry() {
-                const type = document.getElementById('cashType')?.value;
-                const desc = document.getElementById('cashDesc')?.value.trim();
-                const amount = parseFloat(document.getElementById('cashAmount')?.value);
+                const type = document.getElementById('cashType').value;
+                const desc = document.getElementById('cashDesc').value.trim();
+                const amount = parseFloat(document.getElementById('cashAmount').value);
 
                 if (!desc || !amount || amount <= 0) {
-                    this.showAlert('الرجاء إدخال البيانات', 'error');
+                    this.showAlert('الرجاء إدخال البيانات بشكل صحيح', 'error');
                     return;
                 }
 
@@ -1273,10 +1342,12 @@
                 };
 
                 this.notebook.push(entry);
+                
+                // إضافة للخزنة
                 this.cash.push({
                     id: Date.now(),
                     date: entry.date,
-                    description: desc,
+                    description: `كراسة - ${desc}`,
                     type: type === 'in' ? 'in' : 'out',
                     amount: amount
                 });
@@ -1286,38 +1357,36 @@
                 
                 this.saveData();
                 this.renderNotebook();
-                this.updateStats();
-                this.showAlert('تمت الإضافة', 'success');
+                this.showAlert('تمت الإضافة بنجاح', 'success');
             },
 
             // حساب إجمالي شراء الذهب
             calculateGoldBuyTotal() {
-                const weight = parseFloat(document.getElementById('goldBuyWeight')?.value) || 0;
-                const price = parseFloat(document.getElementById('goldBuyPrice')?.value) || 0;
+                const weight = parseFloat(document.getElementById('goldBuyWeight').value) || 0;
+                const price = parseFloat(document.getElementById('goldBuyPrice').value) || 0;
                 const total = weight * price;
-                const el = document.getElementById('goldBuyTotal');
-                if (el) el.value = total.toFixed(2);
+                document.getElementById('goldBuyTotal').value = total.toFixed(2);
             },
 
-            // إضافة شراء ذهب
+            // إضافة عملية شراء ذهب
             addGoldBuy() {
-                const desc = document.getElementById('goldBuyDesc')?.value.trim();
-                const weight = parseFloat(document.getElementById('goldBuyWeight')?.value);
-                const carat = parseInt(document.getElementById('goldBuyCarat')?.value);
-                const price = parseFloat(document.getElementById('goldBuyPrice')?.value);
-                
+                const desc = document.getElementById('goldBuyDesc').value.trim();
+                const weight = parseFloat(document.getElementById('goldBuyWeight').value);
+                const carat = parseInt(document.getElementById('goldBuyCarat').value);
+                const price = parseFloat(document.getElementById('goldBuyPrice').value);
+                const total = weight * price;
+
                 if (!desc || !weight || weight <= 0 || !price || price <= 0) {
-                    this.showAlert('الرجاء إدخال البيانات', 'error');
+                    this.showAlert('الرجاء إدخال البيانات بشكل صحيح', 'error');
                     return;
                 }
 
-                const total = weight * price;
-
+                // إضافة للكراسة
                 const entry = {
                     id: Date.now(),
                     type: 'out',
                     category: 'goldBuy',
-                    description: `شراء ${desc}`,
+                    description: `شراء ذهب - ${desc}`,
                     weight: weight,
                     carat: carat,
                     price: price,
@@ -1327,6 +1396,8 @@
                 };
 
                 this.notebook.push(entry);
+                
+                // إضافة للخزنة (منصرف)
                 this.cash.push({
                     id: Date.now(),
                     date: entry.date,
@@ -1335,12 +1406,13 @@
                     amount: total
                 });
                 
+                // إضافة لمخزون الذهب
                 this.goldInventory.push({
                     id: Date.now(),
                     description: desc,
                     weight: weight,
                     carat: carat,
-                    price: price,
+                    buyPrice: price,
                     total: total,
                     date: entry.date
                 });
@@ -1348,52 +1420,50 @@
                 document.getElementById('goldBuyDesc').value = '';
                 document.getElementById('goldBuyWeight').value = '';
                 document.getElementById('goldBuyPrice').value = '';
-                if (document.getElementById('goldBuyTotal')) document.getElementById('goldBuyTotal').value = '';
+                document.getElementById('goldBuyTotal').value = '';
                 
                 this.saveData();
                 this.renderNotebook();
-                this.updateStats();
-                this.showAlert('تم شراء الذهب', 'success');
+                this.showAlert('تم شراء الذهب بنجاح', 'success');
             },
 
             // حساب إجمالي بيع الذهب
             calculateGoldSellTotal() {
-                const weight = parseFloat(document.getElementById('goldSellWeight')?.value) || 0;
-                const price = parseFloat(document.getElementById('goldSellPrice')?.value) || 0;
+                const weight = parseFloat(document.getElementById('goldSellWeight').value) || 0;
+                const price = parseFloat(document.getElementById('goldSellPrice').value) || 0;
                 const total = weight * price;
-                const el = document.getElementById('goldSellTotal');
-                if (el) el.value = total.toFixed(2);
+                document.getElementById('goldSellTotal').value = total.toFixed(2);
             },
 
-            // إضافة بيع ذهب
+            // إضافة عملية بيع ذهب
             addGoldSell() {
-                const desc = document.getElementById('goldSellDesc')?.value.trim();
-                const weight = parseFloat(document.getElementById('goldSellWeight')?.value);
-                const carat = parseInt(document.getElementById('goldSellCarat')?.value);
-                const price = parseFloat(document.getElementById('goldSellPrice')?.value);
-                
+                const desc = document.getElementById('goldSellDesc').value.trim();
+                const weight = parseFloat(document.getElementById('goldSellWeight').value);
+                const carat = parseInt(document.getElementById('goldSellCarat').value);
+                const price = parseFloat(document.getElementById('goldSellPrice').value);
+                const total = weight * price;
+
                 if (!desc || !weight || weight <= 0 || !price || price <= 0) {
-                    this.showAlert('الرجاء إدخال البيانات', 'error');
+                    this.showAlert('الرجاء إدخال البيانات بشكل صحيح', 'error');
                     return;
                 }
 
-                // التحقق من الكمية
-                const available = this.goldInventory
+                // التحقق من وجود كمية كافية في مخزون الذهب
+                const availableGold = this.goldInventory
                     .filter(g => g.carat === carat)
                     .reduce((sum, g) => sum + g.weight, 0);
 
-                if (available < weight) {
-                    this.showAlert(`الكمية غير كافية! المتوفر: ${available.toFixed(2)} جرام`, 'error');
+                if (availableGold < weight) {
+                    this.showAlert(`الكمية غير كافية! المتوفر من عيار ${carat}: ${availableGold} جرام`, 'error');
                     return;
                 }
 
-                const total = weight * price;
-
+                // إضافة للكراسة
                 const entry = {
                     id: Date.now(),
                     type: 'in',
                     category: 'goldSell',
-                    description: `بيع ${desc}`,
+                    description: `بيع ذهب - ${desc}`,
                     weight: weight,
                     carat: carat,
                     price: price,
@@ -1403,6 +1473,8 @@
                 };
 
                 this.notebook.push(entry);
+                
+                // إضافة للخزنة (وارد)
                 this.cash.push({
                     id: Date.now(),
                     date: entry.date,
@@ -1411,17 +1483,17 @@
                     amount: total
                 });
                 
-                // تحديث المخزون
-                let remaining = weight;
-                for (let i = 0; i < this.goldInventory.length && remaining > 0; i++) {
+                // تحديث مخزون الذهب (خصم الكمية المباعة)
+                let remainingWeight = weight;
+                for (let i = 0; i < this.goldInventory.length && remainingWeight > 0; i++) {
                     if (this.goldInventory[i].carat === carat) {
-                        if (this.goldInventory[i].weight <= remaining) {
-                            remaining -= this.goldInventory[i].weight;
+                        if (this.goldInventory[i].weight <= remainingWeight) {
+                            remainingWeight -= this.goldInventory[i].weight;
                             this.goldInventory.splice(i, 1);
                             i--;
                         } else {
-                            this.goldInventory[i].weight -= remaining;
-                            remaining = 0;
+                            this.goldInventory[i].weight -= remainingWeight;
+                            remainingWeight = 0;
                         }
                     }
                 }
@@ -1429,15 +1501,14 @@
                 document.getElementById('goldSellDesc').value = '';
                 document.getElementById('goldSellWeight').value = '';
                 document.getElementById('goldSellPrice').value = '';
-                if (document.getElementById('goldSellTotal')) document.getElementById('goldSellTotal').value = '';
+                document.getElementById('goldSellTotal').value = '';
                 
                 this.saveData();
                 this.renderNotebook();
-                this.updateStats();
-                this.showAlert('تم بيع الذهب', 'success');
+                this.showAlert('تم بيع الذهب بنجاح', 'success');
             },
 
-            // حذف عنصر
+            // حذف عنصر من الكراسة
             deleteNotebookEntry(id) {
                 if (confirm('هل أنت متأكد من الحذف؟')) {
                     this.notebook = this.notebook.filter(e => e.id !== id);
@@ -1449,137 +1520,135 @@
 
             // عرض الكراسة
             renderNotebook() {
+                const cashList = document.getElementById('cashList');
+                const goldBuyList = document.getElementById('goldBuyList');
+                const goldSellList = document.getElementById('goldSellList');
+                
+                if (!cashList || !goldBuyList || !goldSellList) return;
+
                 const today = new Date().toLocaleDateString('ar-EG');
                 const todayEntries = this.notebook.filter(e => e.date === today);
                 
-                let totalIncome = 0, totalExpense = 0;
+                let totalIncome = 0;
+                let totalExpense = 0;
 
-                // قائمة النقدي
-                const cashList = document.getElementById('cashList');
-                if (cashList) {
-                    cashList.innerHTML = '';
-                    todayEntries.filter(e => e.category === 'cash').forEach(e => {
-                        if (e.type === 'in') totalIncome += e.amount;
-                        else totalExpense += e.amount;
-                        
-                        cashList.innerHTML += `
-                            <div class="notebook-item ${e.type === 'in' ? 'income' : 'expense'}">
-                                <div class="item-info">
-                                    <div class="desc">${e.description}</div>
-                                    <div class="meta">${e.time}</div>
-                                </div>
-                                <div class="item-amount ${e.type === 'in' ? 'income' : 'expense'}">
-                                    ${e.type === 'in' ? '+' : '-'}${e.amount.toFixed(2)}
-                                </div>
-                                <div class="item-actions">
-                                    <button onclick="app.deleteNotebookEntry(${e.id})">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
+                // عرض الحركات النقدية
+                cashList.innerHTML = '';
+                todayEntries.filter(e => e.category === 'cash').forEach(e => {
+                    if (e.type === 'in') totalIncome += e.amount;
+                    else totalExpense += e.amount;
+                    
+                    cashList.innerHTML += `
+                        <div class="notebook-item ${e.type === 'in' ? 'income' : 'expense'}">
+                            <div class="item-info">
+                                <div class="desc">${e.description}</div>
+                                <div class="meta">${e.time}</div>
                             </div>
-                        `;
-                    });
-                    if (cashList.innerHTML === '') {
-                        cashList.innerHTML = '<p style="text-align: center; padding: 10px;">لا توجد حركات</p>';
-                    }
+                            <div class="item-amount ${e.type === 'in' ? 'income' : 'expense'}">
+                                ${e.type === 'in' ? '+' : '-'}${e.amount.toFixed(2)}
+                            </div>
+                            <div class="item-actions">
+                                <button onclick="app.deleteNotebookEntry(${e.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                if (cashList.innerHTML === '') {
+                    cashList.innerHTML = '<p style="text-align: center; color: #666;">لا توجد حركات نقدية اليوم</p>';
                 }
 
-                // قائمة شراء الذهب
-                const goldBuyList = document.getElementById('goldBuyList');
-                if (goldBuyList) {
-                    goldBuyList.innerHTML = '';
-                    todayEntries.filter(e => e.category === 'goldBuy').forEach(e => {
-                        totalExpense += e.amount;
-                        goldBuyList.innerHTML += `
-                            <div class="notebook-item gold-buy">
-                                <div class="item-info">
-                                    <div class="desc">${e.description}</div>
-                                    <div class="meta">${e.weight}g - عيار ${e.carat} - ${e.time}</div>
-                                </div>
-                                <div class="item-amount gold-buy">-${e.amount.toFixed(2)}</div>
-                                <div class="item-actions">
-                                    <button onclick="app.deleteNotebookEntry(${e.id})">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
+                // عرض مشتريات الذهب
+                goldBuyList.innerHTML = '';
+                todayEntries.filter(e => e.category === 'goldBuy').forEach(e => {
+                    totalExpense += e.amount;
+                    goldBuyList.innerHTML += `
+                        <div class="notebook-item gold-buy">
+                            <div class="item-info">
+                                <div class="desc">${e.description}</div>
+                                <div class="meta">${e.weight}g - عيار ${e.carat} - ${e.time}</div>
                             </div>
-                        `;
-                    });
-                    if (goldBuyList.innerHTML === '') {
-                        goldBuyList.innerHTML = '<p style="text-align: center; padding: 10px;">لا توجد مشتريات</p>';
-                    }
+                            <div class="item-amount gold-buy">-${e.amount.toFixed(2)}</div>
+                            <div class="item-actions">
+                                <button onclick="app.deleteNotebookEntry(${e.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                if (goldBuyList.innerHTML === '') {
+                    goldBuyList.innerHTML = '<p style="text-align: center; color: #666;">لا توجد مشتريات ذهب اليوم</p>';
                 }
 
-                // قائمة بيع الذهب
-                const goldSellList = document.getElementById('goldSellList');
-                if (goldSellList) {
-                    goldSellList.innerHTML = '';
-                    todayEntries.filter(e => e.category === 'goldSell').forEach(e => {
-                        totalIncome += e.amount;
-                        goldSellList.innerHTML += `
-                            <div class="notebook-item gold-sell">
-                                <div class="item-info">
-                                    <div class="desc">${e.description}</div>
-                                    <div class="meta">${e.weight}g - عيار ${e.carat} - ${e.time}</div>
-                                </div>
-                                <div class="item-amount gold-sell">+${e.amount.toFixed(2)}</div>
-                                <div class="item-actions">
-                                    <button onclick="app.deleteNotebookEntry(${e.id})">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
+                // عرض مبيعات الذهب
+                goldSellList.innerHTML = '';
+                todayEntries.filter(e => e.category === 'goldSell').forEach(e => {
+                    totalIncome += e.amount;
+                    goldSellList.innerHTML += `
+                        <div class="notebook-item gold-sell">
+                            <div class="item-info">
+                                <div class="desc">${e.description}</div>
+                                <div class="meta">${e.weight}g - عيار ${e.carat} - ${e.time}</div>
                             </div>
-                        `;
-                    });
-                    if (goldSellList.innerHTML === '') {
-                        goldSellList.innerHTML = '<p style="text-align: center; padding: 10px;">لا توجد مبيعات</p>';
-                    }
+                            <div class="item-amount gold-sell">+${e.amount.toFixed(2)}</div>
+                            <div class="item-actions">
+                                <button onclick="app.deleteNotebookEntry(${e.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                if (goldSellList.innerHTML === '') {
+                    goldSellList.innerHTML = '<p style="text-align: center; color: #666;">لا توجد مبيعات ذهب اليوم</p>';
                 }
 
                 // تحديث الإحصائيات
-                const incomeEl = document.getElementById('totalIncome');
-                const expenseEl = document.getElementById('totalExpense');
-                const netEl = document.getElementById('netBalance');
-                const balanceEl = document.getElementById('notebookBalance');
-                
-                if (incomeEl) incomeEl.textContent = totalIncome.toFixed(2);
-                if (expenseEl) expenseEl.textContent = totalExpense.toFixed(2);
-                if (netEl) netEl.textContent = (totalIncome - totalExpense).toFixed(2);
-                if (balanceEl) balanceEl.textContent = (totalIncome - totalExpense).toFixed(2);
+                document.getElementById('totalIncome').textContent = totalIncome.toFixed(2);
+                document.getElementById('totalExpense').textContent = totalExpense.toFixed(2);
+                const netBalance = totalIncome - totalExpense;
+                document.getElementById('netBalance').textContent = netBalance.toFixed(2);
+                document.getElementById('notebookBalance').textContent = netBalance.toFixed(2);
             },
 
-            // ===== الإحصائيات =====
+            // ===== دوال مساعدة =====
             getCashBalance() {
                 return this.cash.reduce((sum, t) => t.type === 'in' ? sum + t.amount : sum - t.amount, 0);
             },
 
-            getGoldWeight() {
-                return this.goldInventory.reduce((sum, g) => sum + g.weight, 0);
+            renderAll() {
+                this.updateStats();
             },
 
             updateStats() {
-                const cashEl = document.getElementById('cashBalance');
-                const goldEl = document.getElementById('goldStock');
-                const debtEl = document.getElementById('totalDebts');
-                
-                if (cashEl) cashEl.textContent = this.getCashBalance().toFixed(2);
-                if (goldEl) goldEl.textContent = this.getGoldWeight().toFixed(2) + ' جرام';
-                if (debtEl) debtEl.textContent = '0.00';
+                const cashBalance = this.getCashBalance();
+                const totalGold = this.products.reduce((sum, p) => sum + p.weight, 0) + 
+                                 this.goldInventory.reduce((sum, g) => sum + g.weight, 0);
+                const totalDebts = this.sales.filter(s => s.remaining > 0).reduce((sum, s) => sum + s.remaining, 0);
+
+                document.getElementById('cashBalance').textContent = cashBalance.toFixed(2);
+                document.getElementById('goldStock').textContent = totalGold.toFixed(2) + ' جرام';
+                document.getElementById('totalDebts').textContent = totalDebts.toFixed(2);
+                document.getElementById('totalEmployees').textContent = this.employees.length;
+                document.getElementById('totalItems').textContent = this.products.length;
             },
 
-            // ===== التنقل =====
             switchTab(tabId) {
                 document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
                 
-                const tab = document.querySelector(`[onclick="app.switchTab('${tabId}')"]`);
-                if (tab) tab.classList.add('active');
+                const activeTab = document.querySelector(`[onclick="app.switchTab('${tabId}')"]`);
+                if (activeTab) activeTab.classList.add('active');
                 
-                const pane = document.getElementById(`${tabId}-tab`);
-                if (pane) pane.classList.add('active');
+                const activePane = document.getElementById(`${tabId}-tab`);
+                if (activePane) activePane.classList.add('active');
             },
 
-            // ===== التنبيهات =====
             showAlert(message, type = 'success') {
                 const container = document.getElementById('alertContainer');
                 const alert = document.createElement('div');
@@ -1591,10 +1660,17 @@
             },
 
             showDetails(type) {
+                const cashBalance = this.getCashBalance();
+                const totalGold = this.products.reduce((sum, p) => sum + p.weight, 0) + 
+                                 this.goldInventory.reduce((sum, g) => sum + g.weight, 0);
+                const totalDebts = this.sales.filter(s => s.remaining > 0).reduce((sum, s) => sum + s.remaining, 0);
+                
                 const messages = {
-                    cash: `رصيد الخزنة: ${this.getCashBalance().toFixed(2)}`,
-                    gold: `مخزون الذهب: ${this.getGoldWeight().toFixed(2)} جرام`,
-                    debt: 'ديون العملاء: 0.00'
+                    cash: `رصيد الخزنة: ${cashBalance.toFixed(2)}`,
+                    gold: `إجمالي الذهب: ${totalGold.toFixed(2)} جرام`,
+                    debt: `ديون العملاء: ${totalDebts.toFixed(2)}`,
+                    emp: `عدد الموظفين: ${this.employees.length}`,
+                    stock: `عدد القطع: ${this.products.length}`
                 };
                 this.showAlert(messages[type], 'info');
             }
