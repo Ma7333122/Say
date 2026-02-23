@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>مجوهرات عبد رب الصي · النظام الذهبي المتكامل</title>
+    <title>مجوهرات عبد ربه الصي · النظام الذهبي المتكامل</title>
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -44,6 +44,43 @@
             padding: 0;
             margin: 0;
             line-height: 1.5;
+        }
+
+        /* ===== شاشة سعر الذهب العالمية ===== */
+        .gold-price-ticker {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: #0b141a;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .gold-price-ticker span {
+            margin: 0 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .gold-price-ticker i {
+            font-size: 16px;
+            color: #0b141a;
+        }
+
+        .gold-price-ticker .price-up {
+            color: #0b141a;
+            font-weight: 700;
+        }
+
+        .gold-price-ticker .price-down {
+            color: #0b141a;
+            font-weight: 700;
         }
 
         /* ===== LOGIN SCREEN ===== */
@@ -776,10 +813,19 @@
     </style>
 </head>
 <body>
+    <!-- شاشة سعر الذهب العالمية -->
+    <div id="goldPriceTicker" class="gold-price-ticker">
+        <span><i class="fas fa-globe"></i> سعر الذهب العالمي (جرام/EGP):</span>
+        <span><i class="fas fa-gem" style="color: #0b141a;"></i> عيار 24: <span id="globalGold24">جاري التحميل...</span></span>
+        <span><i class="fas fa-gem" style="color: #0b141a;"></i> عيار 21: <span id="globalGold21">جاري التحميل...</span></span>
+        <span><i class="fas fa-gem" style="color: #0b141a;"></i> عيار 18: <span id="globalGold18">جاري التحميل...</span></span>
+        <span><i class="fas fa-clock"></i> آخر تحديث: <span id="lastUpdate">-</span></span>
+    </div>
+
     <!-- LOGIN SCREEN -->
     <div id="loginOverlay" class="login-overlay">
         <div class="login-card">
-            <h2><i class="fas fa-gem"></i> مجوهرات عبد رب </h2>
+            <h2><i class="fas fa-gem"></i> مجوهرات عبد ربه الصي</h2>
             <div class="input-group">
                 <label>اسم المستخدم</label>
                 <input type="text" id="username" placeholder="أدخل اسم المستخدم">
@@ -802,7 +848,7 @@
                     <div class="store-info">
                         <i class="fas fa-gem"></i>
                         <div>
-                            <h2>عبد رب الصي</h2>
+                            <h2>عبد ربه الصي</h2>
                             <span>تأسست 1985</span>
                         </div>
                     </div>
@@ -1003,7 +1049,7 @@
                                 </div>
                                 <div class="input-field">
                                     <label>العيار</label>
-                                    <select id="buyCarat">
+                                    <select id="buyCarat" onchange="app.calculateBuyTotal()">
                                         <option value="21">21</option>
                                         <option value="24">24</option>
                                         <option value="18">18</option>
@@ -1060,7 +1106,7 @@
                             <div class="input-field">
                                 <label>ابحث عن منتج</label>
                                 <input type="text" id="productSearch" placeholder="اسم المنتج أو الباركود" oninput="app.searchProducts()">
-                                <div id="searchResults" class="search-results" style="background: var(--bg-hover); border-radius: 20px; margin-top: 8px; max-height: 200px; overflow-y: auto; display: none;"></div>
+                                <div id="searchResults" style="background: var(--bg-hover); border-radius: 20px; margin-top: 8px; max-height: 200px; overflow-y: auto; display: none;"></div>
                             </div>
                             <div id="selectedProduct" class="hidden"></div>
                             <div class="grid-2">
@@ -1137,26 +1183,30 @@
                             <div class="grid-2">
                                 <div class="input-field">
                                     <label>رقم الفاتورة</label>
-                                    <input type="text" id="returnInvoice">
+                                    <input type="text" id="returnInvoice" placeholder="أدخل رقم الفاتورة">
                                 </div>
                                 <div class="input-field">
                                     <label>الباركود</label>
-                                    <input type="text" id="returnBarcode">
+                                    <input type="text" id="returnBarcode" placeholder="أدخل باركود المنتج">
                                 </div>
                                 <div class="input-field">
-                                    <label>الكمية</label>
-                                    <input type="number" id="returnQuantity" step="0.01">
+                                    <label>الكمية (جرام)</label>
+                                    <input type="number" id="returnQuantity" step="0.01" placeholder="الوزن المرتجع">
                                 </div>
                                 <div class="input-field">
-                                    <label>السبب</label>
+                                    <label>سبب الاسترجاع</label>
                                     <select id="returnReason">
-                                        <option value="defect">عيب</option>
-                                        <option value="wrong">خطأ</option>
+                                        <option value="defect">عيب في الصنعة</option>
+                                        <option value="wrong">خطأ في الفاتورة</option>
                                         <option value="customer">رغبة العميل</option>
+                                        <option value="other">أخرى</option>
                                     </select>
                                 </div>
                             </div>
-                            <button class="btn btn-warning" onclick="app.processReturn()"><i class="fas fa-undo-alt"></i> تأكيد</button>
+                            <div class="action-buttons">
+                                <button class="btn btn-warning" onclick="app.processReturn()"><i class="fas fa-undo-alt"></i> تأكيد الاسترجاع</button>
+                                <button class="btn btn-danger" onclick="app.resetReturnForm()">تفريغ</button>
+                            </div>
                         </div>
                     </div>
 
@@ -1318,14 +1368,26 @@
                         <div class="message-bubble">
                             <h3><i class="fas fa-chart-bar"></i> التقارير</h3>
                             <div class="grid-2">
-                                <select id="reportType">
-                                    <option value="sales">تقرير المبيعات</option>
-                                    <option value="purchases">تقرير المشتريات</option>
-                                    <option value="cash">تقرير الخزنة</option>
-                                </select>
-                                <input type="date" id="reportFrom">
-                                <input type="date" id="reportTo">
-                                <button class="btn btn-primary" onclick="app.generateReport()">عرض</button>
+                                <div class="input-field">
+                                    <label>نوع التقرير</label>
+                                    <select id="reportType">
+                                        <option value="sales">تقرير المبيعات</option>
+                                        <option value="purchases">تقرير المشتريات</option>
+                                        <option value="cash">تقرير الخزنة</option>
+                                        <option value="inventory">تقرير المخزون</option>
+                                    </select>
+                                </div>
+                                <div class="input-field">
+                                    <label>من تاريخ</label>
+                                    <input type="date" id="reportFrom">
+                                </div>
+                                <div class="input-field">
+                                    <label>إلى تاريخ</label>
+                                    <input type="date" id="reportTo">
+                                </div>
+                                <div class="input-field">
+                                    <button class="btn btn-primary" onclick="app.generateReport()" style="width: 100%;">عرض التقرير</button>
+                                </div>
                             </div>
                             <div id="reportResult" style="margin-top: 20px;"></div>
                         </div>
@@ -1449,7 +1511,40 @@
                 this.setupEventListeners();
                 this.setupDraggable();
                 this.updateDateTime();
+                this.startGoldPriceTicker();
                 setInterval(() => this.updateDateTime(), 1000);
+            },
+
+            // ===== جلب أسعار الذهب العالمية =====
+            startGoldPriceTicker() {
+                this.fetchGoldPrices();
+                setInterval(() => this.fetchGoldPrices(), 60000); // تحديث كل دقيقة
+            },
+
+            async fetchGoldPrices() {
+                try {
+                    // محاكاة جلب الأسعار (في التطبيق الفعلي ستستخدم API حقيقي)
+                    const basePrice = 3500; // سعر افتراضي عيار 21
+                    const prices = {
+                        '24': (basePrice * 24/21).toFixed(2),
+                        '21': basePrice.toFixed(2),
+                        '18': (basePrice * 18/21).toFixed(2)
+                    };
+                    
+                    document.getElementById('globalGold24').textContent = prices['24'] + ' ج.م';
+                    document.getElementById('globalGold21').textContent = prices['21'] + ' ج.م';
+                    document.getElementById('globalGold18').textContent = prices['18'] + ' ج.م';
+                    
+                    const now = new Date();
+                    document.getElementById('lastUpdate').textContent = now.toLocaleTimeString('ar-EG');
+                    
+                    // تحديث سعر الذهب الحالي
+                    this.currentGoldPrice = parseFloat(prices['21']);
+                    document.getElementById('todayGoldPrice').value = this.currentGoldPrice;
+                    
+                } catch (error) {
+                    console.error('خطأ في جلب أسعار الذهب:', error);
+                }
             },
 
             loadData() {
@@ -1465,9 +1560,9 @@
                     this.notebook = JSON.parse(localStorage.getItem('notebook')) || [];
                     this.goldInventory = JSON.parse(localStorage.getItem('goldInventory')) || [];
 
-                    const savedUsers = localStorage.getItem('systemUsers');
-                    if (savedUsers) {
-                        this.users = JSON.parse(savedUsers);
+                    const savedUsers = JSON.parse(localStorage.getItem('systemUsers'));
+                    if (savedUsers && savedUsers.length > 0) {
+                        this.users = savedUsers;
                     } else {
                         this.users = [{
                             id: 1,
@@ -1559,6 +1654,7 @@
                     
                     document.getElementById('username').value = '';
                     document.getElementById('password').value = '';
+                    errorDiv.style.display = 'none';
                 } else {
                     errorDiv.style.display = 'block';
                     errorDiv.textContent = 'اسم المستخدم أو كلمة المرور غير صحيحة';
@@ -1867,6 +1963,7 @@
                 this.saveData();
                 this.renderNotebook();
                 this.renderCash();
+                this.updateStats();
                 this.showAlert('تمت الإضافة', 'success');
             },
 
@@ -2125,6 +2222,10 @@
 
             hideAddProductForm() {
                 document.getElementById('addProductForm').classList.add('hidden');
+                document.getElementById('productName').value = '';
+                document.getElementById('productWeight').value = '';
+                document.getElementById('productManufacturing').value = '0';
+                document.getElementById('productBuyPrice').value = '';
             },
 
             addProduct() {
@@ -2162,7 +2263,7 @@
                 const price = parseFloat(document.getElementById('todayGoldPrice')?.value);
                 if (price && price > 0) {
                     this.currentGoldPrice = price;
-                    this.calculateSellTotal();
+                    if (this.selectedProduct) this.calculateSellTotal();
                 }
             },
 
@@ -2201,10 +2302,12 @@
 
                 this.selectedProduct = product;
 
-                document.getElementById('selectedProduct').style.display = 'block';
+                document.getElementById('selectedProduct').classList.remove('hidden');
                 document.getElementById('selectedProduct').innerHTML = `
-                    <strong>المنتج المختار:</strong> ${product.name}<br>
-                    الوزن: ${product.weight}g | العيار: ${product.carat} | المصنعية: ${product.manufacturing || 0}
+                    <div style="background: var(--bg-hover); border-radius: 20px; padding: 12px; margin: 12px 0;">
+                        <strong>المنتج المختار:</strong> ${product.name}<br>
+                        الوزن: ${product.weight}g | العيار: ${product.carat} | المصنعية: ${product.manufacturing || 0}
+                    </div>
                 `;
                 
                 document.getElementById('sellWeight').value = product.weight;
@@ -2255,6 +2358,11 @@
                     return;
                 }
 
+                if (!this.selectedProduct) {
+                    this.showAlert('الرجاء اختيار منتج', 'error');
+                    return;
+                }
+
                 const total = parseFloat(document.getElementById('sellTotal').value);
                 const paid = parseFloat(document.getElementById('sellPaid').value) || 0;
                 const remaining = total - paid;
@@ -2275,8 +2383,19 @@
                     total,
                     paid,
                     remaining,
-                    paymentMethod: document.getElementById('sellPayment').value
+                    paymentMethod: document.getElementById('sellPayment').value,
+                    status: remaining <= 0 ? 'paid' : paid > 0 ? 'partial' : 'unpaid'
                 };
+
+                // تحديث المخزون
+                const productIndex = this.products.findIndex(p => p.id === this.selectedProduct.id);
+                if (productIndex !== -1) {
+                    if (invoice.product.weight >= this.products[productIndex].weight) {
+                        this.products.splice(productIndex, 1);
+                    } else {
+                        this.products[productIndex].weight -= invoice.product.weight;
+                    }
+                }
 
                 if (paid > 0) {
                     this.cash.push({
@@ -2290,12 +2409,13 @@
 
                 this.sales.push(invoice);
                 this.saveData();
+                this.renderInventory();
                 this.renderSales();
                 this.updateStats();
                 document.getElementById('sellInvoiceNumber').textContent = 
                     this.currentSellInvoice.toString().padStart(6, '0');
-                this.showAlert(`تم البيع - فاتورة ${invoice.number}`, 'success');
                 this.resetSellForm();
+                this.showAlert(`تم البيع - فاتورة ${invoice.number}`, 'success');
             },
 
             resetSellForm() {
@@ -2304,8 +2424,9 @@
                 document.getElementById('sellManufacturing').value = '0';
                 document.getElementById('sellPaid').value = '0';
                 document.getElementById('sellRemaining').value = '0';
-                document.getElementById('selectedProduct').style.display = 'none';
+                document.getElementById('selectedProduct').classList.add('hidden');
                 document.getElementById('selectedProduct').innerHTML = '';
+                document.getElementById('paymentDetails').style.display = 'none';
                 this.selectedProduct = null;
             },
 
@@ -2362,7 +2483,8 @@
                     product: newProduct,
                     total,
                     paid,
-                    remaining: total - paid
+                    remaining: total - paid,
+                    paymentMethod: document.getElementById('buyPayment').value
                 };
 
                 this.purchases.push(purchase);
@@ -2379,6 +2501,7 @@
 
                 this.saveData();
                 this.renderInventory();
+                this.renderPurchases();
                 this.updateStats();
                 this.resetBuyForm();
                 this.showAlert('تم الشراء بنجاح', 'success');
@@ -2392,6 +2515,91 @@
                 document.getElementById('buyPaid').value = '0';
                 document.getElementById('buyTotal').value = '';
                 document.getElementById('buyRemaining').value = '';
+            },
+
+            // ===== الاسترجاع =====
+            processReturn() {
+                const invoiceNumber = document.getElementById('returnInvoice').value.trim();
+                const barcode = document.getElementById('returnBarcode').value.trim();
+                const quantity = parseFloat(document.getElementById('returnQuantity').value);
+                const reason = document.getElementById('returnReason').value;
+
+                if (!invoiceNumber && !barcode) {
+                    this.showAlert('الرجاء إدخال رقم الفاتورة أو الباركود', 'error');
+                    return;
+                }
+
+                // البحث عن الفاتورة
+                let sale = null;
+                if (invoiceNumber) {
+                    sale = this.sales.find(s => s.number == invoiceNumber);
+                } else if (barcode) {
+                    sale = this.sales.find(s => s.product.barcode === barcode);
+                }
+
+                if (!sale) {
+                    this.showAlert('لم يتم العثور على الفاتورة', 'error');
+                    return;
+                }
+
+                const returnWeight = quantity || sale.product.weight;
+
+                // إعادة المنتج للمخزون
+                const existingProduct = this.products.find(p => p.barcode === sale.product.barcode);
+                if (existingProduct) {
+                    existingProduct.weight += returnWeight;
+                } else {
+                    this.products.push({
+                        id: Date.now(),
+                        barcode: sale.product.barcode,
+                        name: sale.product.name,
+                        weight: returnWeight,
+                        carat: sale.product.carat,
+                        manufacturing: sale.product.manufacturing || 0,
+                        buyPrice: 0,
+                        date: new Date().toISOString()
+                    });
+                }
+
+                // استرداد المبلغ للخزنة
+                const refundAmount = sale.paid > 0 ? sale.paid : 0;
+                if (refundAmount > 0) {
+                    this.cash.push({
+                        id: Date.now(),
+                        date: new Date().toLocaleDateString('ar-EG'),
+                        description: `استرجاع فاتورة ${sale.number} - ${reason}`,
+                        type: 'out',
+                        amount: refundAmount
+                    });
+                }
+
+                // تسجيل عملية الاسترجاع
+                const returnRecord = {
+                    id: Date.now(),
+                    invoiceNumber: sale.number,
+                    product: sale.product,
+                    quantity: returnWeight,
+                    reason,
+                    refundAmount,
+                    date: new Date().toLocaleDateString('ar-EG'),
+                    time: new Date().toLocaleTimeString('ar-EG')
+                };
+
+                // حذف الفاتورة أو تحديثها
+                this.sales = this.sales.filter(s => s.id !== sale.id);
+
+                this.saveData();
+                this.renderInventory();
+                this.renderSales();
+                this.updateStats();
+                this.resetReturnForm();
+                this.showAlert('تم الاسترجاع بنجاح', 'success');
+            },
+
+            resetReturnForm() {
+                document.getElementById('returnInvoice').value = '';
+                document.getElementById('returnBarcode').value = '';
+                document.getElementById('returnQuantity').value = '';
             },
 
             // ===== الخزنة =====
@@ -2513,6 +2721,9 @@
 
             hideAddEmployeeForm() {
                 document.getElementById('addEmployeeForm').classList.add('hidden');
+                document.getElementById('employeeName').value = '';
+                document.getElementById('employeePosition').value = '';
+                document.getElementById('employeeSalary').value = '';
             },
 
             addEmployee() {
@@ -2563,6 +2774,8 @@
 
             hideAddCompanyForm() {
                 document.getElementById('addCompanyForm').classList.add('hidden');
+                document.getElementById('companyName').value = '';
+                document.getElementById('companyPhone').value = '';
             },
 
             addCompany() {
@@ -2605,13 +2818,13 @@
             },
 
             renderCompanySelects() {
-                const select = document.getElementById('buySupplier');
-                if (!select) return;
-
-                select.innerHTML = '<option value="">اختر المورد</option>';
-                this.companies.forEach(c => {
-                    select.innerHTML += `<option value="${c.id}">${c.name}</option>`;
-                });
+                const buySelect = document.getElementById('buySupplier');
+                if (buySelect) {
+                    buySelect.innerHTML = '<option value="">اختر المورد</option>';
+                    this.companies.forEach(c => {
+                        buySelect.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+                    });
+                }
 
                 const customerSelect = document.getElementById('sellCustomer');
                 if (customerSelect) {
@@ -2620,6 +2833,156 @@
                         customerSelect.innerHTML += `<option value="${c.id}">${c.name}</option>`;
                     });
                 }
+
+                const employeeSelect = document.getElementById('sellEmployee');
+                if (employeeSelect) {
+                    employeeSelect.innerHTML = '<option value="">اختر الموظف</option>';
+                    this.employees.forEach(e => {
+                        employeeSelect.innerHTML += `<option value="${e.id}">${e.name}</option>`;
+                    });
+                }
+            },
+
+            // ===== التقارير =====
+            generateReport() {
+                const type = document.getElementById('reportType').value;
+                const fromDate = document.getElementById('reportFrom').value;
+                const toDate = document.getElementById('reportTo').value;
+                const resultDiv = document.getElementById('reportResult');
+
+                if (!fromDate || !toDate) {
+                    this.showAlert('الرجاء اختيار التاريخ', 'error');
+                    return;
+                }
+
+                let reportHtml = '';
+                
+                if (type === 'sales') {
+                    const filteredSales = this.sales.filter(s => 
+                        s.date >= fromDate && s.date <= toDate
+                    );
+                    const total = filteredSales.reduce((sum, s) => sum + s.total, 0);
+                    
+                    reportHtml = `
+                        <h4>تقرير المبيعات من ${fromDate} إلى ${toDate}</h4>
+                        <p>إجمالي المبيعات: ${total.toFixed(2)}</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>رقم</th>
+                                    <th>التاريخ</th>
+                                    <th>المنتج</th>
+                                    <th>الإجمالي</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${filteredSales.map(s => `
+                                    <tr>
+                                        <td>${s.number}</td>
+                                        <td>${s.date}</td>
+                                        <td>${s.product.name}</td>
+                                        <td>${s.total}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    `;
+                } else if (type === 'purchases') {
+                    const filteredPurchases = this.purchases.filter(p => 
+                        p.date >= fromDate && p.date <= toDate
+                    );
+                    const total = filteredPurchases.reduce((sum, p) => sum + p.total, 0);
+                    
+                    reportHtml = `
+                        <h4>تقرير المشتريات من ${fromDate} إلى ${toDate}</h4>
+                        <p>إجمالي المشتريات: ${total.toFixed(2)}</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>التاريخ</th>
+                                    <th>المنتج</th>
+                                    <th>الإجمالي</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${filteredPurchases.map(p => `
+                                    <tr>
+                                        <td>${p.date}</td>
+                                        <td>${p.product.name}</td>
+                                        <td>${p.total}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    `;
+                } else if (type === 'cash') {
+                    const filteredCash = this.cash.filter(c => 
+                        c.date >= fromDate && c.date <= toDate
+                    );
+                    const totalIn = filteredCash.filter(c => c.type === 'in').reduce((sum, c) => sum + c.amount, 0);
+                    const totalOut = filteredCash.filter(c => c.type === 'out').reduce((sum, c) => sum + c.amount, 0);
+                    
+                    reportHtml = `
+                        <h4>تقرير الخزنة من ${fromDate} إلى ${toDate}</h4>
+                        <p>إجمالي الوارد: ${totalIn.toFixed(2)}</p>
+                        <p>إجمالي المنصرف: ${totalOut.toFixed(2)}</p>
+                        <p>الصافي: ${(totalIn - totalOut).toFixed(2)}</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>التاريخ</th>
+                                    <th>البيان</th>
+                                    <th>وارد</th>
+                                    <th>منصرف</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${filteredCash.map(c => `
+                                    <tr>
+                                        <td>${c.date}</td>
+                                        <td>${c.description}</td>
+                                        <td>${c.type === 'in' ? c.amount : '-'}</td>
+                                        <td>${c.type === 'out' ? c.amount : '-'}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    `;
+                } else if (type === 'inventory') {
+                    const totalValue = this.products.reduce((sum, p) => {
+                        const sellPrice = this.calculateSellPrice(p);
+                        return sum + parseFloat(sellPrice);
+                    }, 0);
+                    
+                    reportHtml = `
+                        <h4>تقرير المخزون الحالي</h4>
+                        <p>عدد القطع: ${this.products.length}</p>
+                        <p>إجمالي الوزن: ${this.products.reduce((sum, p) => sum + p.weight, 0).toFixed(2)} جرام</p>
+                        <p>القيمة الإجمالية: ${totalValue.toFixed(2)}</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>القطعة</th>
+                                    <th>الوزن</th>
+                                    <th>العيار</th>
+                                    <th>القيمة</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${this.products.map(p => `
+                                    <tr>
+                                        <td>${p.name}</td>
+                                        <td>${p.weight}g</td>
+                                        <td>${p.carat}</td>
+                                        <td>${this.calculateSellPrice(p)}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    `;
+                }
+
+                resultDiv.innerHTML = reportHtml;
             },
 
             // ===== العرض الرئيسي =====
@@ -2665,7 +3028,9 @@
                         </div>
                     `).join('') || '<p style="padding: 12px;">لا توجد مبيعات</p>';
                 }
+            },
 
+            renderPurchases() {
                 const recentPurchases = document.getElementById('recentPurchases');
                 if (recentPurchases) {
                     recentPurchases.innerHTML = this.purchases.slice(-5).reverse().map(p => `
@@ -2729,6 +3094,7 @@
                 if (tabId === 'users') this.renderUsers();
                 if (tabId === 'dashboard') {
                     this.renderSales();
+                    this.renderPurchases();
                     this.updateStats();
                 }
             },
@@ -2777,11 +3143,7 @@
                     stock: `عدد القطع: ${this.products.length}`
                 };
                 this.showAlert(messages[type], 'info');
-            },
-
-            // ===== وظائف مؤقتة =====
-            processReturn() { this.showAlert('قيد التطوير', 'info'); },
-            generateReport() { this.showAlert('قيد التطوير', 'info'); }
+            }
         };
 
         // تهيئة التطبيق
