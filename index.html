@@ -1294,7 +1294,7 @@
     <div id="alertContainer"></div>
 
     <script>
-        // ==================== التطبيق الرئيسي ====================
+        // ==================== التطبيق الرئيسي - نسخة متكاملة 100% ====================
         const App = {
             // البيانات
             products: [],
@@ -1323,7 +1323,6 @@
                 this.setupEventListeners();
                 this.setupDraggable();
                 setInterval(() => this.updateDateTime(), 1000);
-                // تعيين التاريخ الحالي في الصرف اليومي
                 const today = new Date().toLocaleDateString('ar-EG');
                 document.getElementById('currentDate').innerText = today;
             },
@@ -1358,15 +1357,1203 @@
                     }
 
                     const lastInvoice = localStorage.getItem('lastSellInvoice');
-                    this.currentSellInvoice = lastInvoice ? parseInt(lastInvoice) + 1 : 1;
+                    if (lastInvoice) this.currentSellInvoice = parseInt(lastInvoice) + 1;
 
                     const savedPrice = localStorage.getItem('currentGoldPrice');
                     if (savedPrice) this.currentGoldPrice = parseFloat(savedPrice);
-                    document.getElementById('todayGoldPrice').value = this.currentGoldPrice;
+                    const priceInput = document.getElementById('todayGoldPrice');
+                    if (priceInput) priceInput.value = this.currentGoldPrice;
                 } catch (e) { console.error('load error', e); }
             },
 
             saveData() {
                 localStorage.setItem('products', JSON.stringify(this.products));
                 localStorage.setItem('customers', JSON.stringify(this.customers));
-                localStorage.set
+                localStorage.setItem('employees', JSON.stringify(this.employees));
+                localStorage.setItem('companies', JSON.stringify(this.companies));
+                localStorage.setItem('purchases', JSON.stringify(this.purchases));
+                localStorage.setItem('sales', JSON.stringify(this.sales));
+                localStorage.setItem('cash', JSON.stringify(this.cash));
+                localStorage.setItem('dailyExpenses', JSON.stringify(this.dailyExpenses));
+                localStorage.setItem('notebook', JSON.stringify(this.notebook));
+                localStorage.setItem('goldInventory', JSON.stringify(this.goldInventory));
+                localStorage.setItem('lastSellInvoice', this.currentSellInvoice);
+                localStorage.setItem('currentGoldPrice', this.currentGoldPrice);
+            },
+
+            saveUsers() {
+                localStorage.setItem('systemUsers', JSON.stringify(this.users));
+            },
+
+            // ===== نظام تسجيل الدخول =====
+            checkLoginStatus() {
+                const savedUser = localStorage.getItem('currentUser');
+                if (savedUser) {
+                    try {
+                        this.currentUser = JSON.parse(savedUser);
+                        this.showMainApp();
+                        this.updateUserInfo();
+                    } catch (e) {
+                        this.showLogin();
+                    }
+                } else {
+                    this.showLogin();
+                }
+            },
+
+            login() {
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const errorDiv = document.getElementById('loginError');
+
+                const user = this.users.find(u => u.username === username && u.password === password);
+
+                if (user) {
+                    this.currentUser = user;
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    this.showMainApp();
+                    this.updateUserInfo();
+                    this.renderAll();
+                    this.showAlert('تم تسجيل الدخول بنجاح', 'success');
+                } else {
+                    errorDiv.style.display = 'block';
+                }
+            },
+
+            logout() {
+                localStorage.removeItem('currentUser');
+                this.currentUser = null;
+                document.getElementById('mainApp').style.display = 'none';
+                document.getElementById('loginOverlay').style.display = 'flex';
+                this.showAlert('تم تسجيل الخروج', 'info');
+            },
+
+            showLogin() {
+                document.getElementById('loginOverlay').style.display = 'flex';
+                document.getElementById('mainApp').style.display = 'none';
+            },
+
+            showMainApp() {
+                document.getElementById('loginOverlay').style.display = 'none';
+                document.getElementById('mainApp').style.display = 'block';
+                
+                const adminTab = document.getElementById('adminTab');
+                if (adminTab) {
+                    adminTab.style.display = this.currentUser?.role === 'admin' ? 'flex' : 'none';
+                }
+            },
+
+            updateUserInfo() {
+                if (this.currentUser) {
+                    document.getElementById('currentUserName').textContent = this.currentUser.fullName || this.currentUser.username;
+                    
+                    let roleText = '';
+                    switch(this.currentUser.role) {
+                        case 'admin': roleText = 'مدير النظام'; break;
+                        case 'manager': roleText = 'مسؤول'; break;
+                        case 'employee': roleText = 'موظف'; break;
+                        default: roleText = 'مستخدم';
+                    }
+                    document.getElementById('currentUserRole').textContent = roleText;
+                }
+            },
+
+            // ===== إدارة المستخدمين =====
+            showAddUserForm() {
+                if (this.currentUser?.role !== 'admin') {
+                    this.showAlert('هذه الصلاحية للمدير فقط', 'error');
+                    return;
+                }
+                document.getElementById('addUserForm').style.display = 'block';
+            },
+
+            hideAddUserForm() {
+                document.getElementById('addUserForm').style.display = 'none';
+            },
+
+            addUser() {
+                if (this.currentUser?.role !== 'admin') {
+                    this.showAlert('هذه الصلاحية للمدير فقط', 'error');
+                    return;
+                }
+
+                const username = document.getElementById('newUsername').value.trim();
+                const password = document.getElementById('newPassword').value.trim();
+                const fullName = document.getElementById('newFullName').value.trim();
+                const role = document.getElementById('newRole').value;
+
+                if (!username || !password || !fullName) {
+                    this.showAlert('الرجاء إدخال جميع البيانات', 'error');
+                    return;
+                }
+
+                if (this.users.find(u => u.username === username)) {
+                    this.showAlert('اسم المستخدم موجود مسبقاً', 'error');
+                    return;
+                }
+
+                const newUser = {
+                    id: Date.now(),
+                    username,
+                    password,
+                    fullName,
+                    role,
+                    permissions: {
+                        buy: document.getElementById('permBuy').checked,
+                        sell: document.getElementById('permSell').checked,
+                        inventory: document.getElementById('permInventory').checked,
+                        cash: document.getElementById('permCash').checked,
+                        employees: document.getElementById('permEmployees').checked,
+                        companies: document.getElementById('permCompanies').checked,
+                        reports: true,
+                        users: false
+                    },
+                    createdAt: new Date().toISOString()
+                };
+
+                this.users.push(newUser);
+                this.saveUsers();
+                this.renderUsers();
+                this.hideAddUserForm();
+                this.showAlert('تم إضافة المستخدم', 'success');
+            },
+
+            deleteUser(id) {
+                if (this.currentUser?.role !== 'admin') {
+                    this.showAlert('هذه الصلاحية للمدير فقط', 'error');
+                    return;
+                }
+                if (id === 1) {
+                    this.showAlert('لا يمكن حذف المدير الرئيسي', 'error');
+                    return;
+                }
+                if (confirm('هل أنت متأكد من الحذف؟')) {
+                    this.users = this.users.filter(u => u.id !== id);
+                    this.saveUsers();
+                    this.renderUsers();
+                    this.showAlert('تم حذف المستخدم', 'success');
+                }
+            },
+
+            renderUsers() {
+                const container = document.getElementById('usersList');
+                if (!container) return;
+
+                container.innerHTML = '';
+                this.users.forEach(user => {
+                    const isAdmin = user.role === 'admin';
+                    let roleText = user.role === 'admin' ? 'مدير' : user.role === 'manager' ? 'مسؤول' : 'موظف';
+                    
+                    container.innerHTML += `
+                        <div class="message-bubble" style="padding: 16px; ${isAdmin ? 'border-right: 4px solid #6f42c1;' : ''}">
+                            <div style="display: flex; justify-content: space-between;">
+                                <strong>${user.fullName}</strong>
+                                <span class="badge" style="background: ${isAdmin ? '#6f42c1' : 'var(--primary)'};">${roleText}</span>
+                            </div>
+                            <div style="margin: 8px 0; color: var(--text-secondary);">@${user.username}</div>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                ${user.permissions.buy ? '<span class="badge">شراء</span>' : ''}
+                                ${user.permissions.sell ? '<span class="badge">بيع</span>' : ''}
+                                ${user.permissions.inventory ? '<span class="badge">مخزون</span>' : ''}
+                                ${user.permissions.cash ? '<span class="badge">خزنة</span>' : ''}
+                            </div>
+                            ${!isAdmin ? `
+                                <button class="btn btn-danger btn-sm" style="margin-top: 10px;" onclick="app.deleteUser(${user.id})">
+                                    <i class="fas fa-trash"></i> حذف
+                                </button>
+                            ` : ''}
+                        </div>
+                    `;
+                });
+            },
+
+            // ===== الكراسة العائمة =====
+            setupDraggable() {
+                const element = document.getElementById('floatingNotebook');
+                if (!element) return;
+
+                const onDrag = (e) => {
+                    if (!this.isDragging) return;
+                    e.preventDefault();
+                    
+                    const newX = e.clientX - this.dragOffsetX;
+                    const newY = e.clientY - this.dragOffsetY;
+                    
+                    const maxX = window.innerWidth - element.offsetWidth;
+                    const maxY = window.innerHeight - element.offsetHeight;
+                    
+                    const boundedX = Math.max(0, Math.min(newX, maxX));
+                    const boundedY = Math.max(0, Math.min(newY, maxY));
+                    
+                    element.style.left = boundedX + 'px';
+                    element.style.top = boundedY + 'px';
+                    element.style.right = 'auto';
+                };
+
+                const onDragEnd = () => {
+                    this.isDragging = false;
+                    element.style.cursor = 'grab';
+                    document.removeEventListener('mousemove', onDrag);
+                    document.removeEventListener('mouseup', onDragEnd);
+                };
+
+                element.addEventListener('mousedown', (e) => {
+                    this.isDragging = true;
+                    e.preventDefault();
+                    
+                    const rect = element.getBoundingClientRect();
+                    this.dragOffsetX = e.clientX - rect.left;
+                    this.dragOffsetY = e.clientY - rect.top;
+                    
+                    element.style.cursor = 'grabbing';
+                    
+                    document.addEventListener('mousemove', onDrag);
+                    document.addEventListener('mouseup', onDragEnd);
+                });
+            },
+
+            toggleNotebook() {
+                const panel = document.getElementById('notebookPanel');
+                this.notebookOpen = !this.notebookOpen;
+                panel.classList.toggle('show');
+            },
+
+            switchNotebookTab(tab) {
+                document.querySelectorAll('.notebook-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.notebook-tab-content').forEach(c => c.style.display = 'none');
+                
+                if (tab === 'cash') {
+                    document.querySelectorAll('.notebook-tab')[0].classList.add('active');
+                    document.getElementById('notebookCashTab').style.display = 'block';
+                } else if (tab === 'goldBuy') {
+                    document.querySelectorAll('.notebook-tab')[1].classList.add('active');
+                    document.getElementById('notebookGoldBuyTab').style.display = 'block';
+                } else if (tab === 'goldSell') {
+                    document.querySelectorAll('.notebook-tab')[2].classList.add('active');
+                    document.getElementById('notebookGoldSellTab').style.display = 'block';
+                }
+            },
+
+            // إضافة حركة نقدية
+            addCashEntry() {
+                const type = document.getElementById('cashType')?.value;
+                const desc = document.getElementById('cashDesc')?.value.trim();
+                const amount = parseFloat(document.getElementById('cashAmount')?.value);
+
+                if (!desc || !amount || amount <= 0) {
+                    this.showAlert('الرجاء إدخال البيانات', 'error');
+                    return;
+                }
+
+                const entry = {
+                    id: Date.now(),
+                    type,
+                    category: 'cash',
+                    description: desc,
+                    amount,
+                    date: new Date().toLocaleDateString('ar-EG'),
+                    time: new Date().toLocaleTimeString('ar-EG')
+                };
+
+                this.notebook.push(entry);
+                
+                this.cash.push({
+                    id: Date.now(),
+                    date: entry.date,
+                    description: desc,
+                    type: type === 'in' ? 'in' : 'out',
+                    amount
+                });
+
+                document.getElementById('cashDesc').value = '';
+                document.getElementById('cashAmount').value = '';
+                
+                this.saveData();
+                this.renderNotebook();
+                this.renderCash();
+                this.updateStats();
+                this.showAlert('تمت الإضافة', 'success');
+            },
+
+            // حساب إجمالي شراء الذهب
+            calculateGoldBuyTotal() {
+                const weight = parseFloat(document.getElementById('goldBuyWeight')?.value) || 0;
+                const price = parseFloat(document.getElementById('goldBuyPrice')?.value) || 0;
+                const total = weight * price;
+                const el = document.getElementById('goldBuyTotal');
+                if (el) el.value = total.toFixed(2);
+            },
+
+            // إضافة شراء ذهب
+            addGoldBuy() {
+                const desc = document.getElementById('goldBuyDesc')?.value.trim();
+                const weight = parseFloat(document.getElementById('goldBuyWeight')?.value);
+                const carat = parseInt(document.getElementById('goldBuyCarat')?.value);
+                const price = parseFloat(document.getElementById('goldBuyPrice')?.value);
+                
+                if (!desc || !weight || weight <= 0 || !price || price <= 0) {
+                    this.showAlert('الرجاء إدخال البيانات', 'error');
+                    return;
+                }
+
+                const total = weight * price;
+
+                const entry = {
+                    id: Date.now(),
+                    type: 'out',
+                    category: 'goldBuy',
+                    description: `شراء ${desc}`,
+                    weight,
+                    carat,
+                    price,
+                    amount: total,
+                    date: new Date().toLocaleDateString('ar-EG'),
+                    time: new Date().toLocaleTimeString('ar-EG')
+                };
+
+                this.notebook.push(entry);
+                
+                this.cash.push({
+                    id: Date.now(),
+                    date: entry.date,
+                    description: `شراء ذهب - ${desc}`,
+                    type: 'out',
+                    amount: total
+                });
+                
+                this.goldInventory.push({
+                    id: Date.now(),
+                    description: desc,
+                    weight,
+                    carat,
+                    price,
+                    total,
+                    date: entry.date
+                });
+
+                document.getElementById('goldBuyDesc').value = '';
+                document.getElementById('goldBuyWeight').value = '';
+                document.getElementById('goldBuyPrice').value = '';
+                if (document.getElementById('goldBuyTotal')) document.getElementById('goldBuyTotal').value = '';
+                
+                this.saveData();
+                this.renderNotebook();
+                this.updateStats();
+                this.showAlert('تم شراء الذهب', 'success');
+            },
+
+            // حساب إجمالي بيع الذهب
+            calculateGoldSellTotal() {
+                const weight = parseFloat(document.getElementById('goldSellWeight')?.value) || 0;
+                const price = parseFloat(document.getElementById('goldSellPrice')?.value) || 0;
+                const total = weight * price;
+                const el = document.getElementById('goldSellTotal');
+                if (el) el.value = total.toFixed(2);
+            },
+
+            // إضافة بيع ذهب
+            addGoldSell() {
+                const desc = document.getElementById('goldSellDesc')?.value.trim();
+                const weight = parseFloat(document.getElementById('goldSellWeight')?.value);
+                const carat = parseInt(document.getElementById('goldSellCarat')?.value);
+                const price = parseFloat(document.getElementById('goldSellPrice')?.value);
+                
+                if (!desc || !weight || weight <= 0 || !price || price <= 0) {
+                    this.showAlert('الرجاء إدخال البيانات', 'error');
+                    return;
+                }
+
+                // التحقق من الكمية
+                const available = this.goldInventory
+                    .filter(g => g.carat === carat)
+                    .reduce((sum, g) => sum + g.weight, 0);
+
+                if (available < weight) {
+                    this.showAlert(`الكمية غير كافية! المتوفر: ${available.toFixed(2)} جرام`, 'error');
+                    return;
+                }
+
+                const total = weight * price;
+
+                const entry = {
+                    id: Date.now(),
+                    type: 'in',
+                    category: 'goldSell',
+                    description: `بيع ${desc}`,
+                    weight,
+                    carat,
+                    price,
+                    amount: total,
+                    date: new Date().toLocaleDateString('ar-EG'),
+                    time: new Date().toLocaleTimeString('ar-EG')
+                };
+
+                this.notebook.push(entry);
+                
+                this.cash.push({
+                    id: Date.now(),
+                    date: entry.date,
+                    description: `بيع ذهب - ${desc}`,
+                    type: 'in',
+                    amount: total
+                });
+                
+                // تحديث المخزون
+                let remaining = weight;
+                for (let i = 0; i < this.goldInventory.length && remaining > 0; i++) {
+                    if (this.goldInventory[i].carat === carat) {
+                        if (this.goldInventory[i].weight <= remaining) {
+                            remaining -= this.goldInventory[i].weight;
+                            this.goldInventory.splice(i, 1);
+                            i--;
+                        } else {
+                            this.goldInventory[i].weight -= remaining;
+                            remaining = 0;
+                        }
+                    }
+                }
+
+                document.getElementById('goldSellDesc').value = '';
+                document.getElementById('goldSellWeight').value = '';
+                document.getElementById('goldSellPrice').value = '';
+                if (document.getElementById('goldSellTotal')) document.getElementById('goldSellTotal').value = '';
+                
+                this.saveData();
+                this.renderNotebook();
+                this.updateStats();
+                this.showAlert('تم بيع الذهب', 'success');
+            },
+
+            // حذف عنصر من الكراسة
+            deleteNotebookEntry(id) {
+                if (confirm('هل أنت متأكد من الحذف؟')) {
+                    this.notebook = this.notebook.filter(e => e.id !== id);
+                    this.saveData();
+                    this.renderNotebook();
+                    this.showAlert('تم الحذف', 'success');
+                }
+            },
+
+            // عرض الكراسة
+            renderNotebook() {
+                const today = new Date().toLocaleDateString('ar-EG');
+                const todayEntries = this.notebook.filter(e => e.date === today);
+                
+                let totalIncome = 0, totalExpense = 0;
+
+                // قائمة النقدي
+                const cashList = document.getElementById('cashList');
+                if (cashList) {
+                    cashList.innerHTML = '';
+                    todayEntries.filter(e => e.category === 'cash').forEach(e => {
+                        if (e.type === 'in') totalIncome += e.amount;
+                        else totalExpense += e.amount;
+                        
+                        cashList.innerHTML += `
+                            <div class="notebook-item ${e.type === 'in' ? 'income' : 'expense'}">
+                                <div class="item-info">
+                                    <div class="desc">${e.description}</div>
+                                    <div class="meta">${e.time}</div>
+                                </div>
+                                <div class="item-amount ${e.type === 'in' ? 'income' : 'expense'}">
+                                    ${e.type === 'in' ? '+' : '-'}${e.amount.toFixed(2)}
+                                </div>
+                                <div class="item-actions">
+                                    <button onclick="app.deleteNotebookEntry(${e.id})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    if (cashList.innerHTML === '') {
+                        cashList.innerHTML = '<p style="text-align: center; padding: 10px;">لا توجد حركات</p>';
+                    }
+                }
+
+                // قائمة شراء الذهب
+                const goldBuyList = document.getElementById('goldBuyList');
+                if (goldBuyList) {
+                    goldBuyList.innerHTML = '';
+                    todayEntries.filter(e => e.category === 'goldBuy').forEach(e => {
+                        totalExpense += e.amount;
+                        goldBuyList.innerHTML += `
+                            <div class="notebook-item gold-buy">
+                                <div class="item-info">
+                                    <div class="desc">${e.description}</div>
+                                    <div class="meta">${e.weight}g - عيار ${e.carat} - ${e.time}</div>
+                                </div>
+                                <div class="item-amount gold-buy">-${e.amount.toFixed(2)}</div>
+                                <div class="item-actions">
+                                    <button onclick="app.deleteNotebookEntry(${e.id})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    if (goldBuyList.innerHTML === '') {
+                        goldBuyList.innerHTML = '<p style="text-align: center; padding: 10px;">لا توجد مشتريات</p>';
+                    }
+                }
+
+                // قائمة بيع الذهب
+                const goldSellList = document.getElementById('goldSellList');
+                if (goldSellList) {
+                    goldSellList.innerHTML = '';
+                    todayEntries.filter(e => e.category === 'goldSell').forEach(e => {
+                        totalIncome += e.amount;
+                        goldSellList.innerHTML += `
+                            <div class="notebook-item gold-sell">
+                                <div class="item-info">
+                                    <div class="desc">${e.description}</div>
+                                    <div class="meta">${e.weight}g - عيار ${e.carat} - ${e.time}</div>
+                                </div>
+                                <div class="item-amount gold-sell">+${e.amount.toFixed(2)}</div>
+                                <div class="item-actions">
+                                    <button onclick="app.deleteNotebookEntry(${e.id})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    if (goldSellList.innerHTML === '') {
+                        goldSellList.innerHTML = '<p style="text-align: center; padding: 10px;">لا توجد مبيعات</p>';
+                    }
+                }
+
+                // تحديث الإحصائيات
+                document.getElementById('totalIncome').textContent = totalIncome.toFixed(2);
+                document.getElementById('totalExpense').textContent = totalExpense.toFixed(2);
+                const net = totalIncome - totalExpense;
+                document.getElementById('netBalance').textContent = net.toFixed(2);
+                document.getElementById('notebookBalance').textContent = net.toFixed(2);
+            },
+
+            // ===== المنتجات =====
+            generateBarcode() {
+                return 'PRD' + Date.now().toString().slice(-8) + Math.floor(Math.random() * 1000);
+            },
+
+            showAddProductForm() {
+                document.getElementById('addProductForm').style.display = 'block';
+            },
+
+            hideAddProductForm() {
+                document.getElementById('addProductForm').style.display = 'none';
+            },
+
+            addProduct() {
+                const name = document.getElementById('productName').value.trim();
+                const weight = parseFloat(document.getElementById('productWeight').value);
+                const carat = parseInt(document.getElementById('productCarat').value);
+                const manufacturing = parseFloat(document.getElementById('productManufacturing').value) || 0;
+                const buyPrice = parseFloat(document.getElementById('productBuyPrice').value) || 0;
+
+                if (!name || !weight || weight <= 0) {
+                    this.showAlert('الرجاء إدخال البيانات', 'error');
+                    return;
+                }
+
+                const product = {
+                    id: Date.now(),
+                    barcode: this.generateBarcode(),
+                    name,
+                    weight,
+                    carat,
+                    manufacturing,
+                    buyPrice,
+                    date: new Date().toISOString()
+                };
+
+                this.products.push(product);
+                this.saveData();
+                this.renderInventory();
+                this.hideAddProductForm();
+                this.showAlert('تم إضافة المنتج', 'success');
+            },
+
+            // ===== البيع =====
+            updateGoldPrice() {
+                const price = parseFloat(document.getElementById('todayGoldPrice')?.value);
+                if (price && price > 0) {
+                    this.currentGoldPrice = price;
+                    this.calculateSellTotal();
+                }
+            },
+
+            searchProducts(query) {
+                const resultsDiv = document.getElementById('searchResults');
+                
+                if (!query || query.length < 2) {
+                    resultsDiv.style.display = 'none';
+                    return;
+                }
+
+                const results = this.products.filter(p => 
+                    p.name.toLowerCase().includes(query.toLowerCase()) || 
+                    (p.barcode && p.barcode.includes(query))
+                );
+
+                if (results.length === 0) {
+                    resultsDiv.style.display = 'none';
+                    return;
+                }
+
+                resultsDiv.innerHTML = results.map(p => `
+                    <div onclick="app.selectProduct(${p.id})" style="padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer;">
+                        <div><strong>${p.name}</strong></div>
+                        <div style="font-size: 12px;">${p.barcode} | وزن: ${p.weight}g | عيار: ${p.carat}</div>
+                    </div>
+                `).join('');
+                
+                resultsDiv.style.display = 'block';
+            },
+
+            selectProduct(id) {
+                const product = this.products.find(p => p.id === id);
+                if (!product) return;
+
+                document.getElementById('selectedProduct').style.display = 'block';
+                document.getElementById('selectedProduct').innerHTML = `
+                    <strong>المنتج المختار:</strong> ${product.name}<br>
+                    الوزن: ${product.weight}g | العيار: ${product.carat} | المصنعية: ${product.manufacturing || 0}
+                `;
+                
+                document.getElementById('sellWeight').value = product.weight;
+                document.getElementById('sellCarat').value = product.carat;
+                document.getElementById('sellManufacturing').value = product.manufacturing || 0;
+                
+                document.getElementById('searchResults').style.display = 'none';
+                document.getElementById('productSearch').value = product.name;
+                
+                this.calculateSellTotal();
+            },
+
+            calculateSellTotal() {
+                const weight = parseFloat(document.getElementById('sellWeight').value) || 0;
+                const carat = parseInt(document.getElementById('sellCarat').value);
+                const manufacturing = parseFloat(document.getElementById('sellManufacturing').value) || 0;
+
+                let pricePerGram = this.currentGoldPrice;
+                if (carat === 24) pricePerGram = this.currentGoldPrice * (24/21);
+                if (carat === 18) pricePerGram = this.currentGoldPrice * (18/21);
+
+                const goldValue = weight * pricePerGram;
+                const total = goldValue + manufacturing;
+
+                document.getElementById('sellPricePerGram').value = pricePerGram.toFixed(2);
+                document.getElementById('sellTotal').value = total.toFixed(2);
+                this.updateSellRemaining();
+            },
+
+            updateSellRemaining() {
+                const total = parseFloat(document.getElementById('sellTotal').value) || 0;
+                const paid = parseFloat(document.getElementById('sellPaid').value) || 0;
+                document.getElementById('sellRemaining').value = (total - paid).toFixed(2);
+            },
+
+            togglePaymentFields() {
+                const method = document.getElementById('sellPayment').value;
+                document.getElementById('paymentDetails').style.display = method === 'bank' ? 'block' : 'none';
+            },
+
+            completeSell() {
+                const productName = document.getElementById('productSearch').value;
+                const customerId = document.getElementById('sellCustomer').value;
+                const employeeId = document.getElementById('sellEmployee').value;
+
+                if (!productName || !customerId || !employeeId) {
+                    this.showAlert('الرجاء إكمال البيانات', 'error');
+                    return;
+                }
+
+                const total = parseFloat(document.getElementById('sellTotal').value);
+                const paid = parseFloat(document.getElementById('sellPaid').value) || 0;
+                const remaining = total - paid;
+
+                const invoice = {
+                    id: Date.now(),
+                    number: this.currentSellInvoice++,
+                    date: new Date().toLocaleDateString('ar-EG'),
+                    time: new Date().toLocaleTimeString('ar-EG'),
+                    product: {
+                        name: productName,
+                        weight: parseFloat(document.getElementById('sellWeight').value),
+                        carat: parseInt(document.getElementById('sellCarat').value),
+                        manufacturing: parseFloat(document.getElementById('sellManufacturing').value) || 0
+                    },
+                    customerId,
+                    employeeId,
+                    total,
+                    paid,
+                    remaining,
+                    paymentMethod: document.getElementById('sellPayment').value
+                };
+
+                if (paid > 0) {
+                    this.cash.push({
+                        id: Date.now(),
+                        date: invoice.date,
+                        description: `مبيعات فاتورة ${invoice.number}`,
+                        type: 'in',
+                        amount: paid
+                    });
+                }
+
+                this.sales.push(invoice);
+                this.saveData();
+                this.renderSales();
+                this.updateStats();
+                document.getElementById('sellInvoiceNumber').textContent = 
+                    this.currentSellInvoice.toString().padStart(6, '0');
+                this.showAlert(`تم البيع - فاتورة ${invoice.number}`, 'success');
+            },
+
+            // ===== الشراء =====
+            calculateBuyTotal() {
+                const weight = parseFloat(document.getElementById('buyWeight').value) || 0;
+                const price = parseFloat(document.getElementById('buyPrice').value) || 0;
+                const manufacturing = parseFloat(document.getElementById('buyManufacturing').value) || 0;
+                const total = (weight * price) + manufacturing;
+                
+                document.getElementById('buyTotal').value = total.toFixed(2);
+                this.updateBuyRemaining();
+            },
+
+            updateBuyRemaining() {
+                const total = parseFloat(document.getElementById('buyTotal').value) || 0;
+                const paid = parseFloat(document.getElementById('buyPaid').value) || 0;
+                document.getElementById('buyRemaining').value = (total - paid).toFixed(2);
+            },
+
+            completeBuy() {
+                const supplierId = document.getElementById('buySupplier').value;
+                const product = document.getElementById('buyProduct').value.trim();
+                const weight = parseFloat(document.getElementById('buyWeight').value);
+                const carat = parseInt(document.getElementById('buyCarat').value);
+                const price = parseFloat(document.getElementById('buyPrice').value);
+                const manufacturing = parseFloat(document.getElementById('buyManufacturing').value) || 0;
+                const paid = parseFloat(document.getElementById('buyPaid').value) || 0;
+
+                if (!supplierId || !product || !weight || !price) {
+                    this.showAlert('الرجاء إدخال البيانات', 'error');
+                    return;
+                }
+
+                const total = (weight * price) + manufacturing;
+
+                const newProduct = {
+                    id: Date.now(),
+                    barcode: this.generateBarcode(),
+                    name: product,
+                    weight,
+                    carat,
+                    manufacturing,
+                    buyPrice: price,
+                    date: new Date().toISOString()
+                };
+
+                this.products.push(newProduct);
+
+                const purchase = {
+                    id: Date.now(),
+                    date: new Date().toLocaleDateString('ar-EG'),
+                    supplierId,
+                    product: newProduct,
+                    total,
+                    paid,
+                    remaining: total - paid
+                };
+
+                this.purchases.push(purchase);
+
+                if (paid > 0) {
+                    this.cash.push({
+                        id: Date.now(),
+                        date: purchase.date,
+                        description: `مشتريات - ${product}`,
+                        type: 'out',
+                        amount: paid
+                    });
+                }
+
+                this.saveData();
+                this.renderInventory();
+                this.updateStats();
+                this.showAlert('تم الشراء بنجاح', 'success');
+            },
+
+            // ===== الخزنة =====
+            getCashBalance() {
+                return this.cash.reduce((sum, t) => t.type === 'in' ? sum + t.amount : sum - t.amount, 0);
+            },
+
+            addCash(type) {
+                const amount = parseFloat(prompt(`المبلغ المراد ${type === 'in' ? 'إيداعه' : 'سحبه'}:`));
+                if (!amount || amount <= 0) return;
+
+                const description = prompt('البيان:') || (type === 'in' ? 'إيداع' : 'سحب');
+
+                this.cash.push({
+                    id: Date.now(),
+                    date: new Date().toLocaleDateString('ar-EG'),
+                    description,
+                    type,
+                    amount
+                });
+
+                this.saveData();
+                this.renderCash();
+                this.updateStats();
+                this.showAlert('تمت العملية', 'success');
+            },
+
+            renderCash() {
+                const tbody = document.getElementById('cashTableBody');
+                if (!tbody) return;
+                
+                tbody.innerHTML = '';
+                let balance = 0;
+                let totalIn = 0, totalOut = 0;
+
+                this.cash.slice().reverse().forEach(t => {
+                    if (t.type === 'in') {
+                        balance += t.amount;
+                        totalIn += t.amount;
+                    } else {
+                        balance -= t.amount;
+                        totalOut += t.amount;
+                    }
+                    
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${t.date}</td>
+                            <td>${t.description}</td>
+                            <td style="color: var(--green-wa);">${t.type === 'in' ? t.amount.toFixed(2) : '-'}</td>
+                            <td style="color: var(--red);">${t.type === 'out' ? t.amount.toFixed(2) : '-'}</td>
+                            <td>${balance.toFixed(2)}</td>
+                        </tr>
+                    `;
+                });
+
+                document.getElementById('totalCashIn').textContent = totalIn.toFixed(2);
+                document.getElementById('totalCashOut').textContent = totalOut.toFixed(2);
+                document.getElementById('currentCash').textContent = balance.toFixed(2);
+            },
+
+            // ===== الصرف اليومي =====
+            addDailyExpense() {
+                const amount = parseFloat(prompt('المبلغ:'));
+                if (!amount || amount <= 0) return;
+
+                const description = prompt('البيان:');
+                if (!description) return;
+
+                const expense = {
+                    id: Date.now(),
+                    date: new Date().toLocaleDateString('ar-EG'),
+                    time: new Date().toLocaleTimeString('ar-EG'),
+                    description,
+                    amount
+                };
+
+                this.dailyExpenses.push(expense);
+                
+                this.cash.push({
+                    id: Date.now(),
+                    date: expense.date,
+                    description: `صرف يومي - ${description}`,
+                    type: 'out',
+                    amount
+                });
+
+                this.saveData();
+                this.renderDailyExpenses();
+                this.showAlert('تم إضافة الصرف', 'success');
+            },
+
+            renderDailyExpenses() {
+                const tbody = document.getElementById('dailyExpensesList');
+                if (!tbody) return;
+
+                const today = new Date().toLocaleDateString('ar-EG');
+                const todayExpenses = this.dailyExpenses.filter(e => e.date === today);
+                let total = 0;
+
+                tbody.innerHTML = '';
+                todayExpenses.forEach(e => {
+                    total += e.amount;
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${e.description}</td>
+                            <td>${e.amount.toFixed(2)}</td>
+                            <td>${e.time}</td>
+                        </tr>
+                    `;
+                });
+
+                document.getElementById('dailyTotal').textContent = total.toFixed(2);
+            },
+
+            // ===== الموظفين =====
+            showAddEmployeeForm() {
+                document.getElementById('addEmployeeForm').style.display = 'block';
+            },
+
+            hideAddEmployeeForm() {
+                document.getElementById('addEmployeeForm').style.display = 'none';
+            },
+
+            addEmployee() {
+                const name = document.getElementById('employeeName').value.trim();
+                const position = document.getElementById('employeePosition').value.trim();
+                const salary = parseFloat(document.getElementById('employeeSalary').value) || 0;
+
+                if (!name) {
+                    this.showAlert('الرجاء إدخال الاسم', 'error');
+                    return;
+                }
+
+                const employee = {
+                    id: Date.now(),
+                    name,
+                    position,
+                    salary,
+                    date: new Date().toISOString()
+                };
+
+                this.employees.push(employee);
+                this.saveData();
+                this.renderEmployees();
+                this.hideAddEmployeeForm();
+                this.showAlert('تم إضافة الموظف', 'success');
+            },
+
+            renderEmployees() {
+                const grid = document.getElementById('employeesGrid');
+                if (!grid) return;
+
+                grid.innerHTML = '';
+                this.employees.forEach(e => {
+                    grid.innerHTML += `
+                        <div class="message-bubble" style="padding: 16px;">
+                            <strong>${e.name}</strong>
+                            <div style="color: var(--text-secondary);">${e.position || 'موظف'}</div>
+                            <div>الراتب: ${e.salary}</div>
+                        </div>
+                    `;
+                });
+            },
+
+            // ===== الشركات =====
+            showAddCompanyForm() {
+                document.getElementById('addCompanyForm').style.display = 'block';
+            },
+
+            hideAddCompanyForm() {
+                document.getElementById('addCompanyForm').style.display = 'none';
+            },
+
+            addCompany() {
+                const name = document.getElementById('companyName').value.trim();
+                const phone = document.getElementById('companyPhone').value.trim();
+
+                if (!name) {
+                    this.showAlert('الرجاء إدخال اسم الشركة', 'error');
+                    return;
+                }
+
+                const company = {
+                    id: Date.now(),
+                    name,
+                    phone,
+                    date: new Date().toISOString()
+                };
+
+                this.companies.push(company);
+                this.saveData();
+                this.renderCompanies();
+                this.renderCompanySelects();
+                this.hideAddCompanyForm();
+                this.showAlert('تم إضافة الشركة', 'success');
+            },
+
+            renderCompanies() {
+                const grid = document.getElementById('companiesGrid');
+                if (!grid) return;
+
+                grid.innerHTML = '';
+                this.companies.forEach(c => {
+                    grid.innerHTML += `
+                        <div class="message-bubble" style="padding: 16px;">
+                            <strong>${c.name}</strong>
+                            <div>${c.phone || 'لا يوجد هاتف'}</div>
+                        </div>
+                    `;
+                });
+            },
+
+            renderCompanySelects() {
+                const select = document.getElementById('buySupplier');
+                if (!select) return;
+
+                select.innerHTML = '<option value="">اختر المورد</option>';
+                this.companies.forEach(c => {
+                    select.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+                });
+            },
+
+            // ===== العرض الرئيسي =====
+            renderAll() {
+                this.renderInventory();
+                this.renderCash();
+                this.renderDailyExpenses();
+                this.renderEmployees();
+                this.renderCompanies();
+                this.renderUsers();
+                this.updateStats();
+            },
+
+            renderInventory() {
+                const tbody = document.getElementById('inventoryList');
+                if (!tbody) return;
+
+                tbody.innerHTML = '';
+                this.products.forEach(p => {
+                    const sellPrice = this.calculateSellPrice(p);
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${p.barcode}</td>
+                            <td>${p.name}</td>
+                            <td>${p.weight}g</td>
+                            <td>${p.carat}</td>
+                            <td>${p.manufacturing || 0}</td>
+                            <td>${p.buyPrice || 0}</td>
+                            <td>${sellPrice}</td>
+                        </tr>
+                    `;
+                });
+            },
+
+            renderSales() {
+                const recent = document.getElementById('recentSales');
+                if (recent) {
+                    recent.innerHTML = this.sales.slice(-5).reverse().map(s => `
+                        <div style="padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <div><strong>فاتورة ${s.number}</strong> - ${s.total}</div>
+                            <div style="font-size: 12px;">${s.date}</div>
+                        </div>
+                    `).join('') || '<p style="padding: 12px;">لا توجد مبيعات</p>';
+                }
+            },
+
+            calculateSellPrice(product) {
+                const price = this.currentGoldPrice || 0;
+                let gramPrice = price;
+                if (product.carat === 24) gramPrice = price * (24/21);
+                if (product.carat === 18) gramPrice = price * (18/21);
+                return ((product.weight * gramPrice) + (product.manufacturing || 0)).toFixed(2);
+            },
+
+            updateStats() {
+                const cashBalance = this.getCashBalance();
+                const totalGold = this.products.reduce((sum, p) => sum + p.weight, 0) + 
+                                 this.goldInventory.reduce((sum, g) => sum + g.weight, 0);
+                const totalDebts = this.sales.filter(s => s.remaining > 0).reduce((sum, s) => sum + s.remaining, 0);
+
+                document.getElementById('cashBalance').textContent = cashBalance.toFixed(2);
+                document.getElementById('goldStock').textContent = totalGold.toFixed(2) + ' جرام';
+                document.getElementById('totalDebts').textContent = totalDebts.toFixed(2);
+                document.getElementById('totalEmployees').textContent = this.employees.length;
+                document.getElementById('totalItems').textContent = this.products.length;
+
+                const today = new Date().toLocaleDateString('ar-EG');
+                const todaySales = this.sales.filter(s => s.date === today);
+                const todayPurchases = this.purchases.filter(p => p.date === today);
+                
+                document.getElementById('todaySales').textContent = todaySales.reduce((s, i) => s + i.total, 0).toFixed(2);
+                document.getElementById('todayPurchases').textContent = todayPurchases.reduce((s, i) => s + i.total, 0).toFixed(2);
+            },
+
+            // ===== التنقل =====
+            switchTab(tabId) {
+                if (tabId === 'users' && this.currentUser?.role !== 'admin') {
+                    this.showAlert('هذه الصفحة للمدير فقط', 'error');
+                    return;
+                }
+
+                document.querySelectorAll('.chat-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+                
+                const tab = document.querySelector(`[onclick="app.switchTab('${tabId}')"]`);
+                if (tab) tab.classList.add('active');
+                
+                const pane = document.getElementById(`${tabId}-tab`);
+                if (pane) pane.classList.add('active');
+
+                if (tabId === 'inventory') this.renderInventory();
+                if (tabId === 'cash') this.renderCash();
+                if (tabId === 'daily') this.renderDailyExpenses();
+                if (tabId === 'employees') this.renderEmployees();
+                if (tabId === 'companies') this.renderCompanies();
+                if (tabId === 'users') this.renderUsers();
+                if (tabId === 'dashboard') this.renderSales();
+            },
+
+            // ===== الوقت =====
+            updateDateTime() {
+                const now = new Date();
+                const options = { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                };
+                const el = document.getElementById('currentDateTime');
+                if (el) el.innerHTML = now.toLocaleDateString('ar-EG', options);
+            },
+
+            // ===== التنبيهات =====
+            showAlert(message, type = 'success') {
+                const container = document.getElementById('alertContainer');
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type}`;
+                alert.innerHTML = message;
+                container.innerHTML = '';
+                container.appendChild(alert);
+                setTimeout(() => alert.remove(), 3000);
+            },
+
+            showDetails(type) {
+                const cashBalance = this.getCashBalance();
+                const totalGold = this.products.reduce((sum, p) => sum + p.weight, 0) + 
+                                 this.goldInventory.reduce((sum, g) => sum + g.weight, 0);
+                const totalDebts = this.sales.filter(s => s.remaining > 0).reduce((sum, s) => sum + s.remaining, 0);
+                
+                const messages = {
+                    cash: `رصيد الخزنة: ${cashBalance.toFixed(2)}`,
+                    gold: `إجمالي الذهب: ${totalGold.toFixed(2)} جرام`,
+                    debt: `ديون العملاء: ${totalDebts.toFixed(2)}`,
+                    emp: `عدد الموظفين: ${this.employees.length}`,
+                    stock: `عدد القطع: ${this.products.length}`
+                };
+                this.showAlert(messages[type], 'info');
+            },
+
+            // وظائف مؤقتة
+            processReturn() { this.showAlert('قيد التطوير', 'info'); },
+            generateReport() { this.showAlert('قيد التطوير', 'info'); }
+        };
+
+        // تهيئة التطبيق
+        app = App;
+        app.init();
+        window.app = app;
+    </script>
+</body>
+</html>
