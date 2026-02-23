@@ -2,12 +2,13 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مجوهرات عبد ربو الصي - النظام المتكامل</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>مجوهرات عبد ربو الصي · النظام الذهبي</title>
+    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* ===== المتغيرات الأساسية ===== */
+        /* ===== RESET & VARIABLES ===== */
         * {
             margin: 0;
             padding: 0;
@@ -15,749 +16,562 @@
         }
 
         :root {
+            --bg-dark: #0b141a;
+            --bg-surface: #1f2c34;
+            --bg-input: #2a3942;
+            --bg-hover: #2f3e48;
             --primary: #d4af37;
-            --primary-dark: #b8942b;
-            --secondary: #8b7355;
-            --success: #28a745;
-            --success-dark: #218838;
-            --danger: #dc3545;
-            --danger-dark: #c82333;
-            --warning: #ffc107;
-            --info: #17a2b8;
-            --dark: #343a40;
-            --light: #f8f9fa;
-            --gold: #d4af37;
-            --developer: #6f42c1;
+            --primary-light: #e5c76b;
+            --primary-dark: #b38f2c;
+            --text-primary: #e9edef;
+            --text-secondary: #8696a0;
+            --text-muted: #667781;
+            --green-wa: #00a884;
+            --green-dark: #008069;
+            --red: #e53935;
+            --yellow: #ffb74d;
+            --blue: #53bdeb;
+            --border-radius: 24px;
+            --border-radius-sm: 16px;
+            --shadow: 0 2px 5px rgba(0,0,0,0.3);
+            --transition: all 0.2s ease;
         }
 
         body {
             font-family: 'Tajawal', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: var(--bg-dark);
+            color: var(--text-primary);
             min-height: 100vh;
-            padding: 15px;
+            padding: 0;
+            margin: 0;
+            line-height: 1.5;
         }
 
-        .container {
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-
-        /* ===== شاشة تسجيل الدخول ===== */
+        /* ===== LOGIN SCREEN (WHATSAPP STYLE) ===== */
         .login-overlay {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.9);
+            background: var(--bg-dark);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 10000;
-            backdrop-filter: blur(10px);
         }
 
-        .login-box {
-            background: white;
-            padding: 50px;
-            border-radius: 30px;
-            width: 450px;
+        .login-card {
+            background: var(--bg-surface);
+            width: 400px;
             max-width: 90%;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-            border: 3px solid var(--gold);
-            animation: slideIn 0.5s ease;
+            padding: 32px 24px;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .login-box h2 {
-            color: var(--gold);
+        .login-card h2 {
+            color: var(--primary);
+            font-size: 28px;
+            font-weight: 700;
             text-align: center;
-            margin-bottom: 30px;
-            font-size: 32px;
+            margin-bottom: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
         }
 
-        .login-box .input-group {
-            margin-bottom: 25px;
+        .input-group {
+            margin-bottom: 20px;
         }
 
-        .login-box .input-group label {
+        .input-group label {
             display: block;
             margin-bottom: 8px;
-            color: var(--secondary);
+            color: var(--text-secondary);
             font-weight: 500;
-            font-size: 16px;
+            font-size: 15px;
         }
 
-        .login-box .input-group input {
+        .input-group input {
             width: 100%;
-            padding: 15px 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 15px;
+            padding: 14px 18px;
+            background: var(--bg-input);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 28px;
             font-size: 16px;
+            color: var(--text-primary);
             font-family: 'Tajawal', sans-serif;
-            transition: all 0.3s;
+            transition: var(--transition);
         }
 
-        .login-box .input-group input:focus {
+        .input-group input:focus {
             outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
+            border-color: var(--primary);
+            background: var(--bg-hover);
         }
 
-        .login-box .btn-login {
+        .btn-login {
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, var(--gold), var(--primary-dark));
-            color: white;
-            border: none;
-            border-radius: 15px;
-            font-size: 20px;
+            padding: 14px;
+            background: var(--primary);
+            color: #0b141a;
             font-weight: 700;
+            font-size: 18px;
+            border: none;
+            border-radius: 28px;
+            margin-top: 16px;
             cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 20px;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
         }
 
-        .login-box .btn-login:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        .btn-login:hover {
+            background: var(--primary-light);
+            transform: scale(1.02);
         }
 
-        .login-box .error-message {
-            color: var(--danger);
+        .error-message {
+            color: var(--red);
             text-align: center;
-            margin-top: 15px;
+            margin-top: 16px;
             font-size: 14px;
             display: none;
         }
 
-        /* ===== الهيدر الرئيسي ===== */
-        .main-header {
-            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
-            padding: 20px 30px;
-            border-radius: 20px 20px 0 0;
+        /* ===== MAIN LAYOUT (WHATSAPP/TELEGRAM STYLE) ===== */
+        #mainApp {
+            display: none;
+            height: 100vh;
+            overflow: hidden;
+            background: var(--bg-dark);
+        }
+
+        .app-container {
             display: flex;
+            height: 100%;
+            width: 100%;
+        }
+
+        /* SIDEBAR (CHATS STYLE) */
+        .sidebar {
+            width: 380px;
+            background: var(--bg-surface);
+            border-left: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .sidebar-header {
+            padding: 20px 16px;
+            background: var(--bg-surface);
+            display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            color: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
 
-        .logo {
+        .store-info {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
-        .logo i {
-            font-size: 48px;
-            color: white;
+        .store-info i {
+            font-size: 32px;
+            color: var(--primary);
         }
 
-        .logo h1 {
-            font-size: 28px;
+        .store-info h2 {
+            font-size: 18px;
             font-weight: 700;
+            color: var(--text-primary);
         }
 
-        .logo span {
-            font-size: 16px;
-            opacity: 0.9;
+        .store-info span {
+            font-size: 13px;
+            color: var(--text-secondary);
         }
 
         .user-menu {
             display: flex;
             align-items: center;
-            gap: 20px;
-            background: rgba(255,255,255,0.2);
-            padding: 10px 20px;
-            border-radius: 50px;
-            backdrop-filter: blur(5px);
+            gap: 12px;
         }
 
-        .user-menu .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .user-menu .user-info i {
-            font-size: 24px;
-        }
-
-        .user-menu .user-name {
-            font-weight: 700;
-            font-size: 16px;
-        }
-
-        .user-menu .user-role {
-            font-size: 12px;
-            opacity: 0.8;
-        }
-
-        .user-menu .logout-btn {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s;
+        .user-badge {
+            background: var(--bg-input);
+            padding: 6px 12px;
+            border-radius: 40px;
             display: flex;
             align-items: center;
             gap: 8px;
+            color: var(--text-primary);
             font-size: 14px;
         }
 
-        .user-menu .logout-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: scale(1.05);
-        }
-
-        .date-time {
-            background: rgba(255,255,255,0.2);
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 16px;
-            backdrop-filter: blur(5px);
-        }
-
-        /* ===== بطاقات الإحصائيات ===== */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s;
+        .logout-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 20px;
             cursor: pointer;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
-        }
-
-        .stat-icon {
-            width: 60px;
-            height: 60px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            transition: var(--transition);
         }
 
-        .stat-icon.gold { background: #fff9e6; color: var(--gold); }
-        .stat-icon.cash { background: #e8f5e9; color: var(--success); }
-        .stat-icon.debt { background: #ffebee; color: var(--danger); }
-        .stat-icon.emp { background: #e3f2fd; color: var(--info); }
-        .stat-icon.stock { background: #f3e5f5; color: #9c27b0; }
-
-        .stat-info h3 {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 5px;
+        .logout-btn:hover {
+            background: var(--bg-hover);
+            color: var(--red);
         }
 
-        .stat-info .value {
+        /* STATS CARDS (LIKE CHAT PREVIEW) */
+        .stats-scroll {
+            padding: 16px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .stat-item {
+            background: var(--bg-input);
+            border-radius: 20px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .stat-item:hover {
+            background: var(--bg-hover);
+            border-color: rgba(212,175,55,0.3);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 24px;
-            font-weight: 700;
+            background: rgba(255,255,255,0.05);
         }
 
-        .stat-info .value.gold { color: var(--gold); }
-        .stat-info .value.cash { color: var(--success); }
-        .stat-info .value.debt { color: var(--danger); }
+        .stat-icon.gold { color: var(--primary); }
+        .stat-icon.cash { color: var(--green-wa); }
+        .stat-icon.debt { color: var(--red); }
 
-        /* ===== الكراسة العائمة ===== */
+        .stat-content h4 {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .stat-content .value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* FLOATING NOTEBOOK (CHAT HEAD) */
         .floating-notebook {
-            position: fixed;
+            position: absolute;
             z-index: 9999;
             cursor: grab;
             user-select: none;
-        }
-
-        .floating-notebook:active {
-            cursor: grabbing;
+            bottom: 100px;
+            right: 20px;
         }
 
         .notebook-toggle {
-            background: linear-gradient(135deg, var(--gold), var(--primary-dark));
-            color: white;
-            width: 80px;
-            height: 80px;
+            background: var(--primary);
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            transition: all 0.3s;
-            border: 3px solid white;
-            animation: pulse 2s infinite;
-        }
-
-        .notebook-toggle:hover {
-            transform: scale(1.1);
+            color: #0b141a;
+            box-shadow: 0 4px 20px rgba(212,175,55,0.4);
+            transition: var(--transition);
+            border: 2px solid rgba(255,255,255,0.2);
         }
 
         .notebook-toggle i {
-            font-size: 32px;
+            font-size: 28px;
         }
 
         .notebook-toggle span {
-            font-size: 12px;
-            margin-top: 2px;
+            font-size: 10px;
             font-weight: 700;
-        }
-
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 20px rgba(212, 175, 55, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
-            }
+            margin-top: 2px;
         }
 
         .notebook-panel {
             position: absolute;
-            top: 0;
-            right: 100px;
-            width: 480px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            bottom: 0;
+            right: 80px;
+            width: 400px;
+            background: var(--bg-surface);
+            border-radius: 28px 28px 0 28px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
             display: none;
             overflow: hidden;
-            border: 3px solid var(--gold);
-            max-height: 85vh;
-            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.1);
+            max-height: 80vh;
+            flex-direction: column;
         }
 
         .notebook-panel.show {
-            display: block;
-            animation: slideInRight 0.3s ease;
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translate(30px, 0);
-            }
-            to {
-                opacity: 1;
-                transform: translate(0, 0);
-            }
+            display: flex;
         }
 
         .notebook-header {
-            background: linear-gradient(135deg, var(--gold), var(--primary-dark));
-            color: white;
-            padding: 20px;
+            background: var(--primary);
+            color: #0b141a;
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 10;
         }
 
         .notebook-header h3 {
-            font-size: 22px;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .notebook-close {
-            background: rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.1);
             border: none;
-            color: white;
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
+            color: #0b141a;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            font-size: 20px;
+            font-size: 18px;
+            transition: var(--transition);
         }
 
         .notebook-close:hover {
-            background: rgba(255,255,255,0.3);
+            background: rgba(0,0,0,0.2);
             transform: rotate(90deg);
         }
 
         .notebook-balance {
-            background: linear-gradient(135deg, #1a5f7a, #159895);
+            background: var(--green-wa);
             color: white;
-            padding: 20px;
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            font-size: 20px;
-            border-bottom: 2px solid rgba(255,255,255,0.2);
-        }
-
-        .notebook-balance .value {
             font-weight: 700;
-            font-size: 28px;
+            font-size: 18px;
         }
 
         .notebook-tabs {
             display: flex;
-            border-bottom: 2px solid #eee;
-            background: #f8f9fa;
-            position: sticky;
-            top: 80px;
-            z-index: 9;
+            background: var(--bg-input);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .notebook-tab {
             flex: 1;
-            padding: 15px;
-            background: none;
+            padding: 14px;
+            background: transparent;
             border: none;
-            cursor: pointer;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 15px;
+            color: var(--text-secondary);
             font-weight: 500;
-            color: #666;
-            transition: all 0.3s;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Tajawal', sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .notebook-tab.active {
-            color: var(--gold);
-            border-bottom: 3px solid var(--gold);
-            background: #fff9e6;
-        }
-
-        .notebook-tab.gold-buy {
-            color: var(--success);
-        }
-        .notebook-tab.gold-buy.active {
-            color: var(--success);
-            border-bottom-color: var(--success);
-            background: #e8f5e9;
-        }
-        .notebook-tab.gold-sell {
-            color: var(--danger);
-        }
-        .notebook-tab.gold-sell.active {
-            color: var(--danger);
-            border-bottom-color: var(--danger);
-            background: #ffebee;
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+            background: rgba(212,175,55,0.1);
         }
 
         .notebook-content {
-            padding: 20px;
-            max-height: calc(85vh - 200px);
+            padding: 16px;
             overflow-y: auto;
+            max-height: 400px;
+            background: var(--bg-surface);
         }
 
         .notebook-form {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #e0e0e0;
-        }
-
-        .form-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--secondary);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            background: var(--bg-input);
+            border-radius: 20px;
+            padding: 16px;
+            margin-bottom: 16px;
         }
 
         .notebook-form input,
         .notebook-form select {
             width: 100%;
-            padding: 12px;
+            padding: 12px 16px;
             margin-bottom: 10px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            background: var(--bg-hover);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 40px;
+            color: var(--text-primary);
             font-family: 'Tajawal', sans-serif;
-            font-size: 14px;
         }
 
-        .notebook-form input:focus,
-        .notebook-form select:focus {
+        .notebook-form input:focus {
             outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
-        }
-
-        .notebook-form .btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.3s;
-            font-size: 16px;
+            border-color: var(--primary);
         }
 
         .btn-income {
-            background: var(--success);
+            background: var(--green-wa);
             color: white;
-        }
-        .btn-income:hover {
-            background: var(--success-dark);
-        }
-        .btn-expense {
-            background: var(--danger);
-            color: white;
-        }
-        .btn-expense:hover {
-            background: var(--danger-dark);
-        }
-        .btn-gold-buy {
-            background: #fd7e14;
-            color: white;
-        }
-        .btn-gold-buy:hover {
-            background: #e56b08;
-        }
-        .btn-gold-sell {
-            background: #6f42c1;
-            color: white;
-        }
-        .btn-gold-sell:hover {
-            background: #5e3aa8;
-        }
-
-        .notebook-list {
-            margin-top: 15px;
-        }
-
-        .list-title {
-            font-size: 16px;
+            border: none;
+            padding: 14px;
+            border-radius: 40px;
             font-weight: 700;
-            color: var(--secondary);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: var(--transition);
         }
+
+        .btn-income:hover { background: var(--green-dark); }
+
+        .btn-expense {
+            background: var(--red);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 40px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-gold-buy { background: #fd7e14; }
+        .btn-gold-sell { background: #6f42c1; }
 
         .notebook-item {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            border-right: 4px solid;
+            background: var(--bg-input);
+            border-radius: 18px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            transition: all 0.3s;
+            border-right: 4px solid;
         }
 
-        .notebook-item:hover {
-            transform: translateX(-5px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
+        .notebook-item.income { border-right-color: var(--green-wa); }
+        .notebook-item.expense { border-right-color: var(--red); }
+        .notebook-item.gold-buy { border-right-color: #fd7e14; }
+        .notebook-item.gold-sell { border-right-color: #6f42c1; }
 
-        .notebook-item.income {
-            border-right-color: var(--success);
-        }
-        .notebook-item.expense {
-            border-right-color: var(--danger);
-        }
-        .notebook-item.gold-buy {
-            border-right-color: #fd7e14;
-        }
-        .notebook-item.gold-sell {
-            border-right-color: #6f42c1;
-        }
+        .item-info .desc { font-weight: 500; }
+        .item-info .meta { font-size: 11px; color: var(--text-secondary); }
 
-        .item-info {
-            flex: 1;
-        }
-
-        .item-info .desc {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .item-info .meta {
-            font-size: 12px;
-            color: #666;
-        }
-
-        .item-amount {
-            font-size: 18px;
-            font-weight: 700;
-            margin-left: 15px;
-        }
-
-        .item-amount.income {
-            color: var(--success);
-        }
-        .item-amount.expense {
-            color: var(--danger);
-        }
-        .item-amount.gold-buy {
-            color: #fd7e14;
-        }
-        .item-amount.gold-sell {
-            color: #6f42c1;
-        }
+        .item-amount { font-weight: 700; }
+        .item-amount.income { color: var(--green-wa); }
+        .item-amount.expense { color: var(--red); }
 
         .item-actions button {
-            background: none;
+            background: transparent;
             border: none;
-            color: #999;
+            color: var(--text-secondary);
             cursor: pointer;
-            width: 35px;
-            height: 35px;
+            padding: 6px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
         }
 
         .item-actions button:hover {
-            background: #fee;
-            color: var(--danger);
+            background: var(--bg-hover);
+            color: var(--red);
         }
 
         .notebook-footer {
-            padding: 20px;
-            background: #f5f5f5;
-            border-top: 2px solid #eee;
-            position: sticky;
-            bottom: 0;
-            z-index: 9;
+            padding: 16px;
+            background: var(--bg-input);
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
 
         .notebook-totals {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            text-align: center;
-        }
-
-        .total-box {
-            background: white;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .total-box .label {
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 3px;
-        }
-
-        .total-box .value {
-            font-size: 18px;
+            display: flex;
+            justify-content: space-around;
             font-weight: 700;
         }
 
-        .total-income { color: var(--success); }
-        .total-expense { color: var(--danger); }
-        .total-balance { color: var(--gold); }
-
-        /* ===== التبويبات الرئيسية ===== */
-        .main-tabs {
-            background: white;
-            padding: 15px 20px 0;
+        /* MAIN CONTENT AREA (CHAT AREA) */
+        .main-chat-area {
+            flex: 1;
+            background: var(--bg-dark);
             display: flex;
-            gap: 5px;
-            border-bottom: 3px solid var(--gold);
-            border-radius: 15px 15px 0 0;
-            overflow-x: auto;
-            margin-top: 20px;
+            flex-direction: column;
+            overflow: hidden;
         }
 
-        .main-tab {
-            padding: 12px 25px;
-            background: #f5f5f5;
+        .chat-tabs {
+            background: var(--bg-surface);
+            padding: 10px 16px 0;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .chat-tab {
+            padding: 12px 20px;
+            background: transparent;
             border: none;
-            border-radius: 8px 8px 0 0;
-            font-size: 15px;
+            color: var(--text-secondary);
             font-weight: 500;
+            border-radius: 40px 40px 0 0;
             cursor: pointer;
-            color: #666;
+            white-space: nowrap;
             display: flex;
             align-items: center;
             gap: 8px;
-            white-space: nowrap;
-            transition: all 0.3s;
+            transition: var(--transition);
         }
 
-        .main-tab:hover {
-            background: #e0e0e0;
+        .chat-tab:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
         }
 
-        .main-tab.active {
-            background: var(--gold);
-            color: white;
+        .chat-tab.active {
+            background: var(--primary);
+            color: #0b141a;
+            font-weight: 700;
         }
 
-        .main-tab.admin-tab {
-            background: #6f42c1;
-            color: white;
-        }
-
-        /* ===== المحتوى الرئيسي ===== */
-        .main-content {
-            background: white;
-            padding: 30px;
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+        .chat-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: var(--bg-dark);
         }
 
         .tab-pane {
@@ -766,120 +580,99 @@
 
         .tab-pane.active {
             display: block;
-            animation: fadeIn 0.3s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ===== عناوين الأقسام ===== */
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--gold);
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .section-header h2 {
-            color: var(--secondary);
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        /* ===== نماذج الإدخال ===== */
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+        /* MESSAGE BUBBLES STYLE FOR FORMS */
+        .message-bubble {
+            background: var(--bg-surface);
+            border-radius: 24px 24px 24px 8px;
+            padding: 20px;
             margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .form-group {
-            margin-bottom: 15px;
+        .message-bubble h3 {
+            color: var(--primary);
+            margin-bottom: 16px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .form-group label {
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .input-field {
+            margin-bottom: 16px;
+        }
+
+        .input-field label {
             display: block;
-            margin-bottom: 8px;
-            color: var(--secondary);
-            font-weight: 500;
-            font-size: 14px;
+            margin-bottom: 6px;
+            color: var(--text-secondary);
+            font-size: 13px;
         }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
+        .input-field input,
+        .input-field select,
+        .input-field textarea {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 14px;
+            padding: 14px 18px;
+            background: var(--bg-input);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 40px;
+            color: var(--text-primary);
             font-family: 'Tajawal', sans-serif;
-            transition: all 0.3s;
+            transition: var(--transition);
         }
 
-        .form-group input:focus,
-        .form-group select:focus {
+        .input-field input:focus,
+        .input-field select:focus {
             outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+            border-color: var(--primary);
         }
 
-        .form-group input[readonly] {
-            background: #f5f5f5;
-            cursor: not-allowed;
+        .input-field input[readonly] {
+            background: var(--bg-hover);
+            color: var(--text-secondary);
         }
 
-        /* ===== الأزرار ===== */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
         .btn {
-            padding: 12px 25px;
+            padding: 12px 24px;
             border: none;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 500;
+            border-radius: 40px;
+            font-weight: 600;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            transition: var(--transition);
             font-family: 'Tajawal', sans-serif;
-            transition: all 0.3s;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
+        .btn-primary { background: var(--primary); color: #0b141a; }
+        .btn-success { background: var(--green-wa); color: white; }
+        .btn-danger { background: var(--red); color: white; }
+        .btn-warning { background: var(--yellow); color: #0b141a; }
 
-        .btn-primary { background: var(--gold); color: white; }
-        .btn-success { background: var(--success); color: white; }
-        .btn-danger { background: var(--danger); color: white; }
-        .btn-info { background: var(--info); color: white; }
-        .btn-warning { background: var(--warning); color: var(--dark); }
-
-        .btn-sm {
-            padding: 8px 16px;
-            font-size: 12px;
-        }
-
-        /* ===== الجداول ===== */
         .table-responsive {
             overflow-x: auto;
-            margin: 20px 0;
-            border-radius: 10px;
+            background: var(--bg-surface);
+            border-radius: 20px;
+            padding: 4px;
         }
 
         table {
@@ -889,1066 +682,619 @@
         }
 
         th {
-            background: var(--gold);
-            color: white;
-            padding: 15px;
+            background: var(--bg-input);
+            color: var(--text-primary);
+            padding: 14px;
             font-weight: 500;
         }
 
         td {
             padding: 12px;
-            border-bottom: 1px solid #eee;
-            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-secondary);
         }
 
-        tr:hover {
-            background: #f5f5f5;
-        }
-
-        /* ===== بطاقات المستخدمين ===== */
-        .users-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .user-card {
-            background: white;
-            border: 1px solid #eee;
-            border-radius: 15px;
-            padding: 25px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-
-        .user-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
-        }
-
-        .user-card.admin {
-            border-right: 5px solid #6f42c1;
-        }
-
-        .user-card .user-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .user-card .user-header h3 {
-            color: var(--dark);
-            font-size: 18px;
-        }
-
-        .user-card .user-badge {
-            background: var(--gold);
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-        }
-
-        .user-card .user-badge.admin {
-            background: #6f42c1;
-        }
-
-        .user-card .user-body {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .user-card .user-body p {
-            margin: 10px 0;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .user-card .permissions {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-        }
-
-        .user-card .permissions h4 {
-            color: var(--secondary);
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .user-card .permissions .perm-tag {
-            background: #f0f0f0;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 12px;
-            display: inline-block;
-            margin: 3px;
-        }
-
-        /* ===== قسم الصرف اليومي ===== */
-        .daily-expense {
-            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            border: 2px solid var(--warning);
-        }
-
-        .daily-expense-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        /* ===== حركة المنتج ===== */
-        .product-movement {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 15px;
-            margin-top: 20px;
-        }
-
-        .movement-item {
-            background: white;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            border-right: 3px solid var(--gold);
-        }
-
-        /* ===== الشارات ===== */
         .badge {
-            padding: 5px 12px;
-            border-radius: 20px;
+            padding: 4px 10px;
+            border-radius: 40px;
             font-size: 11px;
-            font-weight: 500;
-            display: inline-block;
+            background: rgba(255,255,255,0.1);
         }
 
-        .badge-success { background: #d4edda; color: #155724; }
-        .badge-warning { background: #fff3cd; color: #856404; }
-        .badge-danger { background: #f8d7da; color: #721c24; }
-        .badge-info { background: #d1ecf1; color: #0c5460; }
+        .badge-success { background: var(--green-wa); color: white; }
+        .badge-danger { background: var(--red); color: white; }
 
-        /* ===== توقيع المطور ===== */
+        /* DEVELOPER SIGNATURE (LIKE TELEGRAM BOTTOM) */
         .developer-signature {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: linear-gradient(135deg, #6f42c1, #8e44ad);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 50px;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            z-index: 9998;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.3);
+            bottom: 16px;
+            left: 16px;
+            background: rgba(31,44,52,0.9);
             backdrop-filter: blur(5px);
-        }
-
-        .developer-signature .info {
+            padding: 10px 18px;
+            border-radius: 40px;
+            font-size: 13px;
+            color: var(--text-secondary);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            z-index: 9998;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .developer-signature .info i {
-            font-size: 24px;
-            color: var(--gold);
-        }
-
-        .developer-signature .info .name {
-            font-weight: 700;
-            font-size: 16px;
-        }
-
-        .developer-signature .contact {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .developer-signature .contact a {
-            color: white;
+        .developer-signature a {
+            color: var(--primary);
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 5px;
-            background: rgba(255,255,255,0.15);
-            padding: 6px 15px;
-            border-radius: 30px;
-            transition: all 0.3s;
-            font-size: 13px;
+            background: rgba(255,255,255,0.05);
+            padding: 4px 12px;
+            border-radius: 40px;
         }
 
-        .developer-signature .contact a:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateY(-2px);
-        }
-
-        .developer-signature .contact .whatsapp {
-            background: #25d366;
-        }
-
-        /* ===== التنبيهات ===== */
         .alert {
             position: fixed;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            padding: 15px 30px;
-            border-radius: 50px;
+            background: var(--green-wa);
             color: white;
+            padding: 14px 28px;
+            border-radius: 40px;
+            z-index: 20000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            animation: slideDown 0.2s;
             font-weight: 500;
-            z-index: 10001;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
-            animation: slideDown 0.3s ease;
         }
 
-        .alert-success { background: var(--success); }
-        .alert-error { background: var(--danger); }
-        .alert-warning { background: var(--warning); color: var(--dark); }
-
         @keyframes slideDown {
-            from { top: -100px; opacity: 0; }
+            from { top: -50px; opacity: 0; }
             to { top: 20px; opacity: 1; }
         }
 
-        /* ===== التجاوب مع الجوال ===== */
-        @media (max-width: 768px) {
-            .main-header { flex-direction: column; text-align: center; }
-            .logo { flex-direction: column; }
-            .stats-grid { grid-template-columns: 1fr; }
-            .form-grid { grid-template-columns: 1fr; }
-            .notebook-panel { width: 320px; right: 90px; }
-            .developer-signature {
-                flex-direction: column;
-                gap: 10px;
-                left: 10px;
-                right: 10px;
-                bottom: 10px;
-            }
-        }
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--bg-input); border-radius: 10px; }
     </style>
 </head>
 <body>
-    <!-- شاشة تسجيل الدخول -->
+    <!-- LOGIN SCREEN -->
     <div id="loginOverlay" class="login-overlay">
-        <div class="login-box">
-            <h2>
-                <i class="fas fa-gem"></i>
-                مجوهرات عبد ربو الصي
-            </h2>
+        <div class="login-card">
+            <h2><i class="fas fa-gem"></i> مجوهرات عبد ربو</h2>
             <div class="input-group">
-                <label><i class="fas fa-user"></i> اسم المستخدم</label>
-                <input type="text" id="username" placeholder="أدخل اسم المستخدم" value="admin">
+                <label>اسم المستخدم</label>
+                <input type="text" id="username" value="admin" placeholder="admin">
             </div>
             <div class="input-group">
-                <label><i class="fas fa-lock"></i> كلمة المرور</label>
-                <input type="password" id="password" placeholder="أدخل كلمة المرور" value="admin">
+                <label>كلمة المرور</label>
+                <input type="password" id="password" value="admin" placeholder="••••••">
             </div>
-            <button class="btn-login" onclick="app.login()">
-                <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
-            </button>
-            <div id="loginError" class="error-message">خطأ في اسم المستخدم أو كلمة المرور</div>
+            <button class="btn-login" onclick="app.login()"><i class="fas fa-sign-in-alt"></i> دخول</button>
+            <div id="loginError" class="error-message">بيانات غير صحيحة</div>
         </div>
     </div>
 
-    <!-- المحتوى الرئيسي -->
-    <div id="mainApp" style="display: none;">
-        <!-- الكراسة العائمة -->
-        <div class="floating-notebook" id="floatingNotebook" style="top: 100px; right: 20px;">
-            <div class="notebook-toggle" onclick="app.toggleNotebook()">
-                <i class="fas fa-book-open"></i>
-                <span>كراستي</span>
-            </div>
-            
-            <div class="notebook-panel" id="notebookPanel">
-                <div class="notebook-header">
-                    <h3><i class="fas fa-book"></i> الكراسة الذكية</h3>
-                    <button class="notebook-close" onclick="app.toggleNotebook()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                
-                <div class="notebook-balance">
-                    <span>رصيد اليوم:</span>
-                    <span class="value" id="notebookBalance">0.00</span>
-                </div>
-                
-                <div class="notebook-tabs">
-                    <button class="notebook-tab active" onclick="app.switchNotebookTab('cash')">
-                        <i class="fas fa-money-bill"></i> نقدي
-                    </button>
-                    <button class="notebook-tab gold-buy" onclick="app.switchNotebookTab('goldBuy')">
-                        <i class="fas fa-cart-plus"></i> شراء ذهب
-                    </button>
-                    <button class="notebook-tab gold-sell" onclick="app.switchNotebookTab('goldSell')">
-                        <i class="fas fa-gem"></i> بيع ذهب
-                    </button>
-                </div>
-                
-                <div class="notebook-content">
-                    <!-- تبويب النقدي -->
-                    <div id="notebookCashTab" class="notebook-tab-content" style="display: block;">
-                        <div class="notebook-form">
-                            <select id="cashType">
-                                <option value="in">➕ داخل (وارد)</option>
-                                <option value="out">➖ خارج (منصرف)</option>
-                            </select>
-                            <input type="text" id="cashDesc" placeholder="البيان">
-                            <input type="number" id="cashAmount" step="0.01" placeholder="المبلغ">
-                            <button class="btn btn-income" onclick="app.addCashEntry()">
-                                <i class="fas fa-plus"></i> إضافة حركة نقدية
-                            </button>
-                        </div>
-                        
-                        <div class="list-title">
-                            <i class="fas fa-list"></i> حركات اليوم
-                        </div>
-                        <div class="notebook-list" id="cashList"></div>
-                    </div>
-                    
-                    <!-- تبويب شراء ذهب -->
-                    <div id="notebookGoldBuyTab" class="notebook-tab-content" style="display: none;">
-                        <div class="notebook-form">
-                            <input type="text" id="goldBuyDesc" placeholder="وصف (مثال: سبيكة)">
-                            <input type="number" id="goldBuyWeight" step="0.01" placeholder="الوزن (جرام)">
-                            <select id="goldBuyCarat">
-                                <option value="24">عيار 24</option>
-                                <option value="21">عيار 21</option>
-                                <option value="18">عيار 18</option>
-                            </select>
-                            <input type="number" id="goldBuyPrice" step="0.01" placeholder="سعر الجرام">
-                            <input type="number" id="goldBuyTotal" step="0.01" placeholder="الإجمالي" readonly>
-                            <button class="btn btn-gold-buy" onclick="app.addGoldBuy()">
-                                <i class="fas fa-check"></i> تأكيد الشراء
-                            </button>
-                        </div>
-                        
-                        <div class="list-title">
-                            <i class="fas fa-history"></i> مشتريات اليوم
-                        </div>
-                        <div class="notebook-list" id="goldBuyList"></div>
-                    </div>
-                    
-                    <!-- تبويب بيع ذهب -->
-                    <div id="notebookGoldSellTab" class="notebook-tab-content" style="display: none;">
-                        <div class="notebook-form">
-                            <input type="text" id="goldSellDesc" placeholder="وصف (مثال: سبيكة)">
-                            <input type="number" id="goldSellWeight" step="0.01" placeholder="الوزن (جرام)">
-                            <select id="goldSellCarat">
-                                <option value="24">عيار 24</option>
-                                <option value="21">عيار 21</option>
-                                <option value="18">عيار 18</option>
-                            </select>
-                            <input type="number" id="goldSellPrice" step="0.01" placeholder="سعر الجرام">
-                            <input type="number" id="goldSellTotal" step="0.01" placeholder="الإجمالي" readonly>
-                            <button class="btn btn-gold-sell" onclick="app.addGoldSell()">
-                                <i class="fas fa-check"></i> تأكيد البيع
-                            </button>
-                        </div>
-                        
-                        <div class="list-title">
-                            <i class="fas fa-history"></i> مبيعات اليوم
-                        </div>
-                        <div class="notebook-list" id="goldSellList"></div>
-                    </div>
-                </div>
-                
-                <div class="notebook-footer">
-                    <div class="notebook-totals">
-                        <div class="total-box">
-                            <div class="label">داخل</div>
-                            <div class="value total-income" id="totalIncome">0.00</div>
-                        </div>
-                        <div class="total-box">
-                            <div class="label">خارج</div>
-                            <div class="value total-expense" id="totalExpense">0.00</div>
-                        </div>
-                        <div class="total-box">
-                            <div class="label">الصافي</div>
-                            <div class="value total-balance" id="netBalance">0.00</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <!-- الهيدر الرئيسي -->
-            <div class="main-header">
-                <div class="logo">
-                    <i class="fas fa-gem"></i>
-                    <div>
-                        <h1>مجوهرات عبد ربو الصي</h1>
-                        <span>للذهب والمجوهرات - تأسست 1985</span>
-                    </div>
-                </div>
-                <div class="user-menu">
-                    <div class="user-info">
-                        <i class="fas fa-user-circle"></i>
+    <!-- MAIN APP -->
+    <div id="mainApp">
+        <div class="app-container">
+            <!-- SIDEBAR (CHATS) -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <div class="store-info">
+                        <i class="fas fa-gem"></i>
                         <div>
-                            <div class="user-name" id="currentUserName">admin</div>
-                            <div class="user-role" id="currentUserRole">مدير النظام</div>
+                            <h2>عبد ربو الصي</h2>
+                            <span>تأسست 1985</span>
                         </div>
                     </div>
-                    <button class="logout-btn" onclick="app.logout()">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>خروج</span>
-                    </button>
+                    <div class="user-menu">
+                        <div class="user-badge">
+                            <i class="fas fa-user-circle"></i>
+                            <span id="currentUserName">admin</span>
+                        </div>
+                        <button class="logout-btn" onclick="app.logout()"><i class="fas fa-sign-out-alt"></i></button>
+                    </div>
                 </div>
-                <div class="date-time" id="currentDateTime"></div>
+                <div class="stats-scroll">
+                    <div class="stat-item" onclick="app.showDetails('cash')">
+                        <div class="stat-icon cash"><i class="fas fa-coins"></i></div>
+                        <div class="stat-content">
+                            <h4>رصيد الخزنة</h4>
+                            <div class="value" id="cashBalance">0.00</div>
+                        </div>
+                    </div>
+                    <div class="stat-item" onclick="app.showDetails('gold')">
+                        <div class="stat-icon gold"><i class="fas fa-gem"></i></div>
+                        <div class="stat-content">
+                            <h4>مخزون الذهب</h4>
+                            <div class="value" id="goldStock">0.00 جرام</div>
+                        </div>
+                    </div>
+                    <div class="stat-item" onclick="app.showDetails('debt')">
+                        <div class="stat-icon debt"><i class="fas fa-hand-holding-usd"></i></div>
+                        <div class="stat-content">
+                            <h4>ديون العملاء</h4>
+                            <div class="value" id="totalDebts">0.00</div>
+                        </div>
+                    </div>
+                    <div class="stat-item" onclick="app.showDetails('emp')">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="stat-content">
+                            <h4>الموظفين</h4>
+                            <div class="value" id="totalEmployees">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-item" onclick="app.showDetails('stock')">
+                        <div class="stat-icon"><i class="fas fa-boxes"></i></div>
+                        <div class="stat-content">
+                            <h4>القطع</h4>
+                            <div class="value" id="totalItems">0</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- بطاقات الإحصائيات -->
-            <div class="stats-grid">
-                <div class="stat-card" onclick="app.showDetails('cash')">
-                    <div class="stat-icon cash"><i class="fas fa-coins"></i></div>
-                    <div class="stat-info">
-                        <h3>رصيد الخزنة</h3>
-                        <div class="value cash" id="cashBalance">0.00</div>
+            <!-- MAIN CHAT AREA -->
+            <div class="main-chat-area">
+                <!-- FLOATING NOTEBOOK -->
+                <div class="floating-notebook" id="floatingNotebook">
+                    <div class="notebook-toggle" onclick="app.toggleNotebook()">
+                        <i class="fas fa-book-open"></i>
+                        <span>كراستي</span>
                     </div>
-                </div>
-                <div class="stat-card" onclick="app.showDetails('gold')">
-                    <div class="stat-icon gold"><i class="fas fa-gem"></i></div>
-                    <div class="stat-info">
-                        <h3>مخزون الذهب</h3>
-                        <div class="value gold" id="goldStock">0.00 جرام</div>
-                    </div>
-                </div>
-                <div class="stat-card" onclick="app.showDetails('debt')">
-                    <div class="stat-icon debt"><i class="fas fa-hand-holding-usd"></i></div>
-                    <div class="stat-info">
-                        <h3>ديون العملاء</h3>
-                        <div class="value debt" id="totalDebts">0.00</div>
-                    </div>
-                </div>
-                <div class="stat-card" onclick="app.showDetails('emp')">
-                    <div class="stat-icon emp"><i class="fas fa-users"></i></div>
-                    <div class="stat-info">
-                        <h3>الموظفين</h3>
-                        <div class="value" id="totalEmployees">0</div>
-                    </div>
-                </div>
-                <div class="stat-card" onclick="app.showDetails('stock')">
-                    <div class="stat-icon stock"><i class="fas fa-boxes"></i></div>
-                    <div class="stat-info">
-                        <h3>القطع</h3>
-                        <div class="value" id="totalItems">0</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- التبويبات الرئيسية -->
-            <div class="main-tabs">
-                <button class="main-tab active" onclick="app.switchTab('dashboard')">
-                    <i class="fas fa-home"></i> الرئيسية
-                </button>
-                <button class="main-tab" onclick="app.switchTab('buy')">
-                    <i class="fas fa-cart-plus"></i> شراء
-                </button>
-                <button class="main-tab" onclick="app.switchTab('sell')">
-                    <i class="fas fa-cash-register"></i> بيع
-                </button>
-                <button class="main-tab" onclick="app.switchTab('return')">
-                    <i class="fas fa-undo-alt"></i> استرجاع
-                </button>
-                <button class="main-tab" onclick="app.switchTab('inventory')">
-                    <i class="fas fa-boxes"></i> المخزون
-                </button>
-                <button class="main-tab" onclick="app.switchTab('cash')">
-                    <i class="fas fa-coins"></i> الخزنة
-                </button>
-                <button class="main-tab" onclick="app.switchTab('daily')">
-                    <i class="fas fa-calendar-day"></i> الصرف اليومي
-                </button>
-                <button class="main-tab" onclick="app.switchTab('employees')">
-                    <i class="fas fa-user-tie"></i> الموظفين
-                </button>
-                <button class="main-tab" onclick="app.switchTab('companies')">
-                    <i class="fas fa-building"></i> الشركات
-                </button>
-                <button class="main-tab" onclick="app.switchTab('reports')">
-                    <i class="fas fa-chart-bar"></i> التقارير
-                </button>
-                <button class="main-tab admin-tab" onclick="app.switchTab('users')" id="adminTab">
-                    <i class="fas fa-users-cog"></i> المستخدمين
-                </button>
-            </div>
-
-            <!-- المحتوى الرئيسي -->
-            <div class="main-content">
-                <!-- الرئيسية -->
-                <div id="dashboard-tab" class="tab-pane active">
-                    <div class="section-header">
-                        <h2><i class="fas fa-home"></i> لوحة التحكم الرئيسية</h2>
-                    </div>
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-icon cash"><i class="fas fa-chart-line"></i></div>
-                            <div class="stat-info">
-                                <h3>مبيعات اليوم</h3>
-                                <div class="value" id="todaySales">0.00</div>
-                            </div>
+                    <div class="notebook-panel" id="notebookPanel">
+                        <div class="notebook-header">
+                            <h3><i class="fas fa-book"></i> كراستي الذكية</h3>
+                            <button class="notebook-close" onclick="app.toggleNotebook()"><i class="fas fa-times"></i></button>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-icon debt"><i class="fas fa-shopping-cart"></i></div>
-                            <div class="stat-info">
-                                <h3>مشتريات اليوم</h3>
-                                <div class="value" id="todayPurchases">0.00</div>
-                            </div>
+                        <div class="notebook-balance">
+                            <span>رصيد اليوم</span>
+                            <span id="notebookBalance">0.00</span>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-icon emp"><i class="fas fa-file-invoice"></i></div>
-                            <div class="stat-info">
-                                <h3>فواتير اليوم</h3>
-                                <div class="value" id="todayInvoices">0</div>
-                            </div>
+                        <div class="notebook-tabs">
+                            <button class="notebook-tab active" onclick="app.switchNotebookTab('cash')"><i class="fas fa-money-bill"></i> نقدي</button>
+                            <button class="notebook-tab" onclick="app.switchNotebookTab('goldBuy')"><i class="fas fa-cart-plus"></i> شراء ذهب</button>
+                            <button class="notebook-tab" onclick="app.switchNotebookTab('goldSell')"><i class="fas fa-gem"></i> بيع ذهب</button>
                         </div>
-                    </div>
-
-                    <!-- آخر الحركات -->
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                        <div style="background: #f8f9fa; padding: 20px; border-radius: 12px;">
-                            <h3 style="margin-bottom: 15px;">آخر المبيعات</h3>
-                            <div id="recentSales"></div>
-                        </div>
-                        <div style="background: #f8f9fa; padding: 20px; border-radius: 12px;">
-                            <h3 style="margin-bottom: 15px;">آخر المشتريات</h3>
-                            <div id="recentPurchases"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- قسم الشراء -->
-                <div id="buy-tab" class="tab-pane">
-                    <div class="section-header">
-                        <h2><i class="fas fa-cart-plus"></i> فاتورة شراء</h2>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>المورد</label>
-                            <select id="buySupplier">
-                                <option value="">اختر المورد</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>المنتج</label>
-                            <input type="text" id="buyProduct">
-                        </div>
-                        <div class="form-group">
-                            <label>الوزن (جرام)</label>
-                            <input type="number" id="buyWeight" step="0.01" oninput="app.calculateBuyTotal()">
-                        </div>
-                        <div class="form-group">
-                            <label>العيار</label>
-                            <select id="buyCarat">
-                                <option value="24">عيار 24</option>
-                                <option value="21">عيار 21</option>
-                                <option value="18">عيار 18</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>سعر الجرام</label>
-                            <input type="number" id="buyPrice" step="0.01" oninput="app.calculateBuyTotal()">
-                        </div>
-                        <div class="form-group">
-                            <label>المصنعية</label>
-                            <input type="number" id="buyManufacturing" step="0.01" value="0" oninput="app.calculateBuyTotal()">
-                        </div>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>الإجمالي</label>
-                            <input type="number" id="buyTotal" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>المدفوع</label>
-                            <input type="number" id="buyPaid" value="0" oninput="app.updateBuyRemaining()">
-                        </div>
-                        <div class="form-group">
-                            <label>المتبقي</label>
-                            <input type="number" id="buyRemaining" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>طريقة الدفع</label>
-                            <select id="buyPayment">
-                                <option value="cash">نقدي</option>
-                                <option value="bank">تحويل بنكي</option>
-                                <option value="debt">آجل</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div style="display: flex; gap: 10px; justify-content: flex-end;">
-                        <button class="btn btn-success" onclick="app.completeBuy()">
-                            <i class="fas fa-check"></i> إتمام الشراء
-                        </button>
-                    </div>
-                </div>
-
-                <!-- قسم البيع -->
-                <div id="sell-tab" class="tab-pane">
-                    <div class="section-header">
-                        <h2><i class="fas fa-cash-register"></i> فاتورة بيع</h2>
-                        <div class="invoice-number" style="background: var(--gold); color: white; padding: 8px 20px; border-radius: 30px;">
-                            رقم: <span id="sellInvoiceNumber">000001</span>
-                        </div>
-                    </div>
-
-                    <div style="background: linear-gradient(135deg, #fff3e0, #ffe0b2); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
-                        <label>سعر الذهب عيار 21 اليوم:</label>
-                        <input type="number" id="todayGoldPrice" step="0.01" style="width: 150px; padding: 8px; margin-right: 10px;" oninput="app.updateGoldPrice()">
-                    </div>
-
-                    <div class="form-group">
-                        <label>ابحث عن منتج</label>
-                        <input type="text" id="productSearch" placeholder="اكتب اسم المنتج أو الباركود">
-                        <div id="searchResults" style="background: white; border: 1px solid #ddd; max-height: 200px; overflow-y: auto; display: none;"></div>
-                    </div>
-
-                    <div id="selectedProduct" style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin: 15px 0; display: none;"></div>
-
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>الوزن (جرام)</label>
-                            <input type="number" id="sellWeight" step="0.01" oninput="app.calculateSellTotal()">
-                        </div>
-                        <div class="form-group">
-                            <label>العيار</label>
-                            <select id="sellCarat" onchange="app.calculateSellTotal()">
-                                <option value="21">عيار 21</option>
-                                <option value="24">عيار 24</option>
-                                <option value="18">عيار 18</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>المصنعية</label>
-                            <input type="number" id="sellManufacturing" step="0.01" value="0" oninput="app.calculateSellTotal()">
-                        </div>
-                        <div class="form-group">
-                            <label>سعر الجرام</label>
-                            <input type="number" id="sellPricePerGram" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>الإجمالي</label>
-                            <input type="number" id="sellTotal" readonly>
-                        </div>
-                    </div>
-
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>العميل</label>
-                            <select id="sellCustomer">
-                                <option value="">اختر العميل</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>الموظف</label>
-                            <select id="sellEmployee">
-                                <option value="">اختر الموظف</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>طريقة الدفع</label>
-                            <select id="sellPayment" onchange="app.togglePaymentFields()">
-                                <option value="cash">نقدي</option>
-                                <option value="bank">تحويل بنكي</option>
-                                <option value="debt">آجل</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div id="paymentDetails" style="display: none;">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>رقم التحويل</label>
-                                <input type="text" id="paymentReference">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>المبلغ المدفوع</label>
-                            <input type="number" id="sellPaid" value="0" oninput="app.updateSellRemaining()">
-                        </div>
-                        <div class="form-group">
-                            <label>المتبقي</label>
-                            <input type="number" id="sellRemaining" readonly>
-                        </div>
-                    </div>
-
-                    <div style="display: flex; gap: 10px; justify-content: flex-end;">
-                        <button class="btn btn-success" onclick="app.completeSell()">
-                            <i class="fas fa-check"></i> إتمام البيع
-                        </button>
-                    </div>
-                </div>
-
-                <!-- قسم الاسترجاع -->
-                <div id="return-tab" class="tab-pane">
-                    <div class="section-header">
-                        <h2><i class="fas fa-undo-alt"></i> استرجاع منتج</h2>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>رقم الفاتورة</label>
-                            <input type="text" id="returnInvoice">
-                        </div>
-                        <div class="form-group">
-                            <label>الباركود</label>
-                            <input type="text" id="returnBarcode">
-                        </div>
-                        <div class="form-group">
-                            <label>الكمية</label>
-                            <input type="number" id="returnQuantity" step="0.01">
-                        </div>
-                        <div class="form-group">
-                            <label>السبب</label>
-                            <select id="returnReason">
-                                <option value="defect">عيب في الصنعة</option>
-                                <option value="wrong">خطأ في الفاتورة</option>
-                                <option value="customer">رغبة العميل</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button class="btn btn-warning" onclick="app.processReturn()">
-                        <i class="fas fa-undo-alt"></i> تأكيد الاسترجاع
-                    </button>
-                </div>
-
-                <!-- قسم المخزون -->
-                <div id="inventory-tab" class="tab-pane">
-                    <div class="section-header">
-                        <h2><i class="fas fa-boxes"></i> المخزون الحالي</h2>
-                        <button class="btn btn-success btn-sm" onclick="app.showAddProductForm()">
-                            <i class="fas fa-plus"></i> إضافة قطعة
-                        </button>
-                    </div>
-
-                    <div id="addProductForm" style="display: none; margin-bottom: 20px;">
-                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
-                            <h3 style="margin-bottom: 15px;">إضافة قطعة جديدة</h3>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label>اسم القطعة</label>
-                                    <input type="text" id="productName">
+                        <div class="notebook-content">
+                            <!-- نقدي -->
+                            <div id="notebookCashTab" class="notebook-tab-content" style="display: block;">
+                                <div class="notebook-form">
+                                    <select id="cashType">
+                                        <option value="in">➕ داخل (وارد)</option>
+                                        <option value="out">➖ خارج (منصرف)</option>
+                                    </select>
+                                    <input type="text" id="cashDesc" placeholder="البيان (مثال: مبيعات)">
+                                    <input type="number" id="cashAmount" step="0.01" placeholder="المبلغ">
+                                    <button class="btn-income" onclick="app.addCashEntry()"><i class="fas fa-plus"></i> إضافة</button>
                                 </div>
-                                <div class="form-group">
-                                    <label>الوزن (جرام)</label>
-                                    <input type="number" id="productWeight" step="0.01">
-                                </div>
-                                <div class="form-group">
-                                    <label>العيار</label>
-                                    <select id="productCarat">
+                                <div class="notebook-list" id="cashList"></div>
+                            </div>
+                            <!-- شراء ذهب -->
+                            <div id="notebookGoldBuyTab" class="notebook-tab-content" style="display: none;">
+                                <div class="notebook-form">
+                                    <input type="text" id="goldBuyDesc" placeholder="الوصف">
+                                    <input type="number" id="goldBuyWeight" step="0.01" placeholder="الوزن (جرام)">
+                                    <select id="goldBuyCarat">
                                         <option value="24">عيار 24</option>
                                         <option value="21">عيار 21</option>
                                         <option value="18">عيار 18</option>
                                     </select>
+                                    <input type="number" id="goldBuyPrice" step="0.01" placeholder="سعر الجرام">
+                                    <input type="number" id="goldBuyTotal" step="0.01" placeholder="الإجمالي" readonly>
+                                    <button class="btn-gold-buy btn" onclick="app.addGoldBuy()"><i class="fas fa-check"></i> شراء</button>
                                 </div>
-                                <div class="form-group">
+                                <div class="notebook-list" id="goldBuyList"></div>
+                            </div>
+                            <!-- بيع ذهب -->
+                            <div id="notebookGoldSellTab" class="notebook-tab-content" style="display: none;">
+                                <div class="notebook-form">
+                                    <input type="text" id="goldSellDesc" placeholder="الوصف">
+                                    <input type="number" id="goldSellWeight" step="0.01" placeholder="الوزن (جرام)">
+                                    <select id="goldSellCarat">
+                                        <option value="24">عيار 24</option>
+                                        <option value="21">عيار 21</option>
+                                        <option value="18">عيار 18</option>
+                                    </select>
+                                    <input type="number" id="goldSellPrice" step="0.01" placeholder="سعر الجرام">
+                                    <input type="number" id="goldSellTotal" step="0.01" placeholder="الإجمالي" readonly>
+                                    <button class="btn-gold-sell btn" onclick="app.addGoldSell()"><i class="fas fa-check"></i> بيع</button>
+                                </div>
+                                <div class="notebook-list" id="goldSellList"></div>
+                            </div>
+                        </div>
+                        <div class="notebook-footer">
+                            <div class="notebook-totals">
+                                <span>داخل: <span id="totalIncome">0</span></span>
+                                <span>خارج: <span id="totalExpense">0</span></span>
+                                <span>الصافي: <span id="netBalance">0</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TABS (CHAT HEADERS) -->
+                <div class="chat-tabs">
+                    <button class="chat-tab active" onclick="app.switchTab('dashboard')"><i class="fas fa-home"></i> الرئيسية</button>
+                    <button class="chat-tab" onclick="app.switchTab('buy')"><i class="fas fa-cart-plus"></i> شراء</button>
+                    <button class="chat-tab" onclick="app.switchTab('sell')"><i class="fas fa-cash-register"></i> بيع</button>
+                    <button class="chat-tab" onclick="app.switchTab('return')"><i class="fas fa-undo-alt"></i> استرجاع</button>
+                    <button class="chat-tab" onclick="app.switchTab('inventory')"><i class="fas fa-boxes"></i> المخزون</button>
+                    <button class="chat-tab" onclick="app.switchTab('cash')"><i class="fas fa-coins"></i> الخزنة</button>
+                    <button class="chat-tab" onclick="app.switchTab('daily')"><i class="fas fa-calendar-day"></i> الصرف اليومي</button>
+                    <button class="chat-tab" onclick="app.switchTab('employees')"><i class="fas fa-user-tie"></i> الموظفين</button>
+                    <button class="chat-tab" onclick="app.switchTab('companies')"><i class="fas fa-building"></i> الشركات</button>
+                    <button class="chat-tab" onclick="app.switchTab('reports')"><i class="fas fa-chart-bar"></i> التقارير</button>
+                    <button class="chat-tab" id="adminTab" onclick="app.switchTab('users')"><i class="fas fa-users-cog"></i> المستخدمين</button>
+                </div>
+
+                <!-- CONTENT (CHAT MESSAGES) -->
+                <div class="chat-content">
+                    <!-- الرئيسية -->
+                    <div id="dashboard-tab" class="tab-pane active">
+                        <div class="message-bubble">
+                            <h3><i class="fas fa-home"></i> لوحة التحكم</h3>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                                <div class="stat-item" style="background: var(--bg-input);">
+                                    <div class="stat-icon cash"><i class="fas fa-chart-line"></i></div>
+                                    <div class="stat-content">
+                                        <h4>مبيعات اليوم</h4>
+                                        <div class="value" id="todaySales">0.00</div>
+                                    </div>
+                                </div>
+                                <div class="stat-item" style="background: var(--bg-input);">
+                                    <div class="stat-icon debt"><i class="fas fa-shopping-cart"></i></div>
+                                    <div class="stat-content">
+                                        <h4>مشتريات اليوم</h4>
+                                        <div class="value" id="todayPurchases">0.00</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <h4>آخر الحركات</h4>
+                                <div id="recentSales" style="background: var(--bg-input); border-radius: 20px; padding: 12px;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- شراء -->
+                    <div id="buy-tab" class="tab-pane">
+                        <div class="message-bubble">
+                            <h3><i class="fas fa-cart-plus"></i> فاتورة شراء</h3>
+                            <div class="grid-2">
+                                <div class="input-field">
+                                    <label>المورد</label>
+                                    <select id="buySupplier">
+                                        <option value="">اختر المورد</option>
+                                    </select>
+                                </div>
+                                <div class="input-field">
+                                    <label>المنتج</label>
+                                    <input type="text" id="buyProduct">
+                                </div>
+                                <div class="input-field">
+                                    <label>الوزن (جرام)</label>
+                                    <input type="number" id="buyWeight" step="0.01" oninput="app.calculateBuyTotal()">
+                                </div>
+                                <div class="input-field">
+                                    <label>العيار</label>
+                                    <select id="buyCarat">
+                                        <option value="24">24</option>
+                                        <option value="21">21</option>
+                                        <option value="18">18</option>
+                                    </select>
+                                </div>
+                                <div class="input-field">
+                                    <label>سعر الجرام</label>
+                                    <input type="number" id="buyPrice" step="0.01" oninput="app.calculateBuyTotal()">
+                                </div>
+                                <div class="input-field">
                                     <label>المصنعية</label>
-                                    <input type="number" id="productManufacturing" step="0.01" value="0">
+                                    <input type="number" id="buyManufacturing" step="0.01" value="0" oninput="app.calculateBuyTotal()">
                                 </div>
-                                <div class="form-group">
-                                    <label>سعر الشراء</label>
-                                    <input type="number" id="productBuyPrice" step="0.01">
+                                <div class="input-field">
+                                    <label>الإجمالي</label>
+                                    <input type="number" id="buyTotal" readonly>
+                                </div>
+                                <div class="input-field">
+                                    <label>المدفوع</label>
+                                    <input type="number" id="buyPaid" value="0" oninput="app.updateBuyRemaining()">
+                                </div>
+                                <div class="input-field">
+                                    <label>المتبقي</label>
+                                    <input type="number" id="buyRemaining" readonly>
+                                </div>
+                                <div class="input-field">
+                                    <label>طريقة الدفع</label>
+                                    <select id="buyPayment">
+                                        <option value="cash">نقدي</option>
+                                        <option value="bank">تحويل</option>
+                                        <option value="debt">آجل</option>
+                                    </select>
                                 </div>
                             </div>
-                            <button class="btn btn-success" onclick="app.addProduct()">حفظ</button>
-                            <button class="btn btn-danger" onclick="app.hideAddProductForm()">إلغاء</button>
-                        </div>
-                    </div>
-
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>الباركود</th>
-                                    <th>القطعة</th>
-                                    <th>الوزن</th>
-                                    <th>العيار</th>
-                                    <th>المصنعية</th>
-                                    <th>سعر الشراء</th>
-                                    <th>سعر البيع</th>
-                                </tr>
-                            </thead>
-                            <tbody id="inventoryList"></tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- قسم الخزنة -->
-                <div id="cash-tab" class="tab-pane">
-                    <div class="section-header">
-                        <h2><i class="fas fa-coins"></i> الخزنة</h2>
-                        <div>
-                            <button class="btn btn-success btn-sm" onclick="app.addCash('in')">
-                                <i class="fas fa-plus"></i> إيداع
-                            </button>
-                            <button class="btn btn-danger btn-sm" onclick="app.addCash('out')">
-                                <i class="fas fa-minus"></i> سحب
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-icon cash"><i class="fas fa-arrow-up"></i></div>
-                            <div class="stat-info">
-                                <h3>إجمالي الوارد</h3>
-                                <div class="value cash" id="totalCashIn">0.00</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon debt"><i class="fas fa-arrow-down"></i></div>
-                            <div class="stat-info">
-                                <h3>إجمالي المنصرف</h3>
-                                <div class="value debt" id="totalCashOut">0.00</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon emp"><i class="fas fa-coins"></i></div>
-                            <div class="stat-info">
-                                <h3>الرصيد الحالي</h3>
-                                <div class="value" id="currentCash">0.00</div>
+                            <div class="action-buttons">
+                                <button class="btn btn-success" onclick="app.completeBuy()"><i class="fas fa-check"></i> إتمام الشراء</button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>التاريخ</th>
-                                    <th>البيان</th>
-                                    <th>وارد</th>
-                                    <th>منصرف</th>
-                                    <th>الرصيد</th>
-                                </tr>
-                            </thead>
-                            <tbody id="cashTableBody"></tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- قسم الصرف اليومي -->
-                <div id="daily-tab" class="tab-pane">
-                    <div class="section-header">
-                        <h2><i class="fas fa-calendar-day"></i> الصرف اليومي</h2>
-                        <button class="btn btn-warning btn-sm" onclick="app.addDailyExpense()">
-                            <i class="fas fa-plus"></i> إضافة صرف
-                        </button>
-                    </div>
-
-                    <div class="daily-expense">
-                        <div class="daily-expense-header">
-                            <h3>صرف اليوم <span id="currentDate"></span></h3>
-                            <div>الإجمالي: <span id="dailyTotal">0.00</span></div>
-                        </div>
-                        <div class="table-responsive">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>البيان</th>
-                                        <th>المبلغ</th>
-                                        <th>الوقت</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="dailyExpensesList"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- قسم الموظفين -->
-                <div id="employees-tab" class="tab-pane">
-                    <div class="section-header">
-                        <h2><i class="fas fa-user-tie"></i> الموظفين</h2>
-                        <button class="btn btn-success btn-sm" onclick="app.showAddEmployeeForm()">
-                            <i class="fas fa-plus"></i> إضافة موظف
-                        </button>
-                    </div>
-
-                    <div id="addEmployeeForm" style="display: none; margin-bottom: 20px;">
-                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
-                            <h3>إضافة موظف جديد</h3>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label>الاسم</label>
-                                    <input type="text" id="employeeName">
+                    <!-- بيع -->
+                    <div id="sell-tab" class="tab-pane">
+                        <div class="message-bubble">
+                            <h3><i class="fas fa-cash-register"></i> فاتورة بيع <span style="background: var(--primary); color: #0b141a; padding: 4px 12px; border-radius: 40px; font-size: 14px;">رقم: <span id="sellInvoiceNumber">000001</span></span></h3>
+                            <div style="background: var(--bg-input); border-radius: 40px; padding: 16px; margin-bottom: 16px;">
+                                <label>سعر الذهب عيار 21 اليوم:</label>
+                                <input type="number" id="todayGoldPrice" step="0.01" value="3500" style="background: var(--bg-hover); border: none; padding: 10px; border-radius: 40px; color: white; width: 150px;" oninput="app.updateGoldPrice()">
+                            </div>
+                            <div class="input-field">
+                                <label>ابحث عن منتج</label>
+                                <input type="text" id="productSearch" placeholder="اسم المنتج أو الباركود">
+                                <div id="searchResults" style="background: var(--bg-hover); border-radius: 20px; margin-top: 8px; max-height: 200px; overflow-y: auto; display: none;"></div>
+                            </div>
+                            <div id="selectedProduct" style="background: var(--bg-hover); border-radius: 20px; padding: 12px; margin: 12px 0; display: none;"></div>
+                            <div class="grid-2">
+                                <div class="input-field">
+                                    <label>الوزن (جرام)</label>
+                                    <input type="number" id="sellWeight" step="0.01" oninput="app.calculateSellTotal()">
                                 </div>
-                                <div class="form-group">
-                                    <label>الوظيفة</label>
-                                    <input type="text" id="employeePosition">
+                                <div class="input-field">
+                                    <label>العيار</label>
+                                    <select id="sellCarat" onchange="app.calculateSellTotal()">
+                                        <option value="21">21</option>
+                                        <option value="24">24</option>
+                                        <option value="18">18</option>
+                                    </select>
                                 </div>
-                                <div class="form-group">
-                                    <label>الراتب</label>
-                                    <input type="number" id="employeeSalary" step="0.01">
+                                <div class="input-field">
+                                    <label>المصنعية</label>
+                                    <input type="number" id="sellManufacturing" step="0.01" value="0" oninput="app.calculateSellTotal()">
+                                </div>
+                                <div class="input-field">
+                                    <label>سعر الجرام</label>
+                                    <input type="number" id="sellPricePerGram" readonly>
+                                </div>
+                                <div class="input-field">
+                                    <label>الإجمالي</label>
+                                    <input type="number" id="sellTotal" readonly>
+                                </div>
+                                <div class="input-field">
+                                    <label>العميل</label>
+                                    <select id="sellCustomer">
+                                        <option value="">اختر العميل</option>
+                                    </select>
+                                </div>
+                                <div class="input-field">
+                                    <label>الموظف</label>
+                                    <select id="sellEmployee">
+                                        <option value="">اختر الموظف</option>
+                                    </select>
+                                </div>
+                                <div class="input-field">
+                                    <label>طريقة الدفع</label>
+                                    <select id="sellPayment" onchange="app.togglePaymentFields()">
+                                        <option value="cash">نقدي</option>
+                                        <option value="bank">تحويل</option>
+                                        <option value="debt">آجل</option>
+                                    </select>
+                                </div>
+                                <div id="paymentDetails" style="display: none; grid-column: span 2;">
+                                    <div class="input-field">
+                                        <label>رقم التحويل</label>
+                                        <input type="text" id="paymentReference">
+                                    </div>
+                                </div>
+                                <div class="input-field">
+                                    <label>المبلغ المدفوع</label>
+                                    <input type="number" id="sellPaid" value="0" oninput="app.updateSellRemaining()">
+                                </div>
+                                <div class="input-field">
+                                    <label>المتبقي</label>
+                                    <input type="number" id="sellRemaining" readonly>
                                 </div>
                             </div>
-                            <button class="btn btn-success" onclick="app.addEmployee()">حفظ</button>
-                            <button class="btn btn-danger" onclick="app.hideAddEmployeeForm()">إلغاء</button>
+                            <div class="action-buttons">
+                                <button class="btn btn-success" onclick="app.completeSell()"><i class="fas fa-check"></i> إتمام البيع</button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="cards-grid" id="employeesGrid"></div>
-                </div>
-
-                <!-- قسم الشركات -->
-                <div id="companies-tab" class="tab-pane">
-                    <div class="section-header">
-                        <h2><i class="fas fa-building"></i> الشركات</h2>
-                        <button class="btn btn-success btn-sm" onclick="app.showAddCompanyForm()">
-                            <i class="fas fa-plus"></i> إضافة شركة
-                        </button>
-                    </div>
-
-                    <div id="addCompanyForm" style="display: none; margin-bottom: 20px;">
-                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
-                            <h3>إضافة شركة جديدة</h3>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label>اسم الشركة</label>
-                                    <input type="text" id="companyName">
+                    <!-- استرجاع -->
+                    <div id="return-tab" class="tab-pane">
+                        <div class="message-bubble">
+                            <h3><i class="fas fa-undo-alt"></i> استرجاع منتج</h3>
+                            <div class="grid-2">
+                                <div class="input-field">
+                                    <label>رقم الفاتورة</label>
+                                    <input type="text" id="returnInvoice">
                                 </div>
-                                <div class="form-group">
-                                    <label>رقم الهاتف</label>
-                                    <input type="text" id="companyPhone">
+                                <div class="input-field">
+                                    <label>الباركود</label>
+                                    <input type="text" id="returnBarcode">
+                                </div>
+                                <div class="input-field">
+                                    <label>الكمية</label>
+                                    <input type="number" id="returnQuantity" step="0.01">
+                                </div>
+                                <div class="input-field">
+                                    <label>السبب</label>
+                                    <select id="returnReason">
+                                        <option value="defect">عيب</option>
+                                        <option value="wrong">خطأ</option>
+                                        <option value="customer">رغبة العميل</option>
+                                    </select>
                                 </div>
                             </div>
-                            <button class="btn btn-success" onclick="app.addCompany()">حفظ</button>
-                            <button class="btn btn-danger" onclick="app.hideAddCompanyForm()">إلغاء</button>
+                            <button class="btn btn-warning" onclick="app.processReturn()"><i class="fas fa-undo-alt"></i> تأكيد</button>
                         </div>
                     </div>
 
-                    <div class="cards-grid" id="companiesGrid"></div>
-                </div>
-
-                <!-- قسم التقارير -->
-                <div id="reports-tab" class="tab-pane">
-                    <div class="section-header">
-                        <h2><i class="fas fa-chart-bar"></i> التقارير</h2>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>نوع التقرير</label>
-                            <select id="reportType" onchange="app.generateReport()">
-                                <option value="sales">تقرير المبيعات</option>
-                                <option value="purchases">تقرير المشتريات</option>
-                                <option value="cash">تقرير الخزنة</option>
-                                <option value="inventory">تقرير المخزون</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>من تاريخ</label>
-                            <input type="date" id="reportFrom">
-                        </div>
-                        <div class="form-group">
-                            <label>إلى تاريخ</label>
-                            <input type="date" id="reportTo">
-                        </div>
-                    </div>
-                    <div id="reportResult" style="margin-top: 20px;"></div>
-                </div>
-
-                <!-- قسم المستخدمين -->
-                <div id="users-tab" class="tab-pane">
-                    <div class="section-header">
-                        <h2><i class="fas fa-users-cog"></i> إدارة المستخدمين</h2>
-                        <button class="btn btn-success btn-sm" onclick="app.showAddUserForm()">
-                            <i class="fas fa-plus"></i> إضافة مستخدم
-                        </button>
-                    </div>
-
-                    <div id="addUserForm" style="display: none; margin-bottom: 20px;">
-                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
-                            <h3>إضافة مستخدم جديد</h3>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label>اسم المستخدم</label>
-                                    <input type="text" id="newUsername">
+                    <!-- المخزون -->
+                    <div id="inventory-tab" class="tab-pane">
+                        <div class="message-bubble">
+                            <h3><i class="fas fa-boxes"></i> المخزون <button class="btn btn-success btn-sm" style="float: left;" onclick="app.showAddProductForm()"><i class="fas fa-plus"></i> إضافة</button></h3>
+                            <div id="addProductForm" style="display: none; margin-bottom: 20px; background: var(--bg-input); padding: 20px; border-radius: 24px;">
+                                <h4>إضافة قطعة جديدة</h4>
+                                <div class="grid-2">
+                                    <div class="input-field"><input type="text" id="productName" placeholder="الاسم"></div>
+                                    <div class="input-field"><input type="number" id="productWeight" step="0.01" placeholder="الوزن"></div>
+                                    <div class="input-field">
+                                        <select id="productCarat">
+                                            <option value="24">24</option>
+                                            <option value="21">21</option>
+                                            <option value="18">18</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-field"><input type="number" id="productManufacturing" step="0.01" value="0" placeholder="المصنعية"></div>
+                                    <div class="input-field"><input type="number" id="productBuyPrice" step="0.01" placeholder="سعر الشراء"></div>
                                 </div>
-                                <div class="form-group">
-                                    <label>كلمة المرور</label>
-                                    <input type="password" id="newPassword">
+                                <button class="btn btn-success" onclick="app.addProduct()">حفظ</button>
+                                <button class="btn btn-danger" onclick="app.hideAddProductForm()">إلغاء</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead><tr><th>الباركود</th><th>القطعة</th><th>الوزن</th><th>العيار</th><th>المصنعية</th><th>سعر الشراء</th><th>سعر البيع</th></tr></thead>
+                                    <tbody id="inventoryList"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- الخزنة -->
+                    <div id="cash-tab" class="tab-pane">
+                        <div class="message-bubble">
+                            <h3><i class="fas fa-coins"></i> الخزنة 
+                                <button class="btn btn-success btn-sm" style="float: left;" onclick="app.addCash('in')"><i class="fas fa-plus"></i> إيداع</button>
+                                <button class="btn btn-danger btn-sm" style="float: left; margin-left: 8px;" onclick="app.addCash('out')"><i class="fas fa-minus"></i> سحب</button>
+                            </h3>
+                            <div style="display: flex; gap: 16px; margin-bottom: 16px;">
+                                <div class="stat-item" style="flex:1;"><span>إجمالي الوارد</span> <strong id="totalCashIn">0</strong></div>
+                                <div class="stat-item" style="flex:1;"><span>إجمالي المنصرف</span> <strong id="totalCashOut">0</strong></div>
+                                <div class="stat-item" style="flex:1;"><span>الرصيد</span> <strong id="currentCash">0</strong></div>
+                            </div>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead><tr><th>التاريخ</th><th>البيان</th><th>وارد</th><th>منصرف</th><th>الرصيد</th></tr></thead>
+                                    <tbody id="cashTableBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- الصرف اليومي -->
+                    <div id="daily-tab" class="tab-pane">
+                        <div class="message-bubble">
+                            <h3><i class="fas fa-calendar-day"></i> صرف اليوم <span style="background: var(--bg-input); padding: 4px 12px; border-radius: 40px;" id="currentDate"></span></h3>
+                            <button class="btn btn-warning" onclick="app.addDailyExpense()"><i class="fas fa-plus"></i> إضافة صرف</button>
+                            <div class="table-responsive" style="margin-top: 16px;">
+                                <table>
+                                    <thead><tr><th>البيان</th><th>المبلغ</th><th>الوقت</th></tr></thead>
+                                    <tbody id="dailyExpensesList"></tbody>
+                                    <tfoot><tr><td>الإجمالي</td><td id="dailyTotal">0</td><td></td></tr></tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- الموظفين -->
+                    <div id="employees-tab" class="tab-pane">
+                        <div class="message-bubble">
+                            <h3><i class="fas fa-user-tie"></i> الموظفين <button class="btn btn-success btn-sm" style="float: left;" onclick="app.showAddEmployeeForm()"><i class="fas fa-plus"></i> إضافة</button></h3>
+                            <div id="addEmployeeForm" style="display: none; background: var(--bg-input); padding: 20px; border-radius: 24px; margin-bottom: 16px;">
+                                <div class="grid-2">
+                                    <input type="text" id="employeeName" placeholder="الاسم">
+                                    <input type="text" id="employeePosition" placeholder="الوظيفة">
+                                    <input type="number" id="employeeSalary" step="0.01" placeholder="الراتب">
                                 </div>
-                                <div class="form-group">
-                                    <label>الاسم الكامل</label>
-                                    <input type="text" id="newFullName">
+                                <button class="btn btn-success" onclick="app.addEmployee()">حفظ</button>
+                                <button class="btn btn-danger" onclick="app.hideAddEmployeeForm()">إلغاء</button>
+                            </div>
+                            <div id="employeesGrid" class="grid-2"></div>
+                        </div>
+                    </div>
+
+                    <!-- الشركات -->
+                    <div id="companies-tab" class="tab-pane">
+                        <div class="message-bubble">
+                            <h3><i class="fas fa-building"></i> الشركات <button class="btn btn-success btn-sm" style="float: left;" onclick="app.showAddCompanyForm()"><i class="fas fa-plus"></i> إضافة</button></h3>
+                            <div id="addCompanyForm" style="display: none; background: var(--bg-input); padding: 20px; border-radius: 24px; margin-bottom: 16px;">
+                                <div class="grid-2">
+                                    <input type="text" id="companyName" placeholder="اسم الشركة">
+                                    <input type="text" id="companyPhone" placeholder="رقم الهاتف">
                                 </div>
-                                <div class="form-group">
-                                    <label>الدور</label>
+                                <button class="btn btn-success" onclick="app.addCompany()">حفظ</button>
+                                <button class="btn btn-danger" onclick="app.hideAddCompanyForm()">إلغاء</button>
+                            </div>
+                            <div id="companiesGrid" class="grid-2"></div>
+                        </div>
+                    </div>
+
+                    <!-- التقارير -->
+                    <div id="reports-tab" class="tab-pane">
+                        <div class="message-bubble">
+                            <h3><i class="fas fa-chart-bar"></i> التقارير</h3>
+                            <div class="grid-2">
+                                <select id="reportType">
+                                    <option value="sales">المبيعات</option>
+                                    <option value="purchases">المشتريات</option>
+                                    <option value="cash">الخزنة</option>
+                                </select>
+                                <input type="date" id="reportFrom">
+                                <input type="date" id="reportTo">
+                                <button class="btn btn-primary" onclick="app.generateReport()">عرض</button>
+                            </div>
+                            <div id="reportResult" style="margin-top: 20px;"></div>
+                        </div>
+                    </div>
+
+                    <!-- المستخدمين (admin only) -->
+                    <div id="users-tab" class="tab-pane">
+                        <div class="message-bubble">
+                            <h3><i class="fas fa-users-cog"></i> إدارة المستخدمين <button class="btn btn-success btn-sm" style="float: left;" onclick="app.showAddUserForm()"><i class="fas fa-plus"></i> إضافة</button></h3>
+                            <div id="addUserForm" style="display: none; background: var(--bg-input); padding: 20px; border-radius: 24px; margin-bottom: 16px;">
+                                <div class="grid-2">
+                                    <input type="text" id="newUsername" placeholder="اسم المستخدم">
+                                    <input type="password" id="newPassword" placeholder="كلمة المرور">
+                                    <input type="text" id="newFullName" placeholder="الاسم الكامل">
                                     <select id="newRole">
                                         <option value="admin">مدير</option>
                                         <option value="manager">مسؤول</option>
                                         <option value="employee">موظف</option>
                                     </select>
                                 </div>
-                            </div>
-                            
-                            <div style="margin-top: 15px;">
-                                <h4>الصلاحيات</h4>
-                                <div class="form-grid">
-                                    <div class="form-group">
-                                        <label><input type="checkbox" id="permBuy" checked> شراء</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label><input type="checkbox" id="permSell" checked> بيع</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label><input type="checkbox" id="permInventory" checked> مخزون</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label><input type="checkbox" id="permCash" checked> خزنة</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label><input type="checkbox" id="permEmployees" checked> موظفين</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label><input type="checkbox" id="permCompanies" checked> شركات</label>
-                                    </div>
+                                <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                                    <label><input type="checkbox" id="permBuy" checked> شراء</label>
+                                    <label><input type="checkbox" id="permSell" checked> بيع</label>
+                                    <label><input type="checkbox" id="permInventory" checked> مخزون</label>
+                                    <label><input type="checkbox" id="permCash" checked> خزنة</label>
+                                    <label><input type="checkbox" id="permEmployees" checked> موظفين</label>
+                                    <label><input type="checkbox" id="permCompanies" checked> شركات</label>
                                 </div>
+                                <button class="btn btn-success" onclick="app.addUser()">حفظ</button>
+                                <button class="btn btn-danger" onclick="app.hideAddUserForm()">إلغاء</button>
                             </div>
-
-                            <button class="btn btn-success" onclick="app.addUser()">حفظ</button>
-                            <button class="btn btn-danger" onclick="app.hideAddUserForm()">إلغاء</button>
+                            <div id="usersList" class="grid-2"></div>
                         </div>
                     </div>
-
-                    <div class="users-grid" id="usersList"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- توقيع المطور -->
+    <!-- DEVELOPER SIGNATURE -->
     <div class="developer-signature">
-        <div class="info">
-            <i class="fas fa-code"></i>
-            <span class="name">محمد أحمد فؤاد</span>
-        </div>
-        <div class="contact">
-            <a href="https://wa.me/201010421571" target="_blank" class="whatsapp">
-                <i class="fab fa-whatsapp"></i> 01010421571
-            </a>
-        </div>
+        <i class="fas fa-code"></i> محمد أحمد فؤاد
+        <a href="https://wa.me/201010421571"><i class="fab fa-whatsapp"></i> 01010421571</a>
     </div>
 
-    <!-- التنبيهات -->
+    <!-- ALERT CONTAINER -->
     <div id="alertContainer"></div>
 
     <script>
-        // التطبيق الرئيسي - نسخة متكاملة 100%
+        // ==================== التطبيق الرئيسي ====================
         const App = {
             // البيانات
             products: [],
@@ -1963,12 +1309,12 @@
             goldInventory: [],
             users: [],
             currentUser: null,
-            
-            // المتغيرات
             currentSellInvoice: 1,
             currentGoldPrice: 3500,
             notebookOpen: false,
             isDragging: false,
+            dragOffsetX: 0,
+            dragOffsetY: 0,
 
             // ===== التهيئة =====
             init() {
@@ -1976,13 +1322,14 @@
                 this.checkLoginStatus();
                 this.setupEventListeners();
                 this.setupDraggable();
-                this.updateDateTime();
                 setInterval(() => this.updateDateTime(), 1000);
+                // تعيين التاريخ الحالي في الصرف اليومي
+                const today = new Date().toLocaleDateString('ar-EG');
+                document.getElementById('currentDate').innerText = today;
             },
 
             loadData() {
                 try {
-                    // تحميل جميع البيانات
                     this.products = JSON.parse(localStorage.getItem('products')) || [];
                     this.customers = JSON.parse(localStorage.getItem('customers')) || [];
                     this.employees = JSON.parse(localStorage.getItem('employees')) || [];
@@ -1993,1332 +1340,33 @@
                     this.dailyExpenses = JSON.parse(localStorage.getItem('dailyExpenses')) || [];
                     this.notebook = JSON.parse(localStorage.getItem('notebook')) || [];
                     this.goldInventory = JSON.parse(localStorage.getItem('goldInventory')) || [];
-                    
-                    // تحميل المستخدمين
+
                     const savedUsers = localStorage.getItem('systemUsers');
                     if (savedUsers) {
                         this.users = JSON.parse(savedUsers);
                     } else {
-                        // إنشاء المستخدم الافتراضي
                         this.users = [{
                             id: 1,
                             username: 'admin',
                             password: 'admin',
                             fullName: 'مدير النظام',
                             role: 'admin',
-                            permissions: {
-                                buy: true,
-                                sell: true,
-                                inventory: true,
-                                cash: true,
-                                employees: true,
-                                companies: true,
-                                reports: true,
-                                users: true
-                            },
+                            permissions: { buy: true, sell: true, inventory: true, cash: true, employees: true, companies: true, reports: true, users: true },
                             createdAt: new Date().toISOString()
                         }];
                         this.saveUsers();
                     }
-                    
-                    // آخر رقم فاتورة
+
                     const lastInvoice = localStorage.getItem('lastSellInvoice');
                     this.currentSellInvoice = lastInvoice ? parseInt(lastInvoice) + 1 : 1;
-                    
-                    // سعر الذهب
-                    const savedGoldPrice = localStorage.getItem('currentGoldPrice');
-                    this.currentGoldPrice = savedGoldPrice ? parseFloat(savedGoldPrice) : 3500;
-                    
-                    if (document.getElementById('todayGoldPrice')) {
-                        document.getElementById('todayGoldPrice').value = this.currentGoldPrice;
-                    }
 
-                } catch (e) {
-                    console.error('خطأ في تحميل البيانات:', e);
-                }
+                    const savedPrice = localStorage.getItem('currentGoldPrice');
+                    if (savedPrice) this.currentGoldPrice = parseFloat(savedPrice);
+                    document.getElementById('todayGoldPrice').value = this.currentGoldPrice;
+                } catch (e) { console.error('load error', e); }
             },
 
             saveData() {
-                try {
-                    localStorage.setItem('products', JSON.stringify(this.products));
-                    localStorage.setItem('customers', JSON.stringify(this.customers));
-                    localStorage.setItem('employees', JSON.stringify(this.employees));
-                    localStorage.setItem('companies', JSON.stringify(this.companies));
-                    localStorage.setItem('purchases', JSON.stringify(this.purchases));
-                    localStorage.setItem('sales', JSON.stringify(this.sales));
-                    localStorage.setItem('cash', JSON.stringify(this.cash));
-                    localStorage.setItem('dailyExpenses', JSON.stringify(this.dailyExpenses));
-                    localStorage.setItem('notebook', JSON.stringify(this.notebook));
-                    localStorage.setItem('goldInventory', JSON.stringify(this.goldInventory));
-                    localStorage.setItem('lastSellInvoice', this.currentSellInvoice);
-                    localStorage.setItem('currentGoldPrice', this.currentGoldPrice);
-                } catch (e) {
-                    console.error('خطأ في حفظ البيانات:', e);
-                }
-            },
-
-            saveUsers() {
-                localStorage.setItem('systemUsers', JSON.stringify(this.users));
-            },
-
-            // ===== نظام المستخدمين =====
-            checkLoginStatus() {
-                const savedUser = localStorage.getItem('currentUser');
-                if (savedUser) {
-                    try {
-                        this.currentUser = JSON.parse(savedUser);
-                        this.showMainApp();
-                        this.updateUserInfo();
-                    } catch (e) {
-                        this.showLogin();
-                    }
-                } else {
-                    this.showLogin();
-                }
-            },
-
-            login() {
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                const errorDiv = document.getElementById('loginError');
-
-                const user = this.users.find(u => u.username === username && u.password === password);
-
-                if (user) {
-                    this.currentUser = user;
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    this.showMainApp();
-                    this.updateUserInfo();
-                    this.renderAll();
-                    this.showAlert('تم تسجيل الدخول بنجاح', 'success');
-                } else {
-                    errorDiv.style.display = 'block';
-                }
-            },
-
-            logout() {
-                localStorage.removeItem('currentUser');
-                this.currentUser = null;
-                document.getElementById('mainApp').style.display = 'none';
-                document.getElementById('loginOverlay').style.display = 'flex';
-                this.showAlert('تم تسجيل الخروج', 'info');
-            },
-
-            showLogin() {
-                document.getElementById('loginOverlay').style.display = 'flex';
-                document.getElementById('mainApp').style.display = 'none';
-            },
-
-            showMainApp() {
-                document.getElementById('loginOverlay').style.display = 'none';
-                document.getElementById('mainApp').style.display = 'block';
-                
-                // إظهار تبويب المستخدمين فقط للمدير
-                const adminTab = document.getElementById('adminTab');
-                if (adminTab) {
-                    adminTab.style.display = this.currentUser?.role === 'admin' ? 'flex' : 'none';
-                }
-            },
-
-            updateUserInfo() {
-                if (this.currentUser) {
-                    document.getElementById('currentUserName').textContent = this.currentUser.fullName || this.currentUser.username;
-                    
-                    let roleText = '';
-                    switch(this.currentUser.role) {
-                        case 'admin': roleText = 'مدير النظام'; break;
-                        case 'manager': roleText = 'مسؤول'; break;
-                        case 'employee': roleText = 'موظف'; break;
-                        default: roleText = 'مستخدم';
-                    }
-                    document.getElementById('currentUserRole').textContent = roleText;
-                }
-            },
-
-            // ===== المستخدمين =====
-            showAddUserForm() {
-                if (this.currentUser?.role !== 'admin') {
-                    this.showAlert('هذه الصلاحية للمدير فقط', 'error');
-                    return;
-                }
-                document.getElementById('addUserForm').style.display = 'block';
-            },
-
-            hideAddUserForm() {
-                document.getElementById('addUserForm').style.display = 'none';
-                this.resetUserForm();
-            },
-
-            resetUserForm() {
-                document.getElementById('newUsername').value = '';
-                document.getElementById('newPassword').value = '';
-                document.getElementById('newFullName').value = '';
-                document.getElementById('newRole').value = 'employee';
-                
-                document.getElementById('permBuy').checked = true;
-                document.getElementById('permSell').checked = true;
-                document.getElementById('permInventory').checked = true;
-                document.getElementById('permCash').checked = true;
-                document.getElementById('permEmployees').checked = true;
-                document.getElementById('permCompanies').checked = true;
-            },
-
-            addUser() {
-                if (this.currentUser?.role !== 'admin') {
-                    this.showAlert('هذه الصلاحية للمدير فقط', 'error');
-                    return;
-                }
-
-                const username = document.getElementById('newUsername').value.trim();
-                const password = document.getElementById('newPassword').value.trim();
-                const fullName = document.getElementById('newFullName').value.trim();
-                const role = document.getElementById('newRole').value;
-
-                if (!username || !password || !fullName) {
-                    this.showAlert('الرجاء إدخال جميع البيانات', 'error');
-                    return;
-                }
-
-                if (this.users.find(u => u.username === username)) {
-                    this.showAlert('اسم المستخدم موجود مسبقاً', 'error');
-                    return;
-                }
-
-                const newUser = {
-                    id: Date.now(),
-                    username,
-                    password,
-                    fullName,
-                    role,
-                    permissions: {
-                        buy: document.getElementById('permBuy').checked,
-                        sell: document.getElementById('permSell').checked,
-                        inventory: document.getElementById('permInventory').checked,
-                        cash: document.getElementById('permCash').checked,
-                        employees: document.getElementById('permEmployees').checked,
-                        companies: document.getElementById('permCompanies').checked,
-                        reports: true,
-                        users: false
-                    },
-                    createdAt: new Date().toISOString()
-                };
-
-                this.users.push(newUser);
-                this.saveUsers();
-                this.renderUsers();
-                this.hideAddUserForm();
-                this.showAlert('تم إضافة المستخدم بنجاح', 'success');
-            },
-
-            deleteUser(id) {
-                if (this.currentUser?.role !== 'admin') {
-                    this.showAlert('هذه الصلاحية للمدير فقط', 'error');
-                    return;
-                }
-
-                if (id === 1) {
-                    this.showAlert('لا يمكن حذف المستخدم الرئيسي', 'error');
-                    return;
-                }
-
-                if (confirm('هل أنت متأكد من حذف هذا المستخدم؟')) {
-                    this.users = this.users.filter(u => u.id !== id);
-                    this.saveUsers();
-                    this.renderUsers();
-                    this.showAlert('تم حذف المستخدم', 'success');
-                }
-            },
-
-            renderUsers() {
-                const container = document.getElementById('usersList');
-                if (!container) return;
-
-                container.innerHTML = '';
-                this.users.forEach(user => {
-                    const isAdmin = user.role === 'admin';
-                    let roleText = user.role === 'admin' ? 'مدير' : user.role === 'manager' ? 'مسؤول' : 'موظف';
-                    
-                    container.innerHTML += `
-                        <div class="user-card ${isAdmin ? 'admin' : ''}">
-                            <div class="user-header">
-                                <h3>${user.fullName}</h3>
-                                <span class="user-badge ${isAdmin ? 'admin' : ''}">${roleText}</span>
-                            </div>
-                            <div class="user-body">
-                                <p><span>اسم المستخدم:</span> <span>${user.username}</span></p>
-                                <p><span>تاريخ الإنشاء:</span> <span>${new Date(user.createdAt).toLocaleDateString()}</span></p>
-                            </div>
-                            <div class="permissions">
-                                <h4>الصلاحيات:</h4>
-                                ${user.permissions.buy ? '<span class="perm-tag">شراء</span>' : ''}
-                                ${user.permissions.sell ? '<span class="perm-tag">بيع</span>' : ''}
-                                ${user.permissions.inventory ? '<span class="perm-tag">مخزون</span>' : ''}
-                                ${user.permissions.cash ? '<span class="perm-tag">خزنة</span>' : ''}
-                                ${user.permissions.employees ? '<span class="perm-tag">موظفين</span>' : ''}
-                                ${user.permissions.companies ? '<span class="perm-tag">شركات</span>' : ''}
-                                ${isAdmin ? '<span class="perm-tag">👑 مدير</span>' : ''}
-                            </div>
-                            ${!isAdmin ? `
-                                <div style="margin-top: 15px;">
-                                    <button class="btn btn-danger btn-sm" onclick="app.deleteUser(${user.id})">
-                                        <i class="fas fa-trash"></i> حذف
-                                    </button>
-                                </div>
-                            ` : ''}
-                        </div>
-                    `;
-                });
-            },
-
-            // ===== الكراسة =====
-            setupDraggable() {
-                const element = document.getElementById('floatingNotebook');
-                if (!element) return;
-
-                const onDrag = (e) => {
-                    if (!this.isDragging) return;
-                    e.preventDefault();
-                    
-                    const newX = e.clientX - this.dragOffsetX;
-                    const newY = e.clientY - this.dragOffsetY;
-                    
-                    const maxX = window.innerWidth - element.offsetWidth;
-                    const maxY = window.innerHeight - element.offsetHeight;
-                    
-                    const boundedX = Math.max(0, Math.min(newX, maxX));
-                    const boundedY = Math.max(0, Math.min(newY, maxY));
-                    
-                    element.style.left = boundedX + 'px';
-                    element.style.top = boundedY + 'px';
-                    element.style.right = 'auto';
-                };
-
-                const onDragEnd = () => {
-                    this.isDragging = false;
-                    element.style.cursor = 'grab';
-                    document.removeEventListener('mousemove', onDrag);
-                    document.removeEventListener('mouseup', onDragEnd);
-                };
-
-                element.addEventListener('mousedown', (e) => {
-                    this.isDragging = true;
-                    e.preventDefault();
-                    
-                    const rect = element.getBoundingClientRect();
-                    this.dragOffsetX = e.clientX - rect.left;
-                    this.dragOffsetY = e.clientY - rect.top;
-                    
-                    element.style.cursor = 'grabbing';
-                    
-                    document.addEventListener('mousemove', onDrag);
-                    document.addEventListener('mouseup', onDragEnd);
-                });
-            },
-
-            toggleNotebook() {
-                const panel = document.getElementById('notebookPanel');
-                this.notebookOpen = !this.notebookOpen;
-                panel.classList.toggle('show');
-            },
-
-            switchNotebookTab(tab) {
-                document.querySelectorAll('.notebook-tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.notebook-tab-content').forEach(c => c.style.display = 'none');
-                
-                if (tab === 'cash') {
-                    document.querySelectorAll('.notebook-tab')[0].classList.add('active');
-                    document.getElementById('notebookCashTab').style.display = 'block';
-                } else if (tab === 'goldBuy') {
-                    document.querySelectorAll('.notebook-tab')[1].classList.add('active');
-                    document.getElementById('notebookGoldBuyTab').style.display = 'block';
-                } else if (tab === 'goldSell') {
-                    document.querySelectorAll('.notebook-tab')[2].classList.add('active');
-                    document.getElementById('notebookGoldSellTab').style.display = 'block';
-                }
-            },
-
-            // إضافة حركة نقدية
-            addCashEntry() {
-                const type = document.getElementById('cashType')?.value;
-                const desc = document.getElementById('cashDesc')?.value.trim();
-                const amount = parseFloat(document.getElementById('cashAmount')?.value);
-
-                if (!desc || !amount || amount <= 0) {
-                    this.showAlert('الرجاء إدخال البيانات', 'error');
-                    return;
-                }
-
-                const entry = {
-                    id: Date.now(),
-                    type,
-                    category: 'cash',
-                    description: desc,
-                    amount,
-                    date: new Date().toLocaleDateString('ar-EG'),
-                    time: new Date().toLocaleTimeString('ar-EG')
-                };
-
-                this.notebook.push(entry);
-                
-                this.cash.push({
-                    id: Date.now(),
-                    date: entry.date,
-                    description: desc,
-                    type: type === 'in' ? 'in' : 'out',
-                    amount
-                });
-
-                document.getElementById('cashDesc').value = '';
-                document.getElementById('cashAmount').value = '';
-                
-                this.saveData();
-                this.renderNotebook();
-                this.renderCash();
-                this.updateStats();
-                this.showAlert('تمت الإضافة', 'success');
-            },
-
-            // حساب إجمالي شراء الذهب
-            calculateGoldBuyTotal() {
-                const weight = parseFloat(document.getElementById('goldBuyWeight')?.value) || 0;
-                const price = parseFloat(document.getElementById('goldBuyPrice')?.value) || 0;
-                const total = weight * price;
-                const el = document.getElementById('goldBuyTotal');
-                if (el) el.value = total.toFixed(2);
-            },
-
-            // إضافة شراء ذهب
-            addGoldBuy() {
-                const desc = document.getElementById('goldBuyDesc')?.value.trim();
-                const weight = parseFloat(document.getElementById('goldBuyWeight')?.value);
-                const carat = parseInt(document.getElementById('goldBuyCarat')?.value);
-                const price = parseFloat(document.getElementById('goldBuyPrice')?.value);
-                
-                if (!desc || !weight || weight <= 0 || !price || price <= 0) {
-                    this.showAlert('الرجاء إدخال البيانات', 'error');
-                    return;
-                }
-
-                const total = weight * price;
-
-                const entry = {
-                    id: Date.now(),
-                    type: 'out',
-                    category: 'goldBuy',
-                    description: `شراء ${desc}`,
-                    weight,
-                    carat,
-                    price,
-                    amount: total,
-                    date: new Date().toLocaleDateString('ar-EG'),
-                    time: new Date().toLocaleTimeString('ar-EG')
-                };
-
-                this.notebook.push(entry);
-                
-                this.cash.push({
-                    id: Date.now(),
-                    date: entry.date,
-                    description: `شراء ذهب - ${desc}`,
-                    type: 'out',
-                    amount: total
-                });
-                
-                this.goldInventory.push({
-                    id: Date.now(),
-                    description: desc,
-                    weight,
-                    carat,
-                    price,
-                    total,
-                    date: entry.date
-                });
-
-                document.getElementById('goldBuyDesc').value = '';
-                document.getElementById('goldBuyWeight').value = '';
-                document.getElementById('goldBuyPrice').value = '';
-                if (document.getElementById('goldBuyTotal')) document.getElementById('goldBuyTotal').value = '';
-                
-                this.saveData();
-                this.renderNotebook();
-                this.updateStats();
-                this.showAlert('تم شراء الذهب', 'success');
-            },
-
-            // حساب إجمالي بيع الذهب
-            calculateGoldSellTotal() {
-                const weight = parseFloat(document.getElementById('goldSellWeight')?.value) || 0;
-                const price = parseFloat(document.getElementById('goldSellPrice')?.value) || 0;
-                const total = weight * price;
-                const el = document.getElementById('goldSellTotal');
-                if (el) el.value = total.toFixed(2);
-            },
-
-            // إضافة بيع ذهب
-            addGoldSell() {
-                const desc = document.getElementById('goldSellDesc')?.value.trim();
-                const weight = parseFloat(document.getElementById('goldSellWeight')?.value);
-                const carat = parseInt(document.getElementById('goldSellCarat')?.value);
-                const price = parseFloat(document.getElementById('goldSellPrice')?.value);
-                
-                if (!desc || !weight || weight <= 0 || !price || price <= 0) {
-                    this.showAlert('الرجاء إدخال البيانات', 'error');
-                    return;
-                }
-
-                // التحقق من الكمية
-                const available = this.goldInventory
-                    .filter(g => g.carat === carat)
-                    .reduce((sum, g) => sum + g.weight, 0);
-
-                if (available < weight) {
-                    this.showAlert(`الكمية غير كافية! المتوفر: ${available.toFixed(2)} جرام`, 'error');
-                    return;
-                }
-
-                const total = weight * price;
-
-                const entry = {
-                    id: Date.now(),
-                    type: 'in',
-                    category: 'goldSell',
-                    description: `بيع ${desc}`,
-                    weight,
-                    carat,
-                    price,
-                    amount: total,
-                    date: new Date().toLocaleDateString('ar-EG'),
-                    time: new Date().toLocaleTimeString('ar-EG')
-                };
-
-                this.notebook.push(entry);
-                
-                this.cash.push({
-                    id: Date.now(),
-                    date: entry.date,
-                    description: `بيع ذهب - ${desc}`,
-                    type: 'in',
-                    amount: total
-                });
-                
-                // تحديث المخزون
-                let remaining = weight;
-                for (let i = 0; i < this.goldInventory.length && remaining > 0; i++) {
-                    if (this.goldInventory[i].carat === carat) {
-                        if (this.goldInventory[i].weight <= remaining) {
-                            remaining -= this.goldInventory[i].weight;
-                            this.goldInventory.splice(i, 1);
-                            i--;
-                        } else {
-                            this.goldInventory[i].weight -= remaining;
-                            remaining = 0;
-                        }
-                    }
-                }
-
-                document.getElementById('goldSellDesc').value = '';
-                document.getElementById('goldSellWeight').value = '';
-                document.getElementById('goldSellPrice').value = '';
-                if (document.getElementById('goldSellTotal')) document.getElementById('goldSellTotal').value = '';
-                
-                this.saveData();
-                this.renderNotebook();
-                this.updateStats();
-                this.showAlert('تم بيع الذهب', 'success');
-            },
-
-            // حذف عنصر من الكراسة
-            deleteNotebookEntry(id) {
-                if (confirm('هل أنت متأكد من الحذف؟')) {
-                    this.notebook = this.notebook.filter(e => e.id !== id);
-                    this.saveData();
-                    this.renderNotebook();
-                    this.showAlert('تم الحذف', 'success');
-                }
-            },
-
-            // عرض الكراسة
-            renderNotebook() {
-                const today = new Date().toLocaleDateString('ar-EG');
-                const todayEntries = this.notebook.filter(e => e.date === today);
-                
-                let totalIncome = 0, totalExpense = 0;
-
-                // قائمة النقدي
-                const cashList = document.getElementById('cashList');
-                if (cashList) {
-                    cashList.innerHTML = '';
-                    todayEntries.filter(e => e.category === 'cash').forEach(e => {
-                        if (e.type === 'in') totalIncome += e.amount;
-                        else totalExpense += e.amount;
-                        
-                        cashList.innerHTML += `
-                            <div class="notebook-item ${e.type === 'in' ? 'income' : 'expense'}">
-                                <div class="item-info">
-                                    <div class="desc">${e.description}</div>
-                                    <div class="meta">${e.time}</div>
-                                </div>
-                                <div class="item-amount ${e.type === 'in' ? 'income' : 'expense'}">
-                                    ${e.type === 'in' ? '+' : '-'}${e.amount.toFixed(2)}
-                                </div>
-                                <div class="item-actions">
-                                    <button onclick="app.deleteNotebookEntry(${e.id})">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        `;
-                    });
-                    if (cashList.innerHTML === '') {
-                        cashList.innerHTML = '<p style="text-align: center; padding: 10px;">لا توجد حركات</p>';
-                    }
-                }
-
-                // قائمة شراء الذهب
-                const goldBuyList = document.getElementById('goldBuyList');
-                if (goldBuyList) {
-                    goldBuyList.innerHTML = '';
-                    todayEntries.filter(e => e.category === 'goldBuy').forEach(e => {
-                        totalExpense += e.amount;
-                        goldBuyList.innerHTML += `
-                            <div class="notebook-item gold-buy">
-                                <div class="item-info">
-                                    <div class="desc">${e.description}</div>
-                                    <div class="meta">${e.weight}g - عيار ${e.carat} - ${e.time}</div>
-                                </div>
-                                <div class="item-amount gold-buy">-${e.amount.toFixed(2)}</div>
-                                <div class="item-actions">
-                                    <button onclick="app.deleteNotebookEntry(${e.id})">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        `;
-                    });
-                    if (goldBuyList.innerHTML === '') {
-                        goldBuyList.innerHTML = '<p style="text-align: center; padding: 10px;">لا توجد مشتريات</p>';
-                    }
-                }
-
-                // قائمة بيع الذهب
-                const goldSellList = document.getElementById('goldSellList');
-                if (goldSellList) {
-                    goldSellList.innerHTML = '';
-                    todayEntries.filter(e => e.category === 'goldSell').forEach(e => {
-                        totalIncome += e.amount;
-                        goldSellList.innerHTML += `
-                            <div class="notebook-item gold-sell">
-                                <div class="item-info">
-                                    <div class="desc">${e.description}</div>
-                                    <div class="meta">${e.weight}g - عيار ${e.carat} - ${e.time}</div>
-                                </div>
-                                <div class="item-amount gold-sell">+${e.amount.toFixed(2)}</div>
-                                <div class="item-actions">
-                                    <button onclick="app.deleteNotebookEntry(${e.id})">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        `;
-                    });
-                    if (goldSellList.innerHTML === '') {
-                        goldSellList.innerHTML = '<p style="text-align: center; padding: 10px;">لا توجد مبيعات</p>';
-                    }
-                }
-
-                // تحديث الإحصائيات
-                document.getElementById('totalIncome').textContent = totalIncome.toFixed(2);
-                document.getElementById('totalExpense').textContent = totalExpense.toFixed(2);
-                const net = totalIncome - totalExpense;
-                document.getElementById('netBalance').textContent = net.toFixed(2);
-                document.getElementById('notebookBalance').textContent = net.toFixed(2);
-            },
-
-            // ===== المنتجات =====
-            generateBarcode() {
-                return 'PRD' + Date.now().toString().slice(-8) + Math.floor(Math.random() * 1000);
-            },
-
-            showAddProductForm() {
-                document.getElementById('addProductForm').style.display = 'block';
-            },
-
-            hideAddProductForm() {
-                document.getElementById('addProductForm').style.display = 'none';
-            },
-
-            addProduct() {
-                const name = document.getElementById('productName').value.trim();
-                const weight = parseFloat(document.getElementById('productWeight').value);
-                const carat = parseInt(document.getElementById('productCarat').value);
-                const manufacturing = parseFloat(document.getElementById('productManufacturing').value) || 0;
-                const buyPrice = parseFloat(document.getElementById('productBuyPrice').value) || 0;
-
-                if (!name || !weight || weight <= 0) {
-                    this.showAlert('الرجاء إدخال البيانات', 'error');
-                    return;
-                }
-
-                const product = {
-                    id: Date.now(),
-                    barcode: this.generateBarcode(),
-                    name,
-                    weight,
-                    carat,
-                    manufacturing,
-                    buyPrice,
-                    date: new Date().toISOString()
-                };
-
-                this.products.push(product);
-                this.saveData();
-                this.renderInventory();
-                this.hideAddProductForm();
-                this.showAlert('تم إضافة المنتج', 'success');
-            },
-
-            // ===== البيع =====
-            updateGoldPrice() {
-                const price = parseFloat(document.getElementById('todayGoldPrice')?.value);
-                if (price && price > 0) {
-                    this.currentGoldPrice = price;
-                }
-            },
-
-            searchProducts(query) {
-                const resultsDiv = document.getElementById('searchResults');
-                
-                if (!query || query.length < 2) {
-                    resultsDiv.style.display = 'none';
-                    return;
-                }
-
-                const results = this.products.filter(p => 
-                    p.name.toLowerCase().includes(query.toLowerCase()) || 
-                    p.barcode.includes(query)
-                );
-
-                if (results.length === 0) {
-                    resultsDiv.style.display = 'none';
-                    return;
-                }
-
-                resultsDiv.innerHTML = results.map(p => `
-                    <div onclick="app.selectProduct(${p.id})" style="padding: 10px; border-bottom: 1px solid #eee; cursor: pointer;">
-                        <div><strong>${p.name}</strong></div>
-                        <div style="font-size: 12px;">${p.barcode} | وزن: ${p.weight}g | عيار: ${p.carat}</div>
-                    </div>
-                `).join('');
-                
-                resultsDiv.style.display = 'block';
-            },
-
-            selectProduct(id) {
-                const product = this.products.find(p => p.id === id);
-                if (!product) return;
-
-                document.getElementById('selectedProduct').style.display = 'block';
-                document.getElementById('selectedProduct').innerHTML = `
-                    <strong>المنتج المختار:</strong> ${product.name}<br>
-                    الوزن: ${product.weight}g | العيار: ${product.carat} | المصنعية: ${product.manufacturing || 0}
-                `;
-                
-                document.getElementById('sellWeight').value = product.weight;
-                document.getElementById('sellCarat').value = product.carat;
-                document.getElementById('sellManufacturing').value = product.manufacturing || 0;
-                
-                document.getElementById('searchResults').style.display = 'none';
-                document.getElementById('productSearch').value = product.name;
-                
-                this.calculateSellTotal();
-            },
-
-            calculateSellTotal() {
-                const weight = parseFloat(document.getElementById('sellWeight').value) || 0;
-                const carat = parseInt(document.getElementById('sellCarat').value);
-                const manufacturing = parseFloat(document.getElementById('sellManufacturing').value) || 0;
-
-                let pricePerGram = this.currentGoldPrice;
-                if (carat === 24) pricePerGram = this.currentGoldPrice * (24/21);
-                if (carat === 18) pricePerGram = this.currentGoldPrice * (18/21);
-
-                const goldValue = weight * pricePerGram;
-                const total = goldValue + manufacturing;
-
-                document.getElementById('sellPricePerGram').value = pricePerGram.toFixed(2);
-                document.getElementById('sellTotal').value = total.toFixed(2);
-                this.updateSellRemaining();
-            },
-
-            updateSellRemaining() {
-                const total = parseFloat(document.getElementById('sellTotal').value) || 0;
-                const paid = parseFloat(document.getElementById('sellPaid').value) || 0;
-                document.getElementById('sellRemaining').value = (total - paid).toFixed(2);
-            },
-
-            togglePaymentFields() {
-                const method = document.getElementById('sellPayment').value;
-                document.getElementById('paymentDetails').style.display = method === 'bank' ? 'block' : 'none';
-            },
-
-            completeSell() {
-                const productName = document.getElementById('productSearch').value;
-                const customerId = document.getElementById('sellCustomer').value;
-                const employeeId = document.getElementById('sellEmployee').value;
-
-                if (!productName || !customerId || !employeeId) {
-                    this.showAlert('الرجاء إكمال البيانات', 'error');
-                    return;
-                }
-
-                const total = parseFloat(document.getElementById('sellTotal').value);
-                const paid = parseFloat(document.getElementById('sellPaid').value) || 0;
-                const remaining = total - paid;
-
-                const invoice = {
-                    id: Date.now(),
-                    number: this.currentSellInvoice++,
-                    date: new Date().toLocaleDateString('ar-EG'),
-                    time: new Date().toLocaleTimeString('ar-EG'),
-                    product: {
-                        name: productName,
-                        weight: parseFloat(document.getElementById('sellWeight').value),
-                        carat: parseInt(document.getElementById('sellCarat').value),
-                        manufacturing: parseFloat(document.getElementById('sellManufacturing').value) || 0
-                    },
-                    customerId,
-                    customerName: this.getCustomerName(customerId),
-                    employeeId,
-                    employeeName: this.getEmployeeName(employeeId),
-                    total,
-                    paid,
-                    remaining,
-                    paymentMethod: document.getElementById('sellPayment').value
-                };
-
-                // إضافة للخزنة
-                if (paid > 0) {
-                    this.cash.push({
-                        id: Date.now(),
-                        date: invoice.date,
-                        description: `مبيعات فاتورة ${invoice.number}`,
-                        type: 'in',
-                        amount: paid
-                    });
-                }
-
-                this.sales.push(invoice);
-                this.saveData();
-                this.renderSales();
-                this.updateStats();
-                this.resetSellForm();
-                this.showAlert(`تم البيع - فاتورة ${invoice.number}`, 'success');
-            },
-
-            resetSellForm() {
-                document.getElementById('sellForm')?.reset();
-                document.getElementById('selectedProduct').style.display = 'none';
-                document.getElementById('sellInvoiceNumber').textContent = 
-                    this.currentSellInvoice.toString().padStart(6, '0');
-            },
-
-            // ===== الشراء =====
-            calculateBuyTotal() {
-                const weight = parseFloat(document.getElementById('buyWeight').value) || 0;
-                const price = parseFloat(document.getElementById('buyPrice').value) || 0;
-                const manufacturing = parseFloat(document.getElementById('buyManufacturing').value) || 0;
-                const total = (weight * price) + manufacturing;
-                
-                document.getElementById('buyTotal').value = total.toFixed(2);
-                this.updateBuyRemaining();
-            },
-
-            updateBuyRemaining() {
-                const total = parseFloat(document.getElementById('buyTotal').value) || 0;
-                const paid = parseFloat(document.getElementById('buyPaid').value) || 0;
-                document.getElementById('buyRemaining').value = (total - paid).toFixed(2);
-            },
-
-            completeBuy() {
-                const supplierId = document.getElementById('buySupplier').value;
-                const product = document.getElementById('buyProduct').value.trim();
-                const weight = parseFloat(document.getElementById('buyWeight').value);
-                const carat = parseInt(document.getElementById('buyCarat').value);
-                const price = parseFloat(document.getElementById('buyPrice').value);
-                const manufacturing = parseFloat(document.getElementById('buyManufacturing').value) || 0;
-                const paid = parseFloat(document.getElementById('buyPaid').value) || 0;
-
-                if (!supplierId || !product || !weight || !price) {
-                    this.showAlert('الرجاء إدخال البيانات', 'error');
-                    return;
-                }
-
-                const total = (weight * price) + manufacturing;
-
-                // إضافة المنتج للمخزون
-                const newProduct = {
-                    id: Date.now(),
-                    barcode: this.generateBarcode(),
-                    name: product,
-                    weight,
-                    carat,
-                    manufacturing,
-                    buyPrice: price,
-                    date: new Date().toISOString()
-                };
-
-                this.products.push(newProduct);
-
-                // تسجيل الشراء
-                const purchase = {
-                    id: Date.now(),
-                    date: new Date().toLocaleDateString('ar-EG'),
-                    supplierId,
-                    product: newProduct,
-                    total,
-                    paid,
-                    remaining: total - paid
-                };
-
-                this.purchases.push(purchase);
-
-                // إضافة للخزنة
-                if (paid > 0) {
-                    this.cash.push({
-                        id: Date.now(),
-                        date: purchase.date,
-                        description: `مشتريات - ${product}`,
-                        type: 'out',
-                        amount: paid
-                    });
-                }
-
-                this.saveData();
-                this.renderInventory();
-                this.updateStats();
-                this.showAlert('تم الشراء بنجاح', 'success');
-            },
-
-            // ===== العملاء والموظفين =====
-            getCustomerName(id) {
-                const customer = this.customers.find(c => c.id == id);
-                return customer ? customer.name : 'غير معروف';
-            },
-
-            getEmployeeName(id) {
-                const employee = this.employees.find(e => e.id == id);
-                return employee ? employee.name : 'غير معروف';
-            },
-
-            // ===== الخزنة =====
-            getCashBalance() {
-                return this.cash.reduce((sum, t) => t.type === 'in' ? sum + t.amount : sum - t.amount, 0);
-            },
-
-            addCash(type) {
-                const amount = parseFloat(prompt(`المبلغ المراد ${type === 'in' ? 'إيداعه' : 'سحبه'}:`));
-                if (!amount || amount <= 0) return;
-
-                const description = prompt('البيان:') || (type === 'in' ? 'إيداع' : 'سحب');
-
-                this.cash.push({
-                    id: Date.now(),
-                    date: new Date().toLocaleDateString('ar-EG'),
-                    description,
-                    type,
-                    amount
-                });
-
-                this.saveData();
-                this.renderCash();
-                this.updateStats();
-                this.showAlert('تمت العملية', 'success');
-            },
-
-            renderCash() {
-                const tbody = document.getElementById('cashTableBody');
-                if (!tbody) return;
-                
-                tbody.innerHTML = '';
-                let balance = 0;
-
-                this.cash.slice().reverse().forEach(t => {
-                    balance = t.type === 'in' ? balance + t.amount : balance - t.amount;
-                    
-                    const row = tbody.insertRow();
-                    row.innerHTML = `
-                        <td>${t.date}</td>
-                        <td>${t.description}</td>
-                        <td style="color: green;">${t.type === 'in' ? t.amount.toFixed(2) : '-'}</td>
-                        <td style="color: red;">${t.type === 'out' ? t.amount.toFixed(2) : '-'}</td>
-                        <td>${balance.toFixed(2)}</td>
-                    `;
-                });
-
-                const totalIn = this.cash.filter(t => t.type === 'in').reduce((s, t) => s + t.amount, 0);
-                const totalOut = this.cash.filter(t => t.type === 'out').reduce((s, t) => s + t.amount, 0);
-                
-                document.getElementById('totalCashIn').textContent = totalIn.toFixed(2);
-                document.getElementById('totalCashOut').textContent = totalOut.toFixed(2);
-                document.getElementById('currentCash').textContent = balance.toFixed(2);
-            },
-
-            // ===== الصرف اليومي =====
-            addDailyExpense() {
-                const amount = parseFloat(prompt('المبلغ:'));
-                if (!amount || amount <= 0) return;
-
-                const description = prompt('البيان:');
-                if (!description) return;
-
-                const expense = {
-                    id: Date.now(),
-                    date: new Date().toLocaleDateString('ar-EG'),
-                    time: new Date().toLocaleTimeString('ar-EG'),
-                    description,
-                    amount
-                };
-
-                this.dailyExpenses.push(expense);
-                
-                this.cash.push({
-                    id: Date.now(),
-                    date: expense.date,
-                    description: `صرف يومي - ${description}`,
-                    type: 'out',
-                    amount
-                });
-
-                this.saveData();
-                this.renderDailyExpenses();
-                this.showAlert('تم إضافة الصرف', 'success');
-            },
-
-            renderDailyExpenses() {
-                const tbody = document.getElementById('dailyExpensesList');
-                if (!tbody) return;
-
-                const today = new Date().toLocaleDateString('ar-EG');
-                const todayExpenses = this.dailyExpenses.filter(e => e.date === today);
-                let total = 0;
-
-                tbody.innerHTML = '';
-                todayExpenses.forEach(e => {
-                    total += e.amount;
-                    tbody.innerHTML += `
-                        <tr>
-                            <td>${e.description}</td>
-                            <td>${e.amount.toFixed(2)}</td>
-                            <td>${e.time}</td>
-                        </tr>
-                    `;
-                });
-
-                document.getElementById('dailyTotal').textContent = total.toFixed(2);
-                document.getElementById('currentDate').textContent = today;
-            },
-
-            // ===== الموظفين =====
-            showAddEmployeeForm() {
-                document.getElementById('addEmployeeForm').style.display = 'block';
-            },
-
-            hideAddEmployeeForm() {
-                document.getElementById('addEmployeeForm').style.display = 'none';
-            },
-
-            addEmployee() {
-                const name = document.getElementById('employeeName').value.trim();
-                const position = document.getElementById('employeePosition').value.trim();
-                const salary = parseFloat(document.getElementById('employeeSalary').value) || 0;
-
-                if (!name) {
-                    this.showAlert('الرجاء إدخال الاسم', 'error');
-                    return;
-                }
-
-                const employee = {
-                    id: Date.now(),
-                    name,
-                    position,
-                    salary,
-                    date: new Date().toISOString()
-                };
-
-                this.employees.push(employee);
-                this.saveData();
-                this.renderEmployees();
-                this.hideAddEmployeeForm();
-                this.showAlert('تم إضافة الموظف', 'success');
-            },
-
-            renderEmployees() {
-                const grid = document.getElementById('employeesGrid');
-                if (!grid) return;
-
-                grid.innerHTML = '';
-                this.employees.forEach(e => {
-                    grid.innerHTML += `
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>${e.name}</h3>
-                            </div>
-                            <div class="card-body">
-                                <p><span>الوظيفة:</span> <span>${e.position || 'موظف'}</span></p>
-                                <p><span>الراتب:</span> <span>${e.salary}</span></p>
-                            </div>
-                        </div>
-                    `;
-                });
-            },
-
-            // ===== الشركات =====
-            showAddCompanyForm() {
-                document.getElementById('addCompanyForm').style.display = 'block';
-            },
-
-            hideAddCompanyForm() {
-                document.getElementById('addCompanyForm').style.display = 'none';
-            },
-
-            addCompany() {
-                const name = document.getElementById('companyName').value.trim();
-                const phone = document.getElementById('companyPhone').value.trim();
-
-                if (!name) {
-                    this.showAlert('الرجاء إدخال اسم الشركة', 'error');
-                    return;
-                }
-
-                const company = {
-                    id: Date.now(),
-                    name,
-                    phone,
-                    date: new Date().toISOString()
-                };
-
-                this.companies.push(company);
-                this.saveData();
-                this.renderCompanies();
-                this.renderCompanySelects();
-                this.hideAddCompanyForm();
-                this.showAlert('تم إضافة الشركة', 'success');
-            },
-
-            renderCompanies() {
-                const grid = document.getElementById('companiesGrid');
-                if (!grid) return;
-
-                grid.innerHTML = '';
-                this.companies.forEach(c => {
-                    grid.innerHTML += `
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>${c.name}</h3>
-                            </div>
-                            <div class="card-body">
-                                <p><span>الهاتف:</span> <span>${c.phone || 'لا يوجد'}</span></p>
-                            </div>
-                        </div>
-                    `;
-                });
-            },
-
-            renderCompanySelects() {
-                const select = document.getElementById('buySupplier');
-                if (!select) return;
-
-                select.innerHTML = '<option value="">اختر المورد</option>';
-                this.companies.forEach(c => {
-                    select.innerHTML += `<option value="${c.id}">${c.name}</option>`;
-                });
-            },
-
-            // ===== العرض الرئيسي =====
-            renderAll() {
-                this.renderInventory();
-                this.renderCash();
-                this.renderDailyExpenses();
-                this.renderEmployees();
-                this.renderCompanies();
-                this.renderUsers();
-                this.updateStats();
-                this.updateCustomerSelect();
-                this.updateEmployeeSelect();
-            },
-
-            renderInventory() {
-                const tbody = document.getElementById('inventoryList');
-                if (!tbody) return;
-
-                tbody.innerHTML = '';
-                this.products.forEach(p => {
-                    const sellPrice = this.calculateSellPrice(p);
-                    tbody.innerHTML += `
-                        <tr>
-                            <td>${p.barcode}</td>
-                            <td>${p.name}</td>
-                            <td>${p.weight}g</td>
-                            <td>${p.carat}</td>
-                            <td>${p.manufacturing || 0}</td>
-                            <td>${p.buyPrice || 0}</td>
-                            <td>${sellPrice}</td>
-                        </tr>
-                    `;
-                });
-            },
-
-            renderSales() {
-                const recentSales = document.getElementById('recentSales');
-                if (recentSales) {
-                    recentSales.innerHTML = this.sales.slice(-5).reverse().map(s => `
-                        <div style="padding: 8px; border-bottom: 1px solid #eee;">
-                            <div><strong>فاتورة ${s.number}</strong> - ${s.total}</div>
-                            <div style="font-size: 12px;">${s.date}</div>
-                        </div>
-                    `).join('') || '<p>لا توجد مبيعات</p>';
-                }
-
-                const recentPurchases = document.getElementById('recentPurchases');
-                if (recentPurchases) {
-                    recentPurchases.innerHTML = this.purchases.slice(-5).reverse().map(p => `
-                        <div style="padding: 8px; border-bottom: 1px solid #eee;">
-                            <div><strong>${p.product.name}</strong> - ${p.total}</div>
-                            <div style="font-size: 12px;">${p.date}</div>
-                        </div>
-                    `).join('') || '<p>لا توجد مشتريات</p>';
-                }
-            },
-
-            updateCustomerSelect() {
-                const select = document.getElementById('sellCustomer');
-                if (!select) return;
-
-                select.innerHTML = '<option value="">اختر العميل</option>';
-                this.customers.forEach(c => {
-                    select.innerHTML += `<option value="${c.id}">${c.name}</option>`;
-                });
-            },
-
-            updateEmployeeSelect() {
-                const select = document.getElementById('sellEmployee');
-                if (!select) return;
-
-                select.innerHTML = '<option value="">اختر الموظف</option>';
-                this.employees.forEach(e => {
-                    select.innerHTML += `<option value="${e.id}">${e.name}</option>`;
-                });
-            },
-
-            calculateSellPrice(product) {
-                const price = this.currentGoldPrice || 0;
-                let gramPrice = price;
-                if (product.carat === 24) gramPrice = price * (24/21);
-                if (product.carat === 18) gramPrice = price * (18/21);
-                return ((product.weight * gramPrice) + (product.manufacturing || 0)).toFixed(2);
-            },
-
-            updateStats() {
-                const cashBalance = this.getCashBalance();
-                const totalGold = this.products.reduce((sum, p) => sum + p.weight, 0) + 
-                                 this.goldInventory.reduce((sum, g) => sum + g.weight, 0);
-                const totalDebts = this.sales.filter(s => s.remaining > 0).reduce((sum, s) => sum + s.remaining, 0);
-
-                document.getElementById('cashBalance').textContent = cashBalance.toFixed(2);
-                document.getElementById('goldStock').textContent = totalGold.toFixed(2) + ' جرام';
-                document.getElementById('totalDebts').textContent = totalDebts.toFixed(2);
-                document.getElementById('totalEmployees').textContent = this.employees.length;
-                document.getElementById('totalItems').textContent = this.products.length;
-
-                // مبيعات اليوم
-                const today = new Date().toLocaleDateString('ar-EG');
-                const todaySales = this.sales.filter(s => s.date === today);
-                const todayPurchases = this.purchases.filter(p => p.date === today);
-                
-                document.getElementById('todaySales').textContent = todaySales.reduce((s, i) => s + i.total, 0).toFixed(2);
-                document.getElementById('todayPurchases').textContent = todayPurchases.reduce((s, i) => s + i.total, 0).toFixed(2);
-                document.getElementById('todayInvoices').textContent = todaySales.length;
-            },
-
-            // ===== التنقل =====
-            switchTab(tabId) {
-                // التحقق من الصلاحيات
-                if (tabId === 'users' && this.currentUser?.role !== 'admin') {
-                    this.showAlert('هذه الصفحة للمدير فقط', 'error');
-                    return;
-                }
-
-                document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-                
-                const tab = document.querySelector(`[onclick="app.switchTab('${tabId}')"]`);
-                if (tab) tab.classList.add('active');
-                
-                const pane = document.getElementById(`${tabId}-tab`);
-                if (pane) pane.classList.add('active');
-            },
-
-            // ===== الوقت =====
-            updateDateTime() {
-                const now = new Date();
-                const options = { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                };
-                const el = document.getElementById('currentDateTime');
-                if (el) el.innerHTML = now.toLocaleDateString('ar-EG', options);
-            },
-
-            // ===== التنبيهات =====
-            showAlert(message, type = 'success') {
-                const container = document.getElementById('alertContainer');
-                const alert = document.createElement('div');
-                alert.className = `alert alert-${type}`;
-                alert.innerHTML = message;
-                container.innerHTML = '';
-                container.appendChild(alert);
-                setTimeout(() => alert.remove(), 3000);
-            },
-
-            showDetails(type) {
-                const messages = {
-                    cash: `رصيد الخزنة: ${this.getCashBalance().toFixed(2)}`,
-                    gold: `مخزون الذهب: ${this.products.reduce((s, p) => s + p.weight, 0).toFixed(2)} جرام`,
-                    debt: `ديون العملاء: ${this.sales.filter(s => s.remaining > 0).reduce((s, i) => s + i.remaining, 0).toFixed(2)}`,
-                    emp: `عدد الموظفين: ${this.employees.length}`,
-                    stock: `عدد القطع: ${this.products.length}`
-                };
-                this.showAlert(messages[type], 'info');
-            },
-
-            // وظائف للتطوير
-            setupEventListeners() {
-                document.getElementById('productSearch')?.addEventListener('input', (e) => this.searchProducts(e.target.value));
-                
-                document.getElementById('goldBuyWeight')?.addEventListener('input', () => this.calculateGoldBuyTotal());
-                document.getElementById('goldBuyPrice')?.addEventListener('input', () => this.calculateGoldBuyTotal());
-                document.getElementById('goldSellWeight')?.addEventListener('input', () => this.calculateGoldSellTotal());
-                document.getElementById('goldSellPrice')?.addEventListener('input', () => this.calculateGoldSellTotal());
-            },
-
-            processReturn() {
-                this.showAlert('قيد التطوير', 'info');
-            },
-
-            generateReport() {
-                this.showAlert('قيد التطوير', 'info');
-            }
-        };
-
-        // تهيئة التطبيق
-        const app = App;
-        app.init();
-        window.app = app;
-    </script>
-</body>
-</html>
+                localStorage.setItem('products', JSON.stringify(this.products));
+                localStorage.setItem('customers', JSON.stringify(this.customers));
+                localStorage.set
